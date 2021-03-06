@@ -26,24 +26,24 @@ INSERT INTO colors (color) VALUES('pink');
 INSERT INTO colors (color) VALUES('orange');
 INSERT INTO colors (color) VALUES('red');
 
-INSERT INTO colors_ref (owner_id, card_id, color_id) VALUES(1, 1, 2);
-INSERT INTO colors_ref (owner_id, card_id, color_id) VALUES(1, 2, 5);
-INSERT INTO colors_ref (owner_id, card_id, color_id) VALUES(1, 3, 2);
-INSERT INTO colors_ref (owner_id, card_id, color_id) VALUES(1, 2, 5);
+INSERT INTO colors_ref (owner_id, card_id, color_id) VALUES(16, 6, 2);
+INSERT INTO colors_ref (owner_id, card_id, color_id) VALUES(15, 7, 5);
+INSERT INTO colors_ref (owner_id, card_id, color_id) VALUES(14, 8, 2);
+INSERT INTO colors_ref (owner_id, card_id, color_id) VALUES(15, 6, 5);
 
-INSERT INTO decks_ref (user_id, card_id, deck_id) VALUES(3, 2, 1);
-INSERT INTO decks_ref (user_id, card_id, deck_id) VALUES(3, 3, 1);
-INSERT INTO decks_ref (user_id, card_id, deck_id) VALUES(3, 4, 1);
-INSERT INTO decks_ref (user_id, card_id, deck_id) VALUES(3, 5, 1);
-INSERT INTO decks_ref (user_id, card_id, deck_id) VALUES(3, 1, 2);
-INSERT INTO decks_ref (user_id, card_id, deck_id) VALUES(3, 5, 2);
+INSERT INTO decks_ref (user_id, card_id, deck_id) VALUES(16, 2, 1);
+INSERT INTO decks_ref (user_id, card_id, deck_id) VALUES(16, 3, 1);
+INSERT INTO decks_ref (user_id, card_id, deck_id) VALUES(16, 4, 1);
+INSERT INTO decks_ref (user_id, card_id, deck_id) VALUES(15, 5, 1);
+INSERT INTO decks_ref (user_id, card_id, deck_id) VALUES(14, 1, 2);
+INSERT INTO decks_ref (user_id, card_id, deck_id) VALUES(14, 5, 2);
 
 INSERT INTO card_notes_ref (_id, user_id, card_id) VALUES(3, 1, 1);
 INSERT INTO card_notes_ref (_id, user_id, card_id) VALUES(3, 2, 2);
 
 
-INSERT INTO user_notes (_id, card_note_id, tier, content) VALUES(3, 4, 'reference' 'this note is garbabge');
-INSERT INTO user_notes (_id, card_note_id, tier, content) VALUES(2, 4, 'reference' 'this note is not garbabge');
+INSERT INTO user_notes (_id, card_note_id, tier, content) VALUES(3, 4, 'reference', 'this note is garbabge');
+INSERT INTO user_notes (_id, card_note_id, tier, content) VALUES(2, 4, 'reference', 'this note is not garbabge');
 
 
 
