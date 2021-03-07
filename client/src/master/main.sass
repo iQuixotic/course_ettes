@@ -1,0 +1,27 @@
+@import ./globals
+
+body
+  font: 100% $font-stack;
+  font-size: $font-size;
+  color: $primary-color;
+  background: $background;
+  
+.animate-cfb
+    animation-name: mymove 
+    animation-duration: 1s
+
+.animate-cff
+    animation-name: mymove2
+    animation-duration: 1s
+
+@keyframes mymove
+  0%
+    transform: rotateY(0deg)
+  100%
+    transform: rotateY(-180deg) 
+
+@keyframes mymove2
+  0%
+    transform: rotateY(0deg)
+  100%
+    transform: rotateY(-180deg)

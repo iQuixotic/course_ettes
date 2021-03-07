@@ -19,7 +19,6 @@ CREATE TABLE users (
 -- for creating the cards_info table (3)
 CREATE TABLE cards_info (
   _id SERIAL PRIMARY KEY,
-  author_id int references users(_id),
   front_content VARCHAR(255),
   back_content VARCHAR(255)
 );
@@ -34,34 +33,53 @@ CREATE TABLE colors (
 ---------------------------------------------------------------------------
 -- for creating the colors_ref table (5)
 CREATE TABLE colors_ref (
-  owner_id int references users(_id),
+  user_id int references users(_id),
   card_id int references cards_info(_id),
   color_id int references colors(_id)
 );
 
-
 ---------------------------------------------------------------------------
 -- for creating the decks_ref table (6)
-CREATE TABLE decks_ref (
-  user_id int references users(_id),
-  card_id int references cards_info(_id),
-  deck_id VARCHAR(255)
-);
-
----------------------------------------------------------------------------
--- for creating the decks_ref table (7)
-CREATE TABLE card_notes_ref (
+CREATE TABLE decks (
   _id SERIAL PRIMARY KEY,
-  user_id int references users(_id),
-  card_id int references cards_info(_id)
+  name VARCHAR(255)
 );
 
 ---------------------------------------------------------------------------
--- for creating the notes table (8)
+-- for creating the notes table (7)
 CREATE TABLE user_notes (
   _id SERIAL PRIMARY KEY,
-  card_note_id int references card_notes_ref(_id),
   tier VARCHAR(70),
   content VARCHAR(255)
 );
+
+
+---------------------------------------------------------------------------
+-- for creating the decks_ref table (8)
+CREATE TABLE card_to_decks_ref (
+  card_id int references cards_info(_id),
+  deck_id int references decks(_id)
+);
+
+---------------------------------------------------------------------------
+-- keeping track of who made the origional deck (and cards) (9)
+CREATE TABLE decks_to_users_ref (
+  creator_id int references users(_id),
+  deck_id int references decks(_id)
+);
+
+---------------------------------------------------------------------------
+-- keeping track of who has a deck in their inventory (10)
+CREATE TABLE user_deck_library_ref (
+  user_id int references users(_id),
+  deck_id int references decks(_id)
+);
+
+---------------------------------------------------------------------------
+-- for creating the decks_ref table (11)
+CREATE TABLE card_notes_ref (
+  note_id int references user_notes(_id),
+  card_id int references cards_info(_id)
+);
+
 

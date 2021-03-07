@@ -1,0 +1,12 @@
+export const FETCH_POSTS = 'FETCH_POSTS';
+export const NEW_POST = 'NEW_POST';
+
+export const FETCH_COLORS = 'FETCH_COLORS';
+export const FETCH_COURSE_CARDS = 'FETCH_COURSE_CARDS';
+
+export const cardTypes = {
+    FRONT_OF_CARD: 'FRONT_OF_CARD',
+    BACK_OF_CARD: 'BACK_OF_CARD',
+    CARD_FLIP: 'CARD_FLIP',
+    CARD_IS_FLIPPED: 'CARD_IS_FLIPPED'
+}

@@ -1,5 +1,5 @@
-import db from '../../config/connection';
-import { QueryMaker, Role } from '..';
+import db from '../../../config/connection';
+import { QueryMaker, Role } from '../../';
 import bcrypt from 'bcrypt';
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 class User {

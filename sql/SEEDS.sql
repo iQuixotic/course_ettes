@@ -16,9 +16,15 @@ INSERT INTO users (email, password, first_name, last_name, role_id)
     VALUES ('shirleyj@yahoo.com', 'sarasara', 'Thommas', 'Ato', 1);
 
 
-INSERT INTO cards_info (_id, author_id, front_content,back_content) VALUES(1, 1, 'Minus', 'it looks like the subtract sign');
-INSERT INTO cards_info (_id, author_id, front_content,back_content) VALUES(2, 2, 'Minus', 'it looks like  add sign');
-INSERT INTO cards_info (_id, author_id, front_content,back_content) VALUES(3, 2, 'Minus', 'it looks like best subtract sign');
+INSERT INTO cards_info (front_content,back_content) VALUES('Minus', 'it looks like the subtract sign');
+INSERT INTO cards_info (front_content,back_content) VALUES('Plus', 'I like to look at it with the +');
+INSERT INTO cards_info (front_content,back_content) VALUES('Times', 'Rabbits multiply');
+INSERT INTO cards_info (front_content,back_content) VALUES('Divide', 'Doughnutses');
+INSERT INTO cards_info (front_content,back_content) VALUES('Algorithm', 'bla bla bla computers');
+INSERT INTO cards_info (front_content,back_content) VALUES('Goats?', 'yaw yaw yaw several goats');
+INSERT INTO cards_info (front_content,back_content) VALUES('Puppies', 'I saw several of the puppies in the road.');
+INSERT INTO cards_info (front_content,back_content) VALUES('Dogs', 'I pet the dogies');
+INSERT INTO cards_info (front_content,back_content) VALUES('Cats', 'They are meanies');
 
 INSERT INTO colors (color) VALUES('green');
 INSERT INTO colors (color) VALUES('blue');
@@ -26,24 +32,65 @@ INSERT INTO colors (color) VALUES('pink');
 INSERT INTO colors (color) VALUES('orange');
 INSERT INTO colors (color) VALUES('red');
 
-INSERT INTO colors_ref (owner_id, card_id, color_id) VALUES(16, 6, 2);
-INSERT INTO colors_ref (owner_id, card_id, color_id) VALUES(15, 7, 5);
-INSERT INTO colors_ref (owner_id, card_id, color_id) VALUES(14, 8, 2);
-INSERT INTO colors_ref (owner_id, card_id, color_id) VALUES(15, 6, 5);
-
-INSERT INTO decks_ref (user_id, card_id, deck_id) VALUES(16, 2, 1);
-INSERT INTO decks_ref (user_id, card_id, deck_id) VALUES(16, 3, 1);
-INSERT INTO decks_ref (user_id, card_id, deck_id) VALUES(16, 4, 1);
-INSERT INTO decks_ref (user_id, card_id, deck_id) VALUES(15, 5, 1);
-INSERT INTO decks_ref (user_id, card_id, deck_id) VALUES(14, 1, 2);
-INSERT INTO decks_ref (user_id, card_id, deck_id) VALUES(14, 5, 2);
-
-INSERT INTO card_notes_ref (_id, user_id, card_id) VALUES(3, 1, 1);
-INSERT INTO card_notes_ref (_id, user_id, card_id) VALUES(3, 2, 2);
+INSERT INTO colors_ref (user_id, card_id, color_id) VALUES(1, 6, 1);
+INSERT INTO colors_ref (user_id, card_id, color_id) VALUES(1, 7, 5);
+INSERT INTO colors_ref (user_id, card_id, color_id) VALUES(2, 8, 2);
+INSERT INTO colors_ref (user_id, card_id, color_id) VALUES(2, 6, 5);
+INSERT INTO colors_ref (user_id, card_id, color_id) VALUES(3, 6, 3);
+INSERT INTO colors_ref (user_id, card_id, color_id) VALUES(3, 9, 5);
+INSERT INTO colors_ref (user_id, card_id, color_id) VALUES(3, 7, 5);
+INSERT INTO colors_ref (user_id, card_id, color_id) VALUES(3, 1, 5);
+INSERT INTO colors_ref (user_id, card_id, color_id) VALUES(3, 2, 4);
 
 
-INSERT INTO user_notes (_id, card_note_id, tier, content) VALUES(3, 4, 'reference', 'this note is garbabge');
-INSERT INTO user_notes (_id, card_note_id, tier, content) VALUES(2, 4, 'reference', 'this note is not garbabge');
+INSERT INTO decks (name) VALUES('Math');
+INSERT INTO decks (name) VALUES('Animals');
+INSERT INTO decks (name) VALUES('English');
+INSERT INTO decks (name) VALUES('Stocks');
+INSERT INTO decks (name) VALUES('Little Trash');
+INSERT INTO decks (name) VALUES('Stons');
+
+INSERT INTO decks_to_users_ref (creator_id, deck_id) VALUES(2, 1);
+INSERT INTO decks_to_users_ref (creator_id, deck_id) VALUES(1, 2);
+INSERT INTO decks_to_users_ref (creator_id, deck_id) VALUES(2, 3);
+INSERT INTO decks_to_users_ref (creator_id, deck_id) VALUES(3, 4);
+INSERT INTO decks_to_users_ref (creator_id, deck_id) VALUES(3, 5);
+INSERT INTO decks_to_users_ref (creator_id, deck_id) VALUES(3, 6);
+
+INSERT INTO user_notes (tier, content) VALUES('reference', 'this note is garbabge');
+INSERT INTO user_notes (tier, content) VALUES('reference', 'this note is not garbabge');
+INSERT INTO user_notes (tier, content) VALUES('pointless', 'this is pointless');
+INSERT INTO user_notes (tier, content) VALUES('pointless', 'this note is futile');
+
+INSERT INTO user_deck_library_ref (user_id, deck_id) VALUES(1, 2);
+INSERT INTO user_deck_library_ref (user_id, deck_id) VALUES(2, 2);
+INSERT INTO user_deck_library_ref (user_id, deck_id) VALUES(3, 2);
+INSERT INTO user_deck_library_ref (user_id, deck_id) VALUES(4, 2);
+INSERT INTO user_deck_library_ref (user_id, deck_id) VALUES(4, 3);
+INSERT INTO user_deck_library_ref (user_id, deck_id) VALUES(2, 5);
+
+INSERT INTO card_notes_ref (note_id, card_id) VALUES(1, 1);
+INSERT INTO card_notes_ref (note_id, card_id) VALUES(2, 2);
+INSERT INTO card_notes_ref (note_id, card_id) VALUES(3, 3);
+INSERT INTO card_notes_ref (note_id, card_id) VALUES(4, 2);
+
+
+INSERT INTO card_to_decks_ref (card_id, deck_id) VALUES(1, 2);
+INSERT INTO card_to_decks_ref (card_id, deck_id) VALUES(2, 2);
+INSERT INTO card_to_decks_ref (card_id, deck_id) VALUES(3, 2);
+INSERT INTO card_to_decks_ref (card_id, deck_id) VALUES(4, 3);
+INSERT INTO card_to_decks_ref (card_id, deck_id) VALUES(5, 3);
+INSERT INTO card_to_decks_ref (card_id, deck_id) VALUES(6, 1);
+INSERT INTO card_to_decks_ref (card_id, deck_id) VALUES(7, 1);
+INSERT INTO card_to_decks_ref (card_id, deck_id) VALUES(8, 1);
+INSERT INTO card_to_decks_ref (card_id, deck_id) VALUES(9, 1);
+
+
+
+
+
+
+
 
 
 
