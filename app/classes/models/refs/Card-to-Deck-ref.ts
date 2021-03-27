@@ -1,9 +1,9 @@
-import { CardInfo } from "../..";
+import { CardInfo, Deck } from "../..";
 
 class CardToDeckRef {
 
     private card_id: CardInfo;
-    private deck_id: string;
+    private deck_id: Deck;
 
     constructor(obj) {
         if(!obj) {
@@ -11,7 +11,6 @@ class CardToDeckRef {
         }  
         this.card_id = obj.card_id;
         this.deck_id = obj.deck_id;
-
     }   
 }
 

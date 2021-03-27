@@ -1,6 +1,7 @@
 class Color {
 
     private color: string; 
+    
     constructor(obj) {
         if(!obj) {
             return;   

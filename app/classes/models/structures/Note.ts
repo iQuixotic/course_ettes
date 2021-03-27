@@ -1,5 +1,3 @@
-import { User, CardNotesRef } from '../..';
-
 class Notes {
 
   private tier: string;

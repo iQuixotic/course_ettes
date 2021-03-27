@@ -76,5 +76,6 @@ DELETE FROM cards_info USING decks WHERE cards_info._id IN (
     INNER JOIN decks ON card_to_decks_ref.deck_id = decks._id
     WHERE decks._id = 2
 );
+
     -- then delete the deck itself
 DELETE FROM decks WHERE _id = 2;

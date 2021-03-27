@@ -1,5 +1,3 @@
-
-
 class DeckInfo {
 
     private name: string;

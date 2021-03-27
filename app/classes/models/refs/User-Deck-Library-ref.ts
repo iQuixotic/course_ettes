@@ -1,9 +1,9 @@
-import { User} from "../..";
+import { User, Deck } from "../..";
 
 class UserDeckLibraryRef {
 
     private user_id: User; 
-    private deck_id: string;
+    private deck_id: Deck;
 
     constructor(obj) {
         if(!obj) {

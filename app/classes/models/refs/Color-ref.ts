@@ -1,4 +1,4 @@
-import { CardInfo, Color, User} from "../..";
+import { CardInfo, Color, User } from "../..";
 
 class ColorRef {
 
@@ -13,7 +13,6 @@ class ColorRef {
         this.user_id = obj.owner_id;
         this.card_id = obj.card_id;
         this.color_id = obj.color_id;
-
     }   
 }
 

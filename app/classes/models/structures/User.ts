@@ -3,6 +3,7 @@ import { QueryMaker, Role } from '../../';
 import bcrypt from 'bcrypt';
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 class User {
+    
     private email: string; 
     private password: string; 
     private first_name: string;
