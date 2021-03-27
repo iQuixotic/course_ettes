@@ -7,9 +7,13 @@ router.route('/')
     .get(decksController.getAll)
     .post(decksController.addOne)
 
-// router.route('/:colorId')
-//     .get(colorsController.getById)
-//     .patch(colorsController.updateOne)
-//     .delete(colorsController.deleteOne);
+router.route('/subscribed/:userId')
+    .get(decksController.getSubscribedDecks)
+
+router.route('/owned')
+    .get(decksController.getOwnedDecks)
+
+router.route('/owned/:deckId')
+    .delete(decksController.deleteOne)
 
 export default router;

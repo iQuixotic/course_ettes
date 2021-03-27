@@ -5,11 +5,8 @@ const router = Router();
 
 router.route('/')
     .get(colorsController.getAll)
-//     .post(colorsController.addOne)
 
-// router.route('/:colorId')
-//     .get(colorsController.getById)
-//     .patch(colorsController.updateOne)
-//     .delete(colorsController.deleteOne);
+router.route('/:cardId/:colorId')
+    .patch(colorsController.updateOne)
 
 export default router;

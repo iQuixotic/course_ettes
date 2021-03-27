@@ -98,7 +98,7 @@ export default {
                 INNER JOIN decks ON card_to_decks_ref.deck_id = decks._id
                 WHERE decks._id = $1
             ), [${id}];
-            
+
             DELETE FROM decks WHERE _id = $1, [${id}];
         `);
     }
