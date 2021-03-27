@@ -45,6 +45,13 @@ where users._id = 3;
 SELECT * from decks LIMIT 5 OFFSET 3;
 
 -- 7. edit a card that is managed and owned by a particular user
+UPDATE cards_info SET front_content = 'Is this really it?' WHERE _id = 4;
+-- , users
+-- FROM cards_info
+-- INNER JOIN decks_to_users_ref ON cards_info._id = decks_to_users_ref.deck_id
+-- INNER JOIN users ON decks_to_users_ref.deck_id = users._id
+-- where users._id = 2;
+
 -- 8. delete a card from a OWNED and MANAGED deck
 -- 9. change a card color for:
     -- a particular card
