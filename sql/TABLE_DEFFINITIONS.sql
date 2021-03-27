@@ -34,7 +34,8 @@ CREATE TABLE colors (
 -- for creating the colors_ref table (5)
 CREATE TABLE colors_ref (
   user_id int references users(_id),
-  card_id int references cards_info(_id),
+  card_id int references cards_info(_id) ON DELETE CASCADE,
+    FOREIGN KEY(card_id) REFERENCES cards_info(_id),
   color_id int references colors(_id)
 );
 
@@ -57,29 +58,34 @@ CREATE TABLE user_notes (
 ---------------------------------------------------------------------------
 -- for creating the decks_ref table (8)
 CREATE TABLE card_to_decks_ref (
-  card_id int references cards_info(_id),
-  deck_id int references decks(_id)
+  card_id int references cards_info ON DELETE CASCADE,
+    FOREIGN KEY(card_id) REFERENCES cards_info(_id),
+  deck_id int references decks(_id) ON DELETE CASCADE,
+    FOREIGN KEY(deck_id) REFERENCES decks(_id)
 );
 
 ---------------------------------------------------------------------------
 -- keeping track of who made the origional deck (and cards) (9)
 CREATE TABLE decks_to_users_ref (
   creator_id int references users(_id),
-  deck_id int references decks(_id)
+  deck_id int references decks(_id) ON DELETE CASCADE,
+   FOREIGN KEY(deck_id) REFERENCES decks(_id)
 );
 
 ---------------------------------------------------------------------------
 -- keeping track of who has a deck in their inventory (10)
 CREATE TABLE user_deck_library_ref (
   user_id int references users(_id),
-  deck_id int references decks(_id)
+  deck_id int references decks(_id) ON DELETE CASCADE,
+    FOREIGN KEY(deck_id) REFERENCES decks(_id)
 );
 
 ---------------------------------------------------------------------------
 -- for creating the decks_ref table (11)
 CREATE TABLE card_notes_ref (
-  note_id int references user_notes(_id),
-  card_id int references cards_info(_id)
+  user_id int references users(_id),
+  note_id int references user_notes(_id) ON DELETE CASCADE,
+    FOREIGN KEY(note_id) REFERENCES user_notes(_id),
+  card_id int references cards_info(_id) ON DELETE CASCADE,
+    FOREIGN KEY(card_id) REFERENCES cards_info(_id)
 );
-
-

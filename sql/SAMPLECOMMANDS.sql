@@ -46,17 +46,35 @@ SELECT * from decks LIMIT 5 OFFSET 3;
 
 -- 7. edit a card that is managed and owned by a particular user
 UPDATE cards_info SET front_content = 'Is this really it?' WHERE _id = 4;
--- , users
--- FROM cards_info
--- INNER JOIN decks_to_users_ref ON cards_info._id = decks_to_users_ref.deck_id
--- INNER JOIN users ON decks_to_users_ref.deck_id = users._id
--- where users._id = 2;
+    -- OR
+UPDATE cards_info SET back_content = $1 WHERE _id = 4;, ['Can I do this correctly?']
 
 -- 8. delete a card from a OWNED and MANAGED deck
+DELETE FROM cards_info WHERE _id = 7;
+
 -- 9. change a card color for:
     -- a particular card
         -- within a particular user's library
--- 10. add a note to a card that belongs to a users card library
+UPDATE colors_ref SET color_id = 1 WHERE user_id = 3 AND card_id = 7;
+
+-- 10. add a note to a card that belongs to a single user's card library
+INSERT INTO user_notes (tier, content) VALUES('reference', 'I dont fully understand');
+INSERT INTO card_notes_ref (user_id, note_id, card_id) VALUES(1, (SELECT currval(pg_get_serial_sequence('user_notes','_id'))), 3);
+
 -- 11. edit an existing note 
--- 12. delete a deck that that is managed by a particular user
--- 
+UPDATE user_notes SET content = 'Is this really it?' WHERE _id = 5;
+
+-- 12. delete a user's note
+DELETE FROM user_notes WHERE _id = 5;
+
+-- 13. delete a deck that that is managed by a particular user
+    -- first, delete all the cards in a deck  
+DELETE FROM cards_info USING decks WHERE cards_info._id IN (
+    SELECT cards_info._id
+    FROM cards_info
+    INNER JOIN card_to_decks_ref ON cards_info._id = card_to_decks_ref.card_id
+    INNER JOIN decks ON card_to_decks_ref.deck_id = decks._id
+    WHERE decks._id = 2
+);
+    -- then delete the deck itself
+DELETE FROM decks WHERE _id = 2;

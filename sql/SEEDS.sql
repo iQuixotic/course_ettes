@@ -84,13 +84,3 @@ INSERT INTO card_to_decks_ref (card_id, deck_id) VALUES(6, 1);
 INSERT INTO card_to_decks_ref (card_id, deck_id) VALUES(7, 1);
 INSERT INTO card_to_decks_ref (card_id, deck_id) VALUES(8, 1);
 INSERT INTO card_to_decks_ref (card_id, deck_id) VALUES(9, 1);
-
-
-
-
-
-
-
-
-
-
