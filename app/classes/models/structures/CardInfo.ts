@@ -2,8 +2,8 @@
 
 class CardInfo {
 
-  private front_content: string;
-  private back_content: string;
+  front_content: string;
+  back_content: string;
 
     constructor(obj) {
         if(!obj) {
