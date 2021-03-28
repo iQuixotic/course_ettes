@@ -51,8 +51,8 @@ export default {
     },
 
     // -- 6. get all the decks available in the system (limit for pagination)
-    getAllDecks: (offset) => {
-        return `SELECT * from decks LIMIT 12 OFFSET $1, [${offset}];`
+    getAllDecks: () => {
+        return `SELECT * from decks LIMIT 12 OFFSET $1;`;
     },
 
     // -- 7. edit a card that is managed and owned by a particular user

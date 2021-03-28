@@ -2,14 +2,15 @@
 import { Request, Response } from 'express';
 import db from '../config/connection';
 import { QueryMaker, Color } from '../classes';
+import { default as X } from '../utils/sql-commands'
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 export default {
 
-    // GET all colors in the database
+    // GET all decks in the database, offsetting for pagination
     getAll: async (req: Request, res: Response) => {
         try {                 
-            const x = await db.query(QueryMaker.getAll('cards'))
+            const x = await db.query(X.getAllDecks(), [req.body.offset])
             res.json(x.rows);
         } catch (err) { throw err; }
     },
