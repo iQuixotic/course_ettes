@@ -23,7 +23,9 @@ router.use('/users',
 router.use('/card-info', cardInfoRoutes);
 router.use('/roles', roleRoutes);
 router.use('/colors', colorRoutes);
-router.use('/decks', deckRoutes);
+router.use('/decks',
+    MW.verifyToken, MW.getPrivileges,
+    deckRoutes);
 
 // if no routes are hit, go to react app
 // router.use(function(req, res) {

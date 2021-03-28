@@ -31,7 +31,8 @@ export default {
     
     // check user privileges and check for self reference
     getPrivileges: (req, res, next) => {
-        jwt.verify(req.token, SECRET.TOKEN_SECRET_KEY, async (err, authData) => {
+        jwt.verify(req.token, 'secret', async (err, authData) => {
+            console.log("this will be the tokane and auth, ",  authData)
                 
                 // check role_id ---- set req.authdata so I can pass
                 if(err)  res.sendStatus(403);
@@ -39,7 +40,7 @@ export default {
 
                 // get _id from user and asign reference check on req obj
                 const x = await db.query(
-                    QueryMaker.getOne('users', 'username'), [authData.username]);
+                    QueryMaker.getOne('users', 'email'), [authData.email]);
                 req.selfReference = await x.rows[0]._id
                 
                 // go to the route

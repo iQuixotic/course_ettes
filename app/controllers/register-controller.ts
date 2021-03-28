@@ -2,7 +2,8 @@
 import bcrypt from 'bcrypt';
 import { Request, Response } from 'express';
 import db from '../config/connection';
-import { User, QueryMaker } from '../classes';
+import { default as X } from '../utils/sql-commands';
+import { User } from '../classes';
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 export default {
@@ -25,12 +26,10 @@ export default {
                     }
 
                     const user = new User(obj);
-                    console.log(user)
-                    const myKeys = Object.keys(user);
                     const myVals = Object.values(user);
 
                     // insert user
-                    await db.query(QueryMaker.insertOne('users', myKeys), myVals);           
+                    await db.query(X.insertOneUser(), myVals);           
                     res.status(201).json({
                     message: `New user ${req.body.first_name} created !!`
             });

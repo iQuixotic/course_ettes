@@ -1,5 +1,6 @@
 import db from '../../../config/connection';
-import { QueryMaker, Role } from '../../';
+import { Role } from '../../';
+import { default as X } from '../../../utils/sql-commands';
 import bcrypt from 'bcrypt';
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 class User {
@@ -30,11 +31,11 @@ class User {
     }
 
     static async checkUser(req, email, password){
+        let y = '';
 
         // get the hashed password (y) and compare it to the one in the db 
-        const x = await db.query(QueryMaker.getHashedPass(), [email]);
-        const y = x.rows[0].password;
-        console.log('y', y);
+        const x = await db.query(X.getHashedPass(), [email]);
+        if(x.rows.length > 0)  y = x.rows[0].password;
         const match = await bcrypt.compare(password, y);
 
         // set req.password to use on login controller

@@ -1,6 +1,6 @@
 class DeckInfo {
 
-    private name: string;
+    name: string;
 
       constructor(obj) {
           if(!obj) {

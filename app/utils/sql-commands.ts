@@ -1,20 +1,47 @@
 export default {
 
-    // 1. create a new deck
-    createNewDeck: (deckName, userName) => {
+    // -- 1. insert a single db object
+    insertOneUser: () => {
+        return (
+            `INSERT INTO users (email, password, first_name, last_name, role_id) 
+            VALUES ($1, $2, $3, $4, $5);`
+        );
+    },
+
+    // -- 2. for login
+    login: (cols) => {
+        return `select ${cols} from users where (email, password) = ($1, $2);`;
+    },
+      
+    // -- 3. getting the hashed password
+    getHashedPass: () => {
+        return `select password from users where email = $1;`;
+    },
+
+    // -- 4. get the logged in user's _id
+    getActiveUserId: () => {
+        return `SELECT _id from users where email = $1`;
+    },
+
+    // -- 5. create a new deck
+    addDeckName: () => {
+        return `INSERT INTO decks (name) VALUES($1);`;
+    },
+
+    createNewDeckAssoc: () => {
         return (`
-            INSERT INTO decks (name) VALUES($1), [${deckName}];
-            INSERT INTO decks_to_users_ref (creator_id, deck_id) VALUES($1, (SELECT currval(pg_get_serial_sequence('decks','_id')))), [${userName}];
-            INSERT INTO user_deck_library_ref (user_id, deck_id) VALUES($1, (SELECT currval(pg_get_serial_sequence('decks','_id')))), [${userName}];
+            WITH i AS (INSERT INTO decks_to_users_ref (creator_id, deck_id) VALUES($1, (SELECT currval(pg_get_serial_sequence('decks','_id')))))
+            INSERT INTO user_deck_library_ref (user_id, deck_id) VALUES($1, (SELECT currval(pg_get_serial_sequence('decks','_id'))));
         `);
     },
 
-    // -- 2. insert a card into a deck
-    insertCardIntoDeck: (frontContent, backContent, deckId) => {
-        return(`
-            INSERT INTO cards_info (front_content, back_content) VALUES($1, $2), [${frontContent}, ${backContent}];
-            INSERT INTO card_to_decks_ref (card_id, deck_id) VALUES((SELECT currval(pg_get_serial_sequence('cards_info','_id'))), $1), [${deckId}];
-        `);
+    // -- 6. insert a card into a deck
+    insertCardIntoDeck: () => {
+        return `INSERT INTO cards_info (front_content, back_content) VALUES($1, $2);`;
+    },
+
+    createCardToDeckAssoc: () => {
+        return `INSERT INTO card_to_decks_ref (card_id, deck_id) VALUES((SELECT currval(pg_get_serial_sequence('cards_info','_id'))), $1);`;
     },
 
     // -- 3. get all of the cards from an owned deck
