@@ -11,14 +11,11 @@ export default {
     
     // CREATE a new db entry for login event
     login: async (req: any, res: Response): Promise<User> => {
-        console.log('i am here sir')
-        console.log(req.body.email, req.body.password, req.body)
         const validCredentials: boolean = await User.checkUser(req, req.body.email, req.body.password)
-        console.log(validCredentials)
         if(validCredentials) {
             try {       
                 const x = await db.query(X.login('*'), [req.body.email, req.body.password]) 
-                console.log(x)
+                
                 // set response equal to the role_id (pre-striping) and create a new user
                 const response = await db.query(X.login('role_id'), [req.body.email, req.password] );
                 const user: User = await new User(req.body) 

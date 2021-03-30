@@ -7,7 +7,7 @@ router.route('/')
     .get(decksController.getAll)
     .post(decksController.addOne)
 
-router.route('/subscribed/:userId')
+router.route('/subscribed')
     .get(decksController.getSubscribedDecks)
 
 router.route('/owned')

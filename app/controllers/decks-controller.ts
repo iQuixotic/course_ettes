@@ -32,20 +32,41 @@ export default {
         } catch (err) { throw err }; 
     },
 
-    // READ a single deck which a user owns
-    getOwnedDecks: async (req: Request, res: Response) => {
+    // READ a single deck which a user owns and manages
+    getOwnedDecks: async (req: any, res: Response) => {
         try {
-            // const x = await db.query(QueryMaker.getOne('colors', '_id'), [req.params.colorId]);
-            // res.json(x.rows[0]);
+            // variable deffinitions
+            const x = await db.query(X.getActiveUserId(), [req.authData.email]);     
+            const login_id = await x.rows[0]._id;
+            const deck = new Deck(req.body);
+            const y = await db.query(X.getAllOwnedDecks(), [login_id])
+            const usersDecks = y.rows
+
+            // if good data get owned decks, else handle error
+            if(usersDecks.length > 0) {
+                res.json(usersDecks);
+            } else res.json({message: 'Cannot get owned decks.'});
+            res.json({message: usersDecks});
         }  catch (err) { throw err; }      
     },
 
     // READ a single deck to which a user is subscribed to
-    getSubscribedDecks: async (req: Request, res: Response) => {
+    getSubscribedDecks: async (req: any, res: Response) => {
         try {
-            // const x = await db.query(QueryMaker.getOne('colors', '_id'), [req.params.colorId]);
-            // res.json(x.rows[0]);
-        }  catch (err) { throw err; }      
+            // variable deffinitions
+            const x = await db.query(X.getActiveUserId(), [req.authData.email]);     
+            const login_id = await x.rows[0]._id;
+            const deck = new Deck(req.body);
+            const y = await db.query(X.getUserDeckLibrary(), [login_id])
+            const usersDecks = y.rows
+            console.log(usersDecks)
+
+            // if good data get subscribed decks, else handle error
+            if(usersDecks.length > 0) {
+                res.json(usersDecks);
+            } else res.json({message: 'Cannot get subscribed decks.'});
+            res.json({message: usersDecks});
+        }  catch (err) { throw err; }       
     },
 
     // DELETE an entire deck owned by a user

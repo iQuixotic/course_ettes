@@ -44,47 +44,64 @@ export default {
         return `INSERT INTO card_to_decks_ref (card_id, deck_id) VALUES((SELECT currval(pg_get_serial_sequence('cards_info','_id'))), $1);`;
     },
 
-    // -- 3. get all of the cards from an owned deck
-    getOwnedDeck: (userId) => {
+    // -- 7. get all of the cards from an owned deck
+    getOwnedDeck: () => {
         return (`
-            SELECT cards_info, decks.name
+            SELECT cards_info._id, cards_info.front_content, cards_info.back_content, decks.name
             FROM cards_info
             INNER JOIN card_to_decks_ref ON cards_info._id = card_to_decks_ref.card_id
             INNER JOIN decks ON card_to_decks_ref.deck_id = decks._id
-            WHERE decks._id = $1, [${userId}];;
+            WHERE decks._id = $1;
         `)
     },
 
-    // -- 4. get all of the available decks in a particular user's vault
-    getSingleUserDecks: (userId) => {
+    // -- 8. get all of the available decks in a particular user's vault
+    getUserDeckLibrary: () => {
         return (`
-            SELECT users, decks.name
+            SELECT decks.name
             FROM users
             INNER JOIN user_deck_library_ref ON users._id = user_deck_library_ref.user_id
             INNER JOIN decks ON user_deck_library_ref.deck_id = decks._id
-            WHERE users._id = $1, [${userId}];
+            WHERE users._id = $1;
         `)
     },
 
-    // -- 5. get all of the available decks OWNED and MANAGED by a particular user
-    getAllOwnedDecks: (userId) => {
+    // -- 9. get all of the available decks OWNED and MANAGED by a particular user
+    getAllOwnedDecks: () => {
         return (`
-            SELECT decks
+            SELECT decks.name
             FROM users
             INNER JOIN decks_to_users_ref ON users._id = decks_to_users_ref.creator_id
             INNER JOIN decks ON decks_to_users_ref.deck_id = decks._id
-            WHERE users._id = $1, [${userId}];
+            WHERE users._id = $1;
         `)
     },
 
-    // -- 6. get all the decks available in the system (limit for pagination)
+    // -- 10. get all the decks available in the system (limit for pagination)
     getAllDecks: () => {
-        return `SELECT * from decks LIMIT 12 OFFSET $1;`;
+        return `SELECT * FROM decks LIMIT 12 OFFSET $1;`;
     },
 
-    // -- 7. edit a card that is managed and owned by a particular user
-    editOwnedCard: (setWhat, content, id) => {
-        return `UPDATE cards_info SET $1 = $2 WHERE _id = $3, [${setWhat}, ${content}, ${id}];`
+    // -- 11. get card by id
+    getCardById: () => {
+        return `SELECT * FROM cards_info WHERE _id = $1;`;
+    },
+
+    // -- 12. edit a card that is managed and owned by a particular user
+    editOwnedCard: () => {
+        return `UPDATE cards_info SET front_content = $1, back_content = $2 WHERE _id = $3;`
+    },
+
+    getCardEditRights: () => {
+            return (`
+                SELECT _id FROM cards_info WHERE _id IN (
+                    SELECT card_id FROM card_to_decks_ref WHERE deck_id IN (
+                        SELECT decks._id
+                        FROM users
+                        INNER JOIN decks_to_users_ref ON users._id = decks_to_users_ref.creator_id
+                        INNER JOIN decks ON decks_to_users_ref.deck_id = decks._id
+                        WHERE users._id = $1)) and _id = $2;
+        `)
     },
 
     // -- 8. delete a card from a OWNED and MANAGED deck

@@ -8,19 +8,41 @@ import { default as X } from '../utils/sql-commands'
 export default {
 
     // GET all cards from a single deck
-    getAll: async (req: Request, res: Response) => {
+    getAll: async (req: any, res: Response) => {
         try {                 
-            // const x = await db.query(QueryMaker.getAll('cards'))
-            // res.json(x.rows);
+            // variable deffinitions
+            // const x = await db.query(X.getActiveUserId(), [req.authData.email]);  
+            // const login_id = await x.rows[0]._id;
+            // const y = await db.query(X.getOwnedDeck(), [login_id]);
+            // const cards = y.rows
+            // console.log(cards)
+            
+                        // if good data create deck, else handle error
+                        // if(deck.name != undefined) {
+                        //     await db.query(X.addDeckName(), [deck.name]); 
+                        //     await db.query(X.createNewDeckAssoc(), [login_id]); 
+                        // } else res.json({message: 'New Deck can not be added!!'});
         } catch (err) { throw err; }
     },
 
-    //  // CREATE a new card
-     addOne: async (req: any, res: Response) => {
+    getByDeckId: async (req: any, res: Response) => {
+        try {                 
+            // variable deffinitions
+            const y = await db.query(X.getOwnedDeck(), [req.params.deckId]);
+            const cards = y.rows
+
+            // if good data create deck, else handle error
+            if(cards.length > 0) {
+               res.json( cards )
+            }  else res.json({message: 'Could not get cards!!'});
+        } catch (err) { throw err; }
+    },
+
+    //  CREATE a new card
+    addOne: async (req: any, res: Response) => {
         try {            
             const card = new CardInfo(req.body);
 
-            console.log(card)
             // if good data create card and assign deck, else handle error
             if(card.back_content != undefined && card.front_content != undefined) {
                 await db.query(X.insertCardIntoDeck(), [card.front_content, card.back_content]); 
@@ -31,15 +53,25 @@ export default {
     },
 
     // UPDATE a card (must be done by deck owner)  
-    updateOne: async (req: Request, res: Response) => {
-        try {            
-            // const x = await db.query( QueryMaker.getOne('colors', '_id'), [req.params.colorId]);
-            // const color = new Color({...x.rows[0], ...req.body});
-            // const myKeys = Object.keys(color);
-            // const myVals = Object.values(color);
-            // const valsAndID =  [req.params.colorId, ...myVals]
-            // await db.query( QueryMaker.setOne('colors', '_id', myKeys.length, myKeys), valsAndID); 
-            res.json({message: 'Color updated !!'});
+    updateOne: async (req: any, res: Response) => {
+        try {      
+            const u = await db.query(X.getActiveUserId(), [req.authData.email]);  
+            let userId = u.rows[0]._id;
+            const l = await db.query(X.getCardEditRights(), [userId, req.params.cardId])
+
+            if(l.rows.length) {
+                const x = await db.query(X.getCardById(), [req.params.cardId]);
+                const oldCard = x.rows[0];
+                const card = await new CardInfo({...oldCard, ...req.body});
+
+                // if good data create card and assign deck, else handle error
+                if(card.back_content != undefined && 
+                card.front_content != undefined &&
+                req.params.cardId != undefined) {
+                    await db.query(X.editOwnedCard(), [card.front_content, card.back_content, req.params.cardId]); 
+                } else res.json({message: 'There were some issues. Unable to process card edit at this time.'});
+                res.json({message: 'Card updated !!'});
+            } else { res.json({message: 'You do not have the priveleges to edit this card!!'}); }
         } catch (err) { throw err }; 
     },
 
