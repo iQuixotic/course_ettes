@@ -122,13 +122,18 @@ export default {
         return `UPDATE colors_ref SET color_id = $1 WHERE user_id = $2 AND card_id = $3;`
     },
 
-    // -- 10. add a note to a card that belongs to a single user's card library
-    addUserNote: (tier, content, userId, cardId) => {
-        return (`
-            INSERT INTO user_notes (tier, content) VALUES($1, $2), [${tier}, ${content}];
-            INSERT INTO card_notes_ref (user_id, note_id, card_id) VALUES($1, (SELECT currval(pg_get_serial_sequence('user_notes','_id'))), $2), [${userId}, ${cardId}];
-        `);
+    // -- 15. add a note to a card that belongs to a single user's card library
+    addUserNote: () => {
+        return `INSERT INTO user_notes (tier, content) VALUES($1, $2);`;
     },
+
+    addNoteToCardAssoc: () => {
+        return `INSERT INTO card_notes_ref (user_id, note_id, card_id) VALUES($1, (SELECT currval(pg_get_serial_sequence('user_notes','_id'))), $2);`
+    },
+    // WITH i AS (INSERT INTO decks_to_users_ref (creator_id, deck_id) 
+    // VALUES($1, (SELECT currval(pg_get_serial_sequence('decks','_id')))))
+    // INSERT INTO user_deck_library_ref (user_id, deck_id) VALUES($1, (
+        // SELECT currval(pg_get_serial_sequence('decks','_id'))));
 
     // -- 11. edit an existing note 
     editUserNote: (content, id) => {

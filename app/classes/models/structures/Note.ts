@@ -1,7 +1,7 @@
 class Notes {
 
-  private tier: string;
-  private content: string;
+  tier: string;
+  content: string;
 
     constructor(obj) {
         if(!obj) {

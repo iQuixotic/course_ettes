@@ -9,6 +9,7 @@ import roleRoutes from './roles';
 import cardInfoRoutes from './cards-info';
 import colorRoutes from './colors';
 import deckRoutes from './decks';
+import notesRoutes from './notes';
 const router = Router();
 
 // register and login
@@ -19,7 +20,8 @@ router.use('/login', loginRoutes);
 router.use('/users', 
     // MW.verifyToken, MW.getPrivileges,
     userRoutes);
-
+router.use('/notes', 
+    MW.verifyToken, MW.getPrivileges, notesRoutes);
 router.use('/card-info', 
     MW.verifyToken, MW.getPrivileges, cardInfoRoutes);
 router.use('/roles', roleRoutes);
