@@ -42,11 +42,16 @@ export default {
     addOne: async (req: any, res: Response) => {
         try {            
             const card = new CardInfo(req.body);
+            const u = await db.query(X.getActiveUserId(), [req.authData.email]);  
+            const userId = u.rows[0]._id;
 
             // if good data create card and assign deck, else handle error
             if(card.back_content != undefined && card.front_content != undefined) {
                 await db.query(X.insertCardIntoDeck(), [card.front_content, card.back_content]); 
                 await db.query(X.createCardToDeckAssoc(), [req.params.deckId]); 
+                console.log("here tho...")
+                await db.query(X.createColorAssoc(), [userId]);
+                console.log("but not here.")
             } else res.json({message: 'There were some issues. Unable to add card to the database!!'});
             res.json({message: 'New Card added to the database!!'});
         } catch (err) { throw err }; 
@@ -56,7 +61,7 @@ export default {
     updateOne: async (req: any, res: Response) => {
         try {      
             const u = await db.query(X.getActiveUserId(), [req.authData.email]);  
-            let userId = u.rows[0]._id;
+            const userId = u.rows[0]._id;
             const l = await db.query(X.getCardEditRights(), [userId, req.params.cardId])
 
             if(l.rows.length) {
@@ -76,10 +81,20 @@ export default {
     },
 
     // DELETE a card (must be done by deck owner) 
-    deleteOne: async (req: Request, res: Response) => {
+    deleteOne: async (req: any, res: Response) => {
         try {            
-            // await db.query( QueryMaker.deleteOne('colors', '_id'), [req.params.colorId]);
-            res.json({message: `Color deleted !!`});
+            const u = await db.query(X.getActiveUserId(), [req.authData.email]);  
+            const userId = u.rows[0]._id;
+            const l = await db.query(X.getCardEditRights(), [userId, req.params.cardId])
+
+            // if this is a card that is managed by the user
+            if(l.rows.length) {
+                const x = await db.query(X.getCardById(), [req.params.cardId]);
+                const oldCard = x.rows[0];
+                const card = await new CardInfo({...oldCard, ...req.body});
+                await db.query(X.deleteOwnedCard(), [req.params.cardId]); 
+                res.json({message: 'Card removed !!'});
+            } else { res.json({message: 'You do not have the priveleges to delete this card!!'}); }
         } catch (err) { throw err }; 
     }
        

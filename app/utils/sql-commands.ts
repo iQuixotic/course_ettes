@@ -44,6 +44,10 @@ export default {
         return `INSERT INTO card_to_decks_ref (card_id, deck_id) VALUES((SELECT currval(pg_get_serial_sequence('cards_info','_id'))), $1);`;
     },
 
+    createColorAssoc: () => {
+        return `INSERT INTO colors_ref (user_id, card_id, color_id) VALUES($1, (SELECT currval(pg_get_serial_sequence('cards_info','_id'))), 5);`;
+    },
+
     // -- 7. get all of the cards from an owned deck
     getOwnedDeck: () => {
         return (`
@@ -104,14 +108,18 @@ export default {
         `)
     },
 
-    // -- 8. delete a card from a OWNED and MANAGED deck
-    deleteOwnedCard: (id) => {
-        return `DELETE FROM cards_info WHERE _id = $1, [${id}];`
+    // -- 13. delete a card from a OWNED and MANAGED deck
+    deleteOwnedCard: () => {
+        return `DELETE FROM cards_info WHERE _id = $1`
     },
 
-    // -- 9. change a card color for a particular card from within a particular user's library
-    changeCardColor: (colorId, userId, cardId) => {
-        return `UPDATE colors_ref SET color_id = $1 WHERE user_id = $2 AND card_id = $3, [${colorId}, ${userId}, ${cardId}];`
+    // -- 14. change a card color for a particular card from within a particular user's library
+    getColorById: () => {
+        return `SELECT color FROM colors WHERE _id = $1;`;
+    },
+
+    changeCardColor: () => {
+        return `UPDATE colors_ref SET color_id = $1 WHERE user_id = $2 AND card_id = $3;`
     },
 
     // -- 10. add a note to a card that belongs to a single user's card library

@@ -23,7 +23,8 @@ router.use('/users',
 router.use('/card-info', 
     MW.verifyToken, MW.getPrivileges, cardInfoRoutes);
 router.use('/roles', roleRoutes);
-router.use('/colors', colorRoutes);
+router.use('/colors', 
+    MW.verifyToken, MW.getPrivileges, colorRoutes);
 router.use('/decks',
     MW.verifyToken, MW.getPrivileges, deckRoutes);
 
