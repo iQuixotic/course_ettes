@@ -2,7 +2,7 @@
 
 
 | Route | Use | Action Type |
-| :---  | :----:|     ---:  |
+| :---  | :---|     :---  |
 | /register  | Register a new user   |      POST     |
 | /login  | For logging in using http     |   POST |
 | /users  | Return ALL users       | GET |
