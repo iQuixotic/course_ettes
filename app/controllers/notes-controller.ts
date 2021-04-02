@@ -3,7 +3,7 @@ import { Request, Response } from 'express';
 import db from '../config/connection';
 import { Note } from '../classes';
 import { default as X } from '../utils/sql-commands';
-import MESSAGES  from '../utils/messages'
+import MESSAGES  from '../utils/messages';
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 export default {
@@ -19,9 +19,9 @@ export default {
                 if(note.tier != undefined && note.content != undefined) {
                     await db.query(X.addUserNote(), [note.tier, note.content]); 
                     await db.query(X.addNoteToCardAssoc(), [req.activeUserId, req.params.cardId]); 
-                } else res.json({message: 'New User Note can not be added!!'});
-                res.json({message: 'New Note added!!'});
-            } else { res.json({message: 'You do not have the priveleges to delete this card!!'}); }
+                } else res.json(MESSAGES("invalidNoteDeff"));
+                res.json(MESSAGES("noteForCardAdd"));
+            } else { res.json(MESSAGES("noteDeletePrivileges")); }
         } catch (err) { throw err }; 
     },
 

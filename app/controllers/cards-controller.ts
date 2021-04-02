@@ -3,6 +3,7 @@ import { Request, Response } from 'express';
 import db from '../config/connection';
 import { CardInfo } from '../classes';
 import { default as X } from '../utils/sql-commands'
+import MESSAGES from '../utils/messages';
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 export default {
@@ -34,7 +35,7 @@ export default {
             // if good data create deck, else handle error
             if(cards.length > 0) {
                res.json( cards )
-            }  else res.json({message: 'Could not get cards!!'});
+            }  else res.json(MESSAGES("generalCardError"));
         } catch (err) { throw err; }
     },
 
@@ -48,8 +49,8 @@ export default {
                 await db.query(X.insertCardIntoDeck(), [card.front_content, card.back_content]); 
                 await db.query(X.createCardToDeckAssoc(), [req.params.deckId]); 
                 await db.query(X.createColorAssoc(), [req.activeUserId]);
-            } else res.json({message: 'There were some issues. Unable to add card to the database!!'});
-            res.json({message: 'New Card added to the database!!'});
+            } else res.json(MESSAGES("cardAddError"));
+            res.json(MESSAGES("cardAdd"));
         } catch (err) { throw err }; 
     },
 
@@ -67,9 +68,9 @@ export default {
                 card.front_content != undefined &&
                 req.params.cardId != undefined) {
                     await db.query(X.editOwnedCard(), [card.front_content, card.back_content, req.params.cardId]); 
-                } else res.json({message: 'There were some issues. Unable to process card edit at this time.'});
-                res.json({message: 'Card updated !!'});
-            } else { res.json({message: 'You do not have the priveleges to edit this card!!'}); }
+                } else res.json(MESSAGES("cardUpdateError"));
+                res.json(MESSAGES("cardUpdated"));
+            } else { res.json(MESSAGES("cardUpdatePrivileges")); }
         } catch (err) { throw err }; 
     },
 
@@ -79,12 +80,12 @@ export default {
             const l = await db.query(X.getCardEditRights(), [req.activeUserId, req.params.cardId])
             // if this is a card that is managed by the user
             if(l.rows.length) {
-                const x = await db.query(X.getCardById(), [req.params.cardId]);
-                const oldCard = x.rows[0];
-                const card = await new CardInfo({...oldCard, ...req.body});
+                // const x = await db.query(X.getCardById(), [req.params.cardId]);
+                // const oldCard = x.rows[0];
+                // const card = await new CardInfo({...oldCard, ...req.body});
                 await db.query(X.deleteOwnedCard(), [req.params.cardId]); 
-                res.json({message: 'Card removed !!'});
-            } else { res.json({message: 'You do not have the priveleges to delete this card!!'}); }
+                res.json(MESSAGES("cardRemoved"));
+            } else { res.json(MESSAGES("cardRemovedError")); }
         } catch (err) { throw err }; 
     }
        

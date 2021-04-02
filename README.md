@@ -1,6 +1,5 @@
 # course_ettes
 
-
 | Route | Use | Action Type |
 | :---  | :---|     :---  |
 | /register  | Register a new user   |      POST     |
