@@ -24,3 +24,4 @@ app.listen(PORT, () => {
   console.log(`You know that I will always be there for you on port ${PORT}`);
 });
 
+export default app;
