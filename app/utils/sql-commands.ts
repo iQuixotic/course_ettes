@@ -130,23 +130,29 @@ export default {
     addNoteToCardAssoc: () => {
         return `INSERT INTO card_notes_ref (user_id, note_id, card_id) VALUES($1, (SELECT currval(pg_get_serial_sequence('user_notes','_id'))), $2);`
     },
-    // WITH i AS (INSERT INTO decks_to_users_ref (creator_id, deck_id) 
-    // VALUES($1, (SELECT currval(pg_get_serial_sequence('decks','_id')))))
-    // INSERT INTO user_deck_library_ref (user_id, deck_id) VALUES($1, (
-        // SELECT currval(pg_get_serial_sequence('decks','_id'))));
 
-    // -- 11. edit an existing note 
-    editUserNote: (content, id) => {
-        return ` UPDATE user_notes SET content = $1 WHERE _id = $2, [${content}, ${id}];`;
+    // -- 16. edit an existing note 
+    editUserNote: () => {
+        return ` UPDATE user_notes SET content = $1 WHERE _id = $2;`;
     },
 
-    // -- 12. delete a user's note
-    deleteUserNote: (id) => {
-        return `DELETE FROM user_notes WHERE _id = $1, [${id}];`;
+    // -- 17. get card by id
+    getNoteById: () => {
+        return `SELECT * FROM user_notes WHERE _id = $1;`;
     },
 
-    // -- 13. delete a deck that that is managed by a particular user
-    deleteUserDeck: (id) => {
+    // -- 18. delete a user's note
+    deleteUserNote: () => {
+        return `DELETE FROM user_notes WHERE _id = $1;`;
+    },
+
+    // --19. get the rights for editing/deleting a deck based on who the user is
+    getDeckEditRights: () => {
+        return `SELECT * FROM decks WHERE _id = $1;`;
+    },
+
+    // -- 20. delete a deck that that is managed by a particular user
+    deleteUserDeck: () => {
         return (`
             DELETE FROM cards_info USING decks WHERE cards_info._id IN (
                 SELECT cards_info._id
@@ -154,9 +160,34 @@ export default {
                 INNER JOIN card_to_decks_ref ON cards_info._id = card_to_decks_ref.card_id
                 INNER JOIN decks ON card_to_decks_ref.deck_id = decks._id
                 WHERE decks._id = $1
-            ), [${id}];
+            );
 
-            DELETE FROM decks WHERE _id = $1, [${id}];
+            DELETE FROM decks WHERE _id = $1;
         `);
-    }
+    },
+
+    // need to be able to get the expriry date and return it...
+    // expiry time should probably be a separate table
+        // this info should branch from notes? deck?
+    // need table for keeping track of who is full member and who is partial
+        // this info should branch from user
+    // need to make sure that usernames are unique
+    // check behavior of all calls with no data
+    // find out what is the lowest and most neccessary values for data limits on the tables and implement
+    // need some code coverage for tests...
+    // oAuth?
+    // rating system with stars and number of ratings
+    // keywords on decks to keep track of when searching..
+        // should have someway of searching cards themselves.. maybe if 5 have the searched for word? idk
+    // search by deck name.. 
+    // 
+
+
+    // future - need to integrate with paypal, google, facebook.. expose a bitcoin wallet?
+    
+
+    // on the front end -
+    // can i figure out how to print the notecards?
+    // have a settings (account page)
+
 }

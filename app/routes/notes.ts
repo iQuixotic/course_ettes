@@ -7,11 +7,11 @@ router.route('/:cardId')
     // .get(notesController.getAll)
     .post(notesController.addOne)
 
-router.route('/:deckId')
+// router.route('/:deckId')
     // .get(notesController.getAll)
     
-// router.route('/:noteId')
-//     .put(notesController.updateOne)
-//     .delete(notesController.deleteOne)
+router.route('/:cardId/:noteId')
+    .patch(notesController.updateOne)
+    .delete(notesController.deleteOne)
 
 export default router;

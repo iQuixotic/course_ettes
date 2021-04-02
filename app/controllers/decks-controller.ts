@@ -70,10 +70,13 @@ export default {
     },
 
     // DELETE an entire deck owned by a user
-    deleteOne: async (req: Request, res: Response) => {
+    deleteOne: async (req: any, res: Response) => {
         try {            
-            // await db.query( QueryMaker.deleteOne('colors', '_id'), [req.params.colorId]);
-            res.json({message: `Deck deleted !!`});
+        // variable deffinitions
+        const x = await db.query(X.getActiveUserId(), [req.authData.email]);     
+        const login_id = await x.rows[0]._id;
+
+        
         } catch (err) { throw err }; 
     }
        
