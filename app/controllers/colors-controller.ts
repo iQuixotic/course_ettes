@@ -37,10 +37,7 @@ export default {
     // UPDATE a color assigned to a user's card
     updateOne: async (req: any, res: Response) => {
         try {     
-            // get the user and edit rights 
-            const u = await db.query(X.getActiveUserId(), [req.authData.email]);  
-            const userId = u.rows[0]._id;
-            const l = await db.query(X.getCardEditRights(), [userId, req.params.cardId])
+            const l = await db.query(X.getCardEditRights(), [req.activeUserId, req.params.cardId])
 
             if(l.rows.length > 0) {
                 const x = await db.query(X.getColorById(), [req.params.colorId]);
@@ -49,7 +46,7 @@ export default {
 
                 // if good data create card and assign deck, else handle error
                 if((typeof(color.color["color"]) === typeof(" "))) {
-                    await db.query(X.changeCardColor(), [req.params.colorId, userId, req.params.cardId]); 
+                    await db.query(X.changeCardColor(), [req.params.colorId, req.activeUserId, req.params.cardId]); 
                 } else res.json({message: 'There were some issues. Unable to process card edit at this time.'});
                 res.json({message: 'Card updated !!'});
             } else { res.json({message: 'You do not have the priveleges to edit this card!!'}); }

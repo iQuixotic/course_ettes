@@ -17,11 +17,11 @@ export default {
             // const cards = y.rows
             // console.log(cards)
             
-                        // if good data create deck, else handle error
-                        // if(deck.name != undefined) {
-                        //     await db.query(X.addDeckName(), [deck.name]); 
-                        //     await db.query(X.createNewDeckAssoc(), [login_id]); 
-                        // } else res.json({message: 'New Deck can not be added!!'});
+            //             if good data create deck, else handle error
+            //             if(deck.name != undefined) {
+            //                 await db.query(X.addDeckName(), [deck.name]); 
+            //                 await db.query(X.createNewDeckAssoc(), [login_id]); 
+            //             } else res.json({message: 'New Deck can not be added!!'});
         } catch (err) { throw err; }
     },
 
@@ -42,16 +42,12 @@ export default {
     addOne: async (req: any, res: Response) => {
         try {            
             const card = new CardInfo(req.body);
-            const u = await db.query(X.getActiveUserId(), [req.authData.email]);  
-            const userId = u.rows[0]._id;
 
             // if good data create card and assign deck, else handle error
             if(card.back_content != undefined && card.front_content != undefined) {
                 await db.query(X.insertCardIntoDeck(), [card.front_content, card.back_content]); 
                 await db.query(X.createCardToDeckAssoc(), [req.params.deckId]); 
-                console.log("here tho...")
-                await db.query(X.createColorAssoc(), [userId]);
-                console.log("but not here.")
+                await db.query(X.createColorAssoc(), [req.activeUserId]);
             } else res.json({message: 'There were some issues. Unable to add card to the database!!'});
             res.json({message: 'New Card added to the database!!'});
         } catch (err) { throw err }; 
@@ -60,10 +56,7 @@ export default {
     // UPDATE a card (must be done by deck owner)  
     updateOne: async (req: any, res: Response) => {
         try {      
-            const u = await db.query(X.getActiveUserId(), [req.authData.email]);  
-            const userId = u.rows[0]._id;
-            const l = await db.query(X.getCardEditRights(), [userId, req.params.cardId])
-
+            const l = await db.query(X.getCardEditRights(), [req.activeUserId, req.params.cardId])
             if(l.rows.length) {
                 const x = await db.query(X.getCardById(), [req.params.cardId]);
                 const oldCard = x.rows[0];
@@ -82,11 +75,8 @@ export default {
 
     // DELETE a card (must be done by deck owner) 
     deleteOne: async (req: any, res: Response) => {
-        try {            
-            const u = await db.query(X.getActiveUserId(), [req.authData.email]);  
-            const userId = u.rows[0]._id;
-            const l = await db.query(X.getCardEditRights(), [userId, req.params.cardId])
-
+        try {
+            const l = await db.query(X.getCardEditRights(), [req.activeUserId, req.params.cardId])
             // if this is a card that is managed by the user
             if(l.rows.length) {
                 const x = await db.query(X.getCardById(), [req.params.cardId]);

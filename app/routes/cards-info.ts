@@ -3,8 +3,8 @@ import cardsController from '../controllers/cards-controller';
 import { Router } from 'express';
 const router = Router();
 
-router.route('/')
-    .get(cardsController.getAll);
+// router.route('/')
+//     .get(cardsController.getAll);
 
 // if post is needed later, will need to change both below routes...
 router.route('/:cardId')
@@ -13,6 +13,6 @@ router.route('/:cardId')
 
 router.route('/:deckId')
     .post(cardsController.addOne)
-    .get(cardsController.getByDeckId);;
+    .get(cardsController.getByDeckId);
 
 export default router;

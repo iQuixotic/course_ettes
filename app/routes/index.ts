@@ -2,6 +2,7 @@
 import { Router } from 'express';
 import path from 'path';
 import MW from '../utils/JWT';
+import { default as AUTH } from '../utils/authorize';
 import userRoutes from './users';
 import loginRoutes from './login';
 import registerRoutes from './register';
@@ -12,23 +13,23 @@ import deckRoutes from './decks';
 import notesRoutes from './notes';
 const router = Router();
 
-// register and login
+// route prefixes and middlewares called
 router.use('/register', registerRoutes);
 router.use('/login', loginRoutes);
-
-// MW is a helper object that contains middleware for validation and auth
-router.use('/users', 
-    // MW.verifyToken, MW.getPrivileges,
-    userRoutes);
-router.use('/notes', 
-    MW.verifyToken, MW.getPrivileges, notesRoutes);
-router.use('/card-info', 
-    MW.verifyToken, MW.getPrivileges, cardInfoRoutes);
+router.use('/users', userRoutes);
 router.use('/roles', roleRoutes);
 router.use('/colors', 
-    MW.verifyToken, MW.getPrivileges, colorRoutes);
+    MW.verifyToken, MW.getPrivileges, AUTH.setActiveUserId,
+    colorRoutes);
 router.use('/decks',
-    MW.verifyToken, MW.getPrivileges, deckRoutes);
+    MW.verifyToken, MW.getPrivileges, AUTH.setActiveUserId,
+    deckRoutes);
+router.use('/card-info', 
+    MW.verifyToken, MW.getPrivileges, AUTH.setActiveUserId,
+    cardInfoRoutes);
+router.use('/notes', 
+    MW.verifyToken, MW.getPrivileges, AUTH.setActiveUserId,
+    notesRoutes);
 
 // if no routes are hit, go to react app
 // router.use(function(req, res) {

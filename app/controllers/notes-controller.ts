@@ -10,18 +10,15 @@ export default {
 
     addOne: async (req: any, res: Response) => {
         try {       
-            // variable deffinitions
-            const x = await db.query(X.getActiveUserId(), [req.authData.email]);     
-            const login_id = await x.rows[0]._id;
             const note = new Note(req.body);
-            const l = await db.query(X.getCardEditRights(), [login_id, req.params.cardId])
+            const l = await db.query(X.getCardEditRights(), [req.activeUserId, req.params.cardId])
 
             // if this is a card that is managed by the user
             if(l.rows.length) {
                 // if good data create note with association, else handle error
                 if(note.tier != undefined && note.content != undefined) {
                     await db.query(X.addUserNote(), [note.tier, note.content]); 
-                    await db.query(X.addNoteToCardAssoc(), [login_id, req.params.cardId]); 
+                    await db.query(X.addNoteToCardAssoc(), [req.activeUserId, req.params.cardId]); 
                 } else res.json({message: 'New User Note can not be added!!'});
                 res.json({message: 'New Note added!!'});
             } else { res.json({message: 'You do not have the priveleges to delete this card!!'}); }
@@ -31,11 +28,8 @@ export default {
     // UPDATE a user's note pertaining to a card
     updateOne: async (req: any, res: Response) => {
         try {       
-            // variable deffinitions
-            const x = await db.query(X.getActiveUserId(), [req.authData.email]);     
-            const login_id = await x.rows[0]._id;
             // const note = new Note(req.body);
-            const l = await db.query(X.getCardEditRights(), [login_id, req.params.cardId])
+            const l = await db.query(X.getCardEditRights(), [req.activeUserId, req.params.cardId])
 
             // if this is a card that is managed by the user
             if(l.rows.length) {
@@ -56,11 +50,8 @@ export default {
 
     // DELETE a user's note pertaining to a card
     deleteOne: async (req: any, res: Response) => {
-        try {            
-            // variable deffinitions
-            const x = await db.query(X.getActiveUserId(), [req.authData.email]);     
-            const login_id = await x.rows[0]._id;
-            const l = await db.query(X.getCardEditRights(), [login_id, req.params.cardId])
+        try {
+            const l = await db.query(X.getCardEditRights(), [req.activeUserId, req.params.cardId])
 
             // if this is a card that is managed by the user
             if(l.rows.length) {
