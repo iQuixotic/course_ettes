@@ -1,6 +1,7 @@
 secret
 secret.ts
 testToken.ts
+/coverage
 
 # Logs
 logs

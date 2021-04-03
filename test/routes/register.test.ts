@@ -15,7 +15,7 @@ chai.use(httpChai)
 describe('POST /register', () => {
     it('should register a new user', (done) => {
         const user = {
-            email: 'newEmail2@yahoo.com', 
+            email: 'newEmail9@yahoo.com', 
             password: 'tomtom',
             first_name: 'Trey',
             last_name: 'WaWa',
