@@ -65,4 +65,17 @@ describe('POST /decks', () => {
             done();
             })
     });  
-})
+});
+
+// describe('DELETE /decks/owned/:deckId', () => {
+//     it('should delete an owned deck', (done) => {
+//         const deckId = 
+//         chai.request(app)
+//             .post(`/decks/owned/${deckId}`)
+//             .set({'Authorization':  `Bearer ${TOKEN}`}) 
+//             .end((err, res) => {
+//                 res.should.have.status(200);
+//             done();
+//             })
+//     });  
+// })
