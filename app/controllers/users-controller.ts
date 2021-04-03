@@ -69,7 +69,6 @@ export default {
                 // get a full user and construct patched together obj as user
                 const x = await db.query(
                     QueryMaker.getOne('users', '_id'), [req.body._id]);
-                    console.log('this will be the x', x.rows[0])
                 const user = await new User({...x.rows[0], ...req.body});
 
 

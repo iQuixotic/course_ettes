@@ -32,7 +32,6 @@ export default {
     // check user privileges and check for self reference
     getPrivileges: (req, res, next) => {
         jwt.verify(req.token, 'secret', async (err, authData) => {
-            console.log("this will be the tokane and auth, ",  authData)
                 
                 // check role_id ---- set req.authdata so I can pass
                 if(err)  res.sendStatus(403);

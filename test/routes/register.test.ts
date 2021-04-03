@@ -7,6 +7,7 @@ import chai from 'chai';
 import app  from '../../server';
 import { response } from 'express';
 import TOKEN from '../../app/config/testToken';
+import  mod  from '../../app/utils/mod';
 import httpChai from 'chai-http';
 
 chai.should()
@@ -15,7 +16,7 @@ chai.use(httpChai)
 describe('POST /register', () => {
     it('should register a new user', (done) => {
         const user = {
-            email: 'newEmail9@yahoo.com', 
+            email: `jeromeTest${mod}@moddyem.com`, 
             password: 'tomtom',
             first_name: 'Trey',
             last_name: 'WaWa',
