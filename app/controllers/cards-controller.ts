@@ -2,7 +2,7 @@
 import { Request, Response } from 'express';
 import db from '../config/connection';
 import { CardInfo } from '../classes';
-import { default as X } from '../utils/sql-commands'
+import { default as X } from '../utils/sql-commands';
 import MESSAGES from '../utils/messages';
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
