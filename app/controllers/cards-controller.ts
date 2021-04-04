@@ -35,7 +35,7 @@ export default {
             // if good data create deck, else handle error
             if(cards.length > 0) {
                res.json( cards )
-            }  else res.json(MESSAGES("generalCardError"));
+            }  else { res.status(500); res.json(MESSAGES("generalCardError")) };
         } catch (err) { throw err; }
     },
 
@@ -70,7 +70,7 @@ export default {
                     await db.query(X.editOwnedCard(), [card.front_content, card.back_content, req.params.cardId]); 
                 } else res.json(MESSAGES("cardUpdateError"));
                 res.json(MESSAGES("cardUpdated"));
-            } else { res.json(MESSAGES("cardUpdatePrivileges")); }
+            } else { res.status(401); res.json(MESSAGES("cardUpdatePrivileges")); }
         } catch (err) { throw err }; 
     },
 

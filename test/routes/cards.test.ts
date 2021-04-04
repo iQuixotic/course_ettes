@@ -18,16 +18,16 @@ let deckBody = [];
 
 describe('GET /card-info/:deckId', () => {
     let deckId = 1; // should fail
-    // it('should fail to get get all of the cards of a particular deck', (done) => {
-    //     chai.request(app)
-    //         .get(`/card-info/${deckId}`)
-    //         .set({'Authorization':  `Bearer ${TOKEN}`}) 
-    //         .end((err, res) => {
-    //             res.should.have.status(500);
-    //             res.body.should.be.a('array');
-    //         done();
-    //         })
-    // });  
+    it('should fail to get get all of the cards of a particular deck', (done) => {
+        chai.request(app)
+            .get(`/card-info/${deckId}`)
+            .set({'Authorization':  `Bearer ${TOKEN}`}) 
+            .end((err, res) => {
+                res.should.have.status(500);
+                // res.body.should.be.a('array');
+            done();
+            })
+    });  
 
     deckId = 14; 
     it('should get all of the cards of a particular deck', (done) => {
@@ -61,18 +61,38 @@ describe('POST /card-info/:deckId', () => {
 });
 
 
-// describe('PATCH /card-info/:cardId', () => {
-//     it('should edit a particular owned/managed card', (done) => {
-//         chai.request(app)
-//             .get('/decks')
-//             .set({'Authorization':  `Bearer ${TOKEN}`}) 
-//             .end((err, res) => {
-//                 res.should.have.status(200);
-//                 res.body.should.be.a('array');
-//             done();
-//             })
-//     });  
-// });
+describe('PATCH /card-info/:cardId', () => {
+
+    it('should edit a particular owned/managed card', (done) => {
+        const data = {
+            front_content: 'The best test there can be',
+            back_content: 'Is to put GOATS on the other side of the card...'
+        }
+        chai.request(app)
+            .patch('/card-info/15')
+            .set({'Authorization':  `Bearer ${TOKEN}`}) 
+            .send(data)
+            .end((err, res) => {
+                res.should.have.status(200);
+            done();
+            })
+    });  
+
+    it('should not edit due to priviliges', (done) => {
+        const data = {
+            front_content: 'NO EDITS',
+            back_content: 'This should not work due to priviliges'
+        }
+        chai.request(app)
+            .patch('/card-info/6')
+            .set({'Authorization':  `Bearer ${TOKEN}`}) 
+            .send(data)
+            .end((err, res) => {
+                res.should.have.status(401);
+            done();
+            })
+    });  
+});
 
 describe('DELETE /card-info/:cardId', () => {
     it('should delete a particular owned/managed card', (done) => {
