@@ -15,22 +15,25 @@ chai.should();
 chai.use(httpChai);
 
 let deckBody = [];
+let deckId;
 
 describe('GET /card-info/:deckId', () => {
-    let deckId = 1; // should fail
+    
     it('should fail to get get all of the cards of a particular deck', (done) => {
+        deckId = 1; // should fail
         chai.request(app)
             .get(`/card-info/${deckId}`)
             .set({'Authorization':  `Bearer ${TOKEN}`}) 
             .end((err, res) => {
-                res.should.have.status(500);
+                res.should.have.status(403);
                 // res.body.should.be.a('array');
             done();
             })
     });  
 
-    deckId = 14; 
+
     it('should get all of the cards of a particular deck', (done) => {
+        deckId = 14; 
         chai.request(app)
             .get(`/card-info/${deckId}`)
             .set({'Authorization':  `Bearer ${TOKEN}`}) 

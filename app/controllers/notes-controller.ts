@@ -21,7 +21,7 @@ export default {
                     await db.query(X.addNoteToCardAssoc(), [req.activeUserId, req.params.cardId]); 
                 } else res.json(MESSAGES("invalidNoteDeff"));
                 res.json(MESSAGES("noteForCardAdd"));
-            } else { res.json(MESSAGES("noteDeletePrivileges")); }
+            } else { res.status(403); res.json(MESSAGES("noteDeletePrivileges")); }
         } catch (err) { throw err }; 
     },
 

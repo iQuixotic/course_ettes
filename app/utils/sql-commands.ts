@@ -108,6 +108,16 @@ export default {
         `)
     },
 
+    getDeckEditRights: () => {
+        return (`
+            SELECT decks._id, users._id
+            FROM users
+            INNER JOIN decks_to_users_ref ON users._id = decks_to_users_ref.creator_id
+            INNER JOIN decks ON decks_to_users_ref.deck_id = decks._id
+            WHERE users._id = $1 and decks._id = $2;
+        `);
+    },
+
     // -- 13. delete a card from a OWNED and MANAGED deck
     deleteOwnedCard: () => {
         return `DELETE FROM cards_info WHERE _id = $1`
@@ -147,9 +157,9 @@ export default {
     },
 
     // --19. get the rights for editing/deleting a deck based on who the user is
-    getDeckEditRights: () => {
-        return `SELECT * FROM decks WHERE _id = $1;`;
-    },
+    // getDeckEditRights: () => {
+    //     return `SELECT * FROM decks WHERE _id = $1;`;
+    // },
 
     // -- 20. delete a deck that that is managed by a particular user
     deleteUserDeck: () => {

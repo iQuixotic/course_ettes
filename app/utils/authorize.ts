@@ -12,6 +12,10 @@ export default {
         next();
     },
 
+    checkActiveUserId: () => {
+
+    },
+
     // check for edit rights before continuing
     hasCardPrivileges: (req, res, next) => {
 
