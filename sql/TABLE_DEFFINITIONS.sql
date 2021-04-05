@@ -19,6 +19,7 @@ CREATE TABLE users (
 -- for creating the cards_info table (3)
 CREATE TABLE cards_info (
   _id SERIAL PRIMARY KEY,
+  created_date DATE,
   front_content VARCHAR(255),
   back_content VARCHAR(255)
 );
@@ -40,23 +41,63 @@ CREATE TABLE colors_ref (
 );
 
 ---------------------------------------------------------------------------
--- for creating the decks_ref table (6)
-CREATE TABLE decks (
+-- for creating the visibility table (6)
+CREATE TABLE visibility (
   _id SERIAL PRIMARY KEY,
-  name VARCHAR(255)
+  type VARCHAR(10)
 );
 
 ---------------------------------------------------------------------------
--- for creating the notes table (7)
-CREATE TABLE user_notes (
+-- for creating the decks_ref table (7)
+CREATE TABLE decks (
   _id SERIAL PRIMARY KEY,
-  tier VARCHAR(70),
-  content VARCHAR(255)
+  name VARCHAR(255),
+  visibility_id int references visibility(_id)
 );
-
 
 ---------------------------------------------------------------------------
 -- for creating the decks_ref table (8)
+CREATE TABLE likes (
+  _id SERIAL PRIMARY KEY,
+  user_id REFERENCES users(_id),
+  deck_id REFERENCES decks(_id)
+);
+
+---------------------------------------------------------------------------
+-- for creating the visibility table (9)
+CREATE TABLE shared_statuses (
+  _id SERIAL PRIMARY KEY,
+  status VARCHAR(15)
+);
+
+---------------------------------------------------------------------------
+-- for creating the visibility table (10)
+CREATE TABLE share_with (
+  _id SERIAL PRIMARY KEY,
+  deck_id REFERENCES deck(_id),
+  sharer_id references users(_id),
+  share_with_id references users(_id),
+  status REFERENCES shared_statuses(_id)
+);
+
+---------------------------------------------------------------------------
+-- for creating the notes table (11)
+CREATE TABLE user_notes (
+  _id SERIAL PRIMARY KEY,
+  user_id references users(_id),
+  deck_id references deck(_id),
+  -- tier_id VARCHAR(70) references tiers(_id),
+  content VARCHAR(255)
+);
+
+---------------------------------------------------------------------------
+-- for creating the tiers table (12)
+-- CREATE TABLE tiers (
+--   _id SERIAL PRIMARY KEY,
+--   tier VARCHAR(20),
+-- );
+---------------------------------------------------------------------------
+-- for creating the decks_ref table (13)
 CREATE TABLE card_to_decks_ref (
   card_id int references cards_info ON DELETE CASCADE,
     FOREIGN KEY(card_id) REFERENCES cards_info(_id),
@@ -65,15 +106,15 @@ CREATE TABLE card_to_decks_ref (
 );
 
 ---------------------------------------------------------------------------
--- keeping track of who made the origional deck (and cards) (9)
-CREATE TABLE decks_to_users_ref (
+-- keeping track of who made the origional deck (and cards) (14)
+CREATE TABLE decks_to_owners_ref (
   creator_id int references users(_id),
   deck_id int references decks(_id) ON DELETE CASCADE,
    FOREIGN KEY(deck_id) REFERENCES decks(_id)
 );
 
 ---------------------------------------------------------------------------
--- keeping track of who has a deck in their inventory (10)
+-- keeping track of who has a deck in their inventory (15)
 CREATE TABLE user_deck_library_ref (
   user_id int references users(_id),
   deck_id int references decks(_id) ON DELETE CASCADE,
@@ -81,7 +122,7 @@ CREATE TABLE user_deck_library_ref (
 );
 
 ---------------------------------------------------------------------------
--- for creating the decks_ref table (11)
+-- for creating the decks_ref table (16)
 CREATE TABLE card_notes_ref (
   user_id int references users(_id),
   note_id int references user_notes(_id) ON DELETE CASCADE,
