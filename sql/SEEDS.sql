@@ -32,8 +32,6 @@ INSERT INTO cards_info (front_content,back_content) VALUES('Java', 'A compiled l
 INSERT INTO cards_info (front_content,back_content) VALUES('Linux', 'An operating System that is built on the Linux Kernal. Is open Source.');
 INSERT INTO cards_info (front_content,back_content) VALUES('Windows', 'An operating system that revolutionized lots of ish. Built by Bill Gates.');
 
-
-
 INSERT INTO colors (color) VALUES('green');
 INSERT INTO colors (color) VALUES('blue');
 INSERT INTO colors (color) VALUES('pink');
@@ -85,10 +83,31 @@ INSERT INTO colors_ref (user_id, card_id, color_id) VALUES(3, 14, 4);
 INSERT INTO colors_ref (user_id, card_id, color_id) VALUES(3, 15, 3);
 INSERT INTO colors_ref (user_id, card_id, color_id) VALUES(3, 16, 5);
 
-INSERT INTO decks (name) VALUES('Math');
-INSERT INTO decks (name) VALUES('Animals');
-INSERT INTO decks (name) VALUES('Computers');
+INSERT INTO visibility (type) VALUES('public');
+INSERT INTO visibility (type) VALUES('protected');
+INSERT INTO visibility (type) VALUES('private');
+
+INSERT INTO decks (name, visibility_id) VALUES('Math', 1);
+INSERT INTO decks (name, visibility_id) VALUES('Animals', 2);
+INSERT INTO decks (name, visibility_id) VALUES('Computers',1);
 -- INSERT INTO decks (name) VALUES('Stocks');
+
+INSERT INTO likes (user_id, deck_id, isGood) VALUES(1, 1, 0);
+INSERT INTO likes (user_id, deck_id, isGood) VALUES(1, 2, 1);
+INSERT INTO likes (user_id, deck_id, isGood) VALUES(1, 3, 1);
+INSERT INTO likes (user_id, deck_id, isGood) VALUES(2, 1, 0);
+INSERT INTO likes (user_id, deck_id, isGood) VALUES(2, 2, 1);
+INSERT INTO likes (user_id, deck_id, isGood) VALUES(2, 3, 0);
+INSERT INTO likes (user_id, deck_id, isGood) VALUES(3, 2, 1);
+INSERT INTO likes (user_id, deck_id, isGood) VALUES(3, 3, 1);
+
+--
+-- INSERT INTO shared_statuses (status) VALUES('read');
+-- INSERT INTO shared_statuses (status) VALUES('edit');
+--
+
+
+INSERT INTO share_with (deck_id, share_with_id) VALUES(2, 2)
 
 INSERT INTO decks_to_owners_ref (creator_id, deck_id) VALUES(3, 1);
 INSERT INTO decks_to_owners_ref (creator_id, deck_id) VALUES(1, 2);
