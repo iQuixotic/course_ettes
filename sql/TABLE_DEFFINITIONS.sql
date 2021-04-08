@@ -82,7 +82,7 @@ CREATE TABLE share_with (
 
 ---------------------------------------------------------------------------
 -- for creating the notes table (11)
-CREATE TABLE user_notes (
+CREATE TABLE user_deck_notes (
   _id SERIAL PRIMARY KEY,
   user_id references users(_id),
   deck_id references deck(_id),
@@ -123,10 +123,10 @@ CREATE TABLE user_deck_library_ref (
 
 ---------------------------------------------------------------------------
 -- for creating the decks_ref table (16)
-CREATE TABLE card_notes_ref (
-  user_id int references users(_id),
-  note_id int references user_notes(_id) ON DELETE CASCADE,
-    FOREIGN KEY(note_id) REFERENCES user_notes(_id),
-  card_id int references cards_info(_id) ON DELETE CASCADE,
-    FOREIGN KEY(card_id) REFERENCES cards_info(_id)
-);
+-- CREATE TABLE deck_notes_ref (
+--   user_id int references users(_id),
+--   note_id int references user_deck_notes(_id) ON DELETE CASCADE,
+--     FOREIGN KEY(note_id) REFERENCES user_deck_notes(_id),
+--   deck_id int references decks(_id) ON DELETE CASCADE,
+--     FOREIGN KEY(deck_id) REFERENCES decks(_id)
+-- );
