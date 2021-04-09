@@ -58,8 +58,8 @@ CREATE TABLE decks (
 ---------------------------------------------------------------------------
 -- for creating the decks_ref table (8)
 CREATE TABLE likes (
-  user_id REFERENCES users(_id),
-  deck_id REFERENCES decks(_id),
+  user_id int REFERENCES users(_id),
+  deck_id int REFERENCES decks(_id),
   isGood bit
 );
 
@@ -74,9 +74,9 @@ CREATE TABLE likes (
 -- for creating the visibility table (10)
 CREATE TABLE share_with (
   -- _id SERIAL PRIMARY KEY,
-  deck_id REFERENCES deck(_id),
+  deck_id int REFERENCES decks(_id),
   -- sharer_id references users(_id),
-  share_with_id references users(_id),
+  share_with_id int  references users(_id)
   -- status REFERENCES shared_statuses(_id)
 );
 
@@ -84,8 +84,8 @@ CREATE TABLE share_with (
 -- for creating the notes table (11)
 CREATE TABLE user_deck_notes (
   _id SERIAL PRIMARY KEY,
-  user_id references users(_id),
-  deck_id references deck(_id),
+  user_id  int references users(_id),
+  deck_id  int references decks(_id),
   -- tier_id VARCHAR(70) references tiers(_id),
   content VARCHAR(255)
 );
