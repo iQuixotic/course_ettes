@@ -113,14 +113,14 @@ INSERT INTO likes (user_id, deck_id, isGood) VALUES(3, 3, 1);
 
 INSERT INTO share_with (deck_id, share_with_id) VALUES(2, 2);
 
-INSERT INTO user_deck_notes (user_id, deck_id, content) VALUES (1, 3, "JQuery seems super hard...");
-INSERT INTO user_deck_notes (user_id, deck_id, content) VALUES (1, 3, "JQuery still makes javascript easier once you get the hang of it");
-INSERT INTO user_deck_notes (user_id, deck_id, content) VALUES (1, 3, "I think that nvidia is using ASCII");
-INSERT INTO user_deck_notes (user_id, deck_id, content) VALUES (1, 1, "The fundamental therum of calculous is 7b + 4a = x");
-INSERT INTO user_deck_notes (user_id, deck_id, content) VALUES (1, 1, "Pathagerian Therum: a2 + b2 = c2");
-INSERT INTO user_deck_notes (user_id, deck_id, content) VALUES (2, 1, "math x 2 = math2");
-INSERT INTO user_deck_notes (user_id, deck_id, content) VALUES (2, 1, "Area for a circle: a = 2pir");
-INSERT INTO user_deck_notes (user_id, deck_id, content) VALUES (2, 1, "3+7=10 - Don't FORGET!!!");
+INSERT INTO user_deck_notes (user_id, deck_id, content) VALUES (1, 3, 'JQuery seems super hard...');
+INSERT INTO user_deck_notes (user_id, deck_id, content) VALUES (1, 3, 'JQuery still makes javascript easier once you get the hang of it');
+INSERT INTO user_deck_notes (user_id, deck_id, content) VALUES (1, 3, 'I think that nvidia is using ASCII');
+INSERT INTO user_deck_notes (user_id, deck_id, content) VALUES (1, 1, 'The fundamental therum of calculous is 7b + 4a = x');
+INSERT INTO user_deck_notes (user_id, deck_id, content) VALUES (1, 1, 'Pathagerian Therum: a2 + b2 = c2');
+INSERT INTO user_deck_notes (user_id, deck_id, content) VALUES (2, 1, 'math x 2 = math2');
+INSERT INTO user_deck_notes (user_id, deck_id, content) VALUES (2, 1, 'Area for a circle: a = 2pir');
+INSERT INTO user_deck_notes (user_id, deck_id, content) VALUES (2, 1, '3+7=10 - Dont FORGET!!!');
 
 -- INSERT INTO deck_notes_ref (user_id, deck_id, note_id) VALUES ();
 
