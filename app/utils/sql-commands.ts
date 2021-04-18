@@ -30,7 +30,7 @@ export default {
 
     createNewDeckAssoc: () => {
         return (`
-            WITH i AS (INSERT INTO decks_to_users_ref (creator_id, deck_id) VALUES($1, (SELECT currval(pg_get_serial_sequence('decks','_id')))))
+            WITH i AS (INSERT INTO decks_to_owners_ref (creator_id, deck_id) VALUES($1, (SELECT currval(pg_get_serial_sequence('decks','_id')))))
             INSERT INTO user_deck_library_ref (user_id, deck_id) VALUES($1, (SELECT currval(pg_get_serial_sequence('decks','_id'))));
         `);
     },
@@ -75,8 +75,8 @@ export default {
         return (`
             SELECT decks.name
             FROM users
-            INNER JOIN decks_to_users_ref ON users._id = decks_to_users_ref.creator_id
-            INNER JOIN decks ON decks_to_users_ref.deck_id = decks._id
+            INNER JOIN decks_to_owners_ref ON users._id = decks_to_owners_ref.creator_id
+            INNER JOIN decks ON decks_to_owners_ref.deck_id = decks._id
             WHERE users._id = $1;
         `)
     },
@@ -102,8 +102,8 @@ export default {
                     SELECT card_id FROM card_to_decks_ref WHERE deck_id IN (
                         SELECT decks._id
                         FROM users
-                        INNER JOIN decks_to_users_ref ON users._id = decks_to_users_ref.creator_id
-                        INNER JOIN decks ON decks_to_users_ref.deck_id = decks._id
+                        INNER JOIN decks_to_owners_ref ON users._id = decks_to_owners_ref.creator_id
+                        INNER JOIN decks ON decks_to_owners_ref.deck_id = decks._id
                         WHERE users._id = $1)) and _id = $2;
         `)
     },
@@ -112,8 +112,8 @@ export default {
         return (`
             SELECT decks._id, users._id
             FROM users
-            INNER JOIN decks_to_users_ref ON users._id = decks_to_users_ref.creator_id
-            INNER JOIN decks ON decks_to_users_ref.deck_id = decks._id
+            INNER JOIN decks_to_owners_ref ON users._id = decks_to_owners_ref.creator_id
+            INNER JOIN decks ON decks_to_owners_ref.deck_id = decks._id
             WHERE users._id = $1 and decks._id = $2;
         `);
     },

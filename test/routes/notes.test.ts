@@ -68,7 +68,7 @@ describe('POST /notes/:cardId', () => {
             content: 'It\'s just an old clunker'
         }
         chai.request(app)
-            .post('/notes/15')
+            .post('/notes/1')
             .send(note)
             .set({'Authorization':  `Bearer ${TOKEN}`}) 
             .end((err, res) => {

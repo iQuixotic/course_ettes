@@ -25,6 +25,7 @@ describe('GET /card-info/:deckId', () => {
             .get(`/card-info/${deckId}`)
             .set({'Authorization':  `Bearer ${TOKEN}`}) 
             .end((err, res) => {
+                console.log(res.body)
                 res.should.have.status(403);
                 // res.body.should.be.a('array');
             done();
@@ -33,12 +34,13 @@ describe('GET /card-info/:deckId', () => {
 
 
     it('should get all of the cards of a particular deck', (done) => {
-        deckId = 14; 
+        deckId = 2; 
         chai.request(app)
             .get(`/card-info/${deckId}`)
             .set({'Authorization':  `Bearer ${TOKEN}`}) 
             .end((err, res) => {
                 deckBody = res.body;
+                console.log(res.body)
                 res.should.have.status(200);
                 res.body.should.be.a('array');
             done();
@@ -72,7 +74,7 @@ describe('PATCH /card-info/:cardId', () => {
             back_content: 'Is to put GOATS on the other side of the card...'
         }
         chai.request(app)
-            .patch('/card-info/15')
+            .patch('/card-info/7')
             .set({'Authorization':  `Bearer ${TOKEN}`}) 
             .send(data)
             .end((err, res) => {
