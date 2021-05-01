@@ -134,26 +134,26 @@ export default {
 
     // -- 15. add a note to a card that belongs to a single user's card library
     addUserNote: () => {
-        return `INSERT INTO user_notes (tier, content) VALUES($1, $2);`;
+        return `INSERT INTO user_deck_notes (user_id, deck_id, content) VALUES($1, $2, $3);`;
     },
 
-    addNoteToCardAssoc: () => {
-        return `INSERT INTO card_notes_ref (user_id, note_id, card_id) VALUES($1, (SELECT currval(pg_get_serial_sequence('user_notes','_id'))), $2);`
-    },
+    // addNoteToCardAssoc: () => {
+    //     return `INSERT INTO card_notes_ref (user_id, note_id, card_id) VALUES($1, (SELECT currval(pg_get_serial_sequence('user_deck_notes','_id'))), $2);`
+    // },
 
     // -- 16. edit an existing note 
     editUserNote: () => {
-        return ` UPDATE user_notes SET content = $1 WHERE _id = $2;`;
+        return ` UPDATE user_deck_notes SET content = $1 WHERE _id = $2;`;
     },
 
     // -- 17. get card by id
     getNoteById: () => {
-        return `SELECT * FROM user_notes WHERE _id = $1;`;
+        return `SELECT * FROM user_deck_notes WHERE _id = $1;`;
     },
 
     // -- 18. delete a user's note
     deleteUserNote: () => {
-        return `DELETE FROM user_notes WHERE _id = $1;`;
+        return `DELETE FROM user_deck_notes WHERE _id = $1;`;
     },
 
     // --19. get the rights for editing/deleting a deck based on who the user is

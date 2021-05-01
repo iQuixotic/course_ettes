@@ -23,7 +23,7 @@ let deckId;
 //         deckId = 1; // should fail
 //         chai.request(app)
 //             .get(`/card-info/${deckId}`)
-//             .set({'Authorization':  `Bearer ${TOKEN}`}) 
+//             .set({'Authorization':  `Bearer ${TOKEN.PAID_USER}`}) 
 //             .end((err, res) => {
 //                 res.should.have.status(403);
 //                 // res.body.should.be.a('array');
@@ -36,7 +36,7 @@ let deckId;
 //         deckId = 14; 
 //         chai.request(app)
 //             .get(`/card-info/${deckId}`)
-//             .set({'Authorization':  `Bearer ${TOKEN}`}) 
+//             .set({'Authorization':  `Bearer ${TOKEN.PAID_USER}`}) 
 //             .end((err, res) => {
 //                 deckBody = res.body;
 //                 res.should.have.status(200);
@@ -55,7 +55,7 @@ describe('POST /notes/:cardId', () => {
         chai.request(app)
             .post('/notes/14')
             .send(note)
-            .set({'Authorization':  `Bearer ${TOKEN}`}) 
+            .set({'Authorization':  `Bearer ${TOKEN.PAID_USER}`}) 
             .end((err, res) => {
                 res.should.have.status(403);
             done();
@@ -68,9 +68,9 @@ describe('POST /notes/:cardId', () => {
             content: 'It\'s just an old clunker'
         }
         chai.request(app)
-            .post('/notes/1')
+            .post('/notes/2')
             .send(note)
-            .set({'Authorization':  `Bearer ${TOKEN}`}) 
+            .set({'Authorization':  `Bearer ${TOKEN.ADMIN_USER}`}) 
             .end((err, res) => {
                 res.should.have.status(200);
             done();
@@ -88,7 +88,7 @@ describe('POST /notes/:cardId', () => {
 //         }
 //         chai.request(app)
 //             .patch('/card-info/15')
-//             .set({'Authorization':  `Bearer ${TOKEN}`}) 
+//             .set({'Authorization':  `Bearer ${TOKEN.PAID_USER}`}) 
 //             .send(data)
 //             .end((err, res) => {
 //                 res.should.have.status(200);
@@ -103,7 +103,7 @@ describe('POST /notes/:cardId', () => {
 //         }
 //         chai.request(app)
 //             .patch('/card-info/6')
-//             .set({'Authorization':  `Bearer ${TOKEN}`}) 
+//             .set({'Authorization':  `Bearer ${TOKEN.PAID_USER}`}) 
 //             .send(data)
 //             .end((err, res) => {
 //                 res.should.have.status(401);
@@ -117,7 +117,7 @@ describe('POST /notes/:cardId', () => {
 //         const _id = `${deckBody[deckBody.length-2]._id}`;
 //         chai.request(app)
 //             .delete(`/card-info/${_id}`)
-//             .set({'Authorization':  `Bearer ${TOKEN}`}) 
+//             .set({'Authorization':  `Bearer ${TOKEN.PAID_USER}`}) 
 //             .end((err, res) => {
 //                 res.should.have.status(200);
 //             done();

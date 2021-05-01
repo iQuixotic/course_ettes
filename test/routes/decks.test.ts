@@ -17,7 +17,7 @@ describe('GET /decks', () => {
     it('should get all of the decks in the db', (done) => {
         chai.request(app)
             .get('/decks')
-            .set({'Authorization':  `Bearer ${TOKEN}`}) 
+            .set({'Authorization':  `Bearer ${TOKEN.PAID_USER}`}) 
             .end((err, res) => {
                 res.should.have.status(200);
                 res.body.should.be.a('array');
@@ -28,7 +28,7 @@ describe('GET /decks', () => {
     it('should get all of the subscribed decks in the db', (done) => {
         chai.request(app)
             .get('/decks/subscribed')
-            .set({'Authorization':  `Bearer ${TOKEN}`})
+            .set({'Authorization':  `Bearer ${TOKEN.PAID_USER}`})
             .end((err, res) => {
                 res.should.have.status(200);
                 res.body.should.be.a('array');
@@ -39,7 +39,7 @@ describe('GET /decks', () => {
     it('should get all of the owned decks in the db', (done) => {
         chai.request(app)
             .get('/decks/owned')
-            .set({'Authorization':  `Bearer ${TOKEN}`}) 
+            .set({'Authorization':  `Bearer ${TOKEN.PAID_USER}`}) 
             .end((err, res) => {
                 res.should.have.status(200);
                 res.body.should.be.a('array');
@@ -59,7 +59,7 @@ describe('POST /decks', () => {
         chai.request(app)
             .post('/decks')
             .send(deck)
-            .set({'Authorization':  `Bearer ${TOKEN}`}) 
+            .set({'Authorization':  `Bearer ${TOKEN.PAID_USER}`}) 
             .end((err, res) => {
                 res.should.have.status(200);
             done();
@@ -72,7 +72,7 @@ describe('POST /decks', () => {
 //         const deckId = 
 //         chai.request(app)
 //             .post(`/decks/owned/${deckId}`)
-//             .set({'Authorization':  `Bearer ${TOKEN}`}) 
+//             .set({'Authorization':  `Bearer ${TOKEN.PAID_USER}`}) 
 //             .end((err, res) => {
 //                 res.should.have.status(200);
 //             done();

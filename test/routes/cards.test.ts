@@ -23,9 +23,8 @@ describe('GET /card-info/:deckId', () => {
         deckId = 1; // should fail
         chai.request(app)
             .get(`/card-info/${deckId}`)
-            .set({'Authorization':  `Bearer ${TOKEN}`}) 
+            .set({'Authorization':  `Bearer ${TOKEN.PAID_USER}`}) 
             .end((err, res) => {
-                console.log(res.body)
                 res.should.have.status(403);
                 // res.body.should.be.a('array');
             done();
@@ -37,10 +36,9 @@ describe('GET /card-info/:deckId', () => {
         deckId = 2; 
         chai.request(app)
             .get(`/card-info/${deckId}`)
-            .set({'Authorization':  `Bearer ${TOKEN}`}) 
+            .set({'Authorization':  `Bearer ${TOKEN.ADMIN_USER}`}) 
             .end((err, res) => {
                 deckBody = res.body;
-                console.log(res.body)
                 res.should.have.status(200);
                 res.body.should.be.a('array');
             done();
@@ -57,7 +55,7 @@ describe('POST /card-info/:deckId', () => {
         chai.request(app)
             .post('/card-info/14')
             .send(card)
-            .set({'Authorization':  `Bearer ${TOKEN}`}) 
+            .set({'Authorization':  `Bearer ${TOKEN.PAID_USER}`}) 
             .end((err, res) => {
                 res.should.have.status(200);
             done();
@@ -75,9 +73,11 @@ describe('PATCH /card-info/:cardId', () => {
         }
         chai.request(app)
             .patch('/card-info/7')
-            .set({'Authorization':  `Bearer ${TOKEN}`}) 
+            .set({'Authorization':  `Bearer ${TOKEN.ADMIN_USER}`}) 
             .send(data)
             .end((err, res) => {
+                res.body.should.be.a('object')
+                res.body.message.should.equal('Card successfully updated.')
                 res.should.have.status(200);
             done();
             })
@@ -90,7 +90,7 @@ describe('PATCH /card-info/:cardId', () => {
         }
         chai.request(app)
             .patch('/card-info/6')
-            .set({'Authorization':  `Bearer ${TOKEN}`}) 
+            .set({'Authorization':  `Bearer ${TOKEN.PAID_USER}`}) 
             .send(data)
             .end((err, res) => {
                 res.should.have.status(401);
@@ -104,7 +104,7 @@ describe('DELETE /card-info/:cardId', () => {
         const _id = `${deckBody[deckBody.length-2]._id}`;
         chai.request(app)
             .delete(`/card-info/${_id}`)
-            .set({'Authorization':  `Bearer ${TOKEN}`}) 
+            .set({'Authorization':  `Bearer ${TOKEN.PAID_USER}`}) 
             .end((err, res) => {
                 res.should.have.status(200);
             done();

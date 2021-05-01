@@ -11,14 +11,14 @@ export default {
     addOne: async (req: any, res: Response) => {
         try {       
             const note = new Note(req.body);
-            const l = await db.query(X.getCardEditRights(), [req.activeUserId, req.params.cardId])
-
+            const l = await db.query(X.getDeckEditRights(), [req.activeUserId, req.params.deckId])
+            
             // if this is a card that is managed by the user
             if(l.rows.length) {
                 // if good data create note with association, else handle error
-                if(note.tier != undefined && note.content != undefined) {
-                    await db.query(X.addUserNote(), [note.tier, note.content]); 
-                    await db.query(X.addNoteToCardAssoc(), [req.activeUserId, req.params.cardId]); 
+                if(note.content != undefined) {
+                    await db.query(X.addUserNote(), [req.activeUserId, req.params.deckId, note.content]); 
+                    // await db.query(X.addNoteToCardAssoc(), [req.activeUserId, req.params.cardId]); 
                 } else res.json(MESSAGES("invalidNoteDeff"));
                 res.json(MESSAGES("noteForCardAdd"));
             } else { res.status(403); res.json(MESSAGES("noteDeletePrivileges")); }

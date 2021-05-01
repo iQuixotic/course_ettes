@@ -16,7 +16,7 @@ describe('GET /colors', () => {
     it('should get all of the colors in the db', (done) => {
         chai.request(app)
             .get('/colors')
-            .set({'Authorization':  `Bearer ${TOKEN}`}) 
+            .set({'Authorization':  `Bearer ${TOKEN.PAID_USER}`}) 
             .end((err, res) => {
                 res.should.have.status(200);
                 res.body.should.be.a('array');

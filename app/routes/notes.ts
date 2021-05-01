@@ -3,7 +3,7 @@ import notesController from '../controllers/notes-controller';
 import { Router } from 'express';
 const router = Router();
 
-router.route('/:cardId')
+router.route('/:deckId')
     // .get(notesController.getAll)
     .post(notesController.addOne)
 

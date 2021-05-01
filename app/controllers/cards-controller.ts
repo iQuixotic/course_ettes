@@ -16,7 +16,6 @@ export default {
             // const login_id = await x.rows[0]._id;
             // const y = await db.query(X.getOwnedDeck(), [login_id]);
             // const cards = y.rows
-            // console.log(cards)
             
             //             if good data create deck, else handle error
             //             if(deck.name != undefined) {
@@ -35,9 +34,8 @@ export default {
                 const cards = y.rows
 
                 // if good data get deck, else handle error
-                if(cards.length > 0) {
-                res.json( cards )
-                }  else { res.status(500); res.json(MESSAGES("generalCardError")) };
+                if(cards.length > 0) res.json( cards )
+                else res.status(500); res.json(MESSAGES("generalCardError"));
             } else { res.status(403); res.json({code: res.status, message: MESSAGES("cardUpdatePrivileges")}); }
         } catch (err) { throw err; }
     },
