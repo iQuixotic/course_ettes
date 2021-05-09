@@ -2,8 +2,8 @@ import React, { Component } from 'react'
 import './pages.sass';
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import { getColors } from '../redux/actions/colorActions'
-import { getCourseCards } from '../redux/actions/cardsActions'
+import { getColors } from '../../redux/actions/colorActions'
+import { getCourseCards } from '../../redux/actions/cardsActions'
 
 class Test extends Component {
 

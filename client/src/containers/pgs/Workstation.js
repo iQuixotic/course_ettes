@@ -1,11 +1,11 @@
 import React, { Component } from 'react'
-import { Workspace } from '../components';
+import { Workspace } from '../../components';
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 // import { cardState } from '../redux/actions/' 
-import { getColors } from '../redux/actions/colorActions'
-import { getCourseCards } from '../redux/actions/cardsActions'
-import { cardFlip } from '../redux/actions/cardStateActions'
+import { getColors } from '../../redux/actions/colorActions'
+import { getCourseCards } from '../../redux/actions/cardsActions'
+import { cardFlip } from '../../redux/actions/cardStateActions'
 
 class Workstation extends Component {
     state = {

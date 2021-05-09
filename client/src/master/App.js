@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
-import {BrowserRouter as Router, Route} from 'react-router-dom';
+import {BrowserRouter as Router, Redirect, Route} from 'react-router-dom';
 import { Provider } from 'react-redux';
 
 import store from '../redux/store';
 
-import { Home, Test } from '../pgs';
-import Workstation from '../pgs/Workstation';
+import { Home, Test, LoginPg, Workstation } from '../containers';
+// import Workstation from '../pgs/Workstation';
 // import { LifeCycle } from '../components';  
 
 class App extends Component {
@@ -13,13 +13,23 @@ class App extends Component {
     return (
       <Provider store={store}>
           <Router>
-              <Route exact={true} path="/" component={Home} />
-              <Route exact={true} path="/workstation" component={Workstation} />
+            <Route exact={true} path="/login" component={LoginPg} />
+              <Route exact path="/">
+                {loggedIn() ? <Redirect to="/login" /> : <Home />} 
+              </Route>
+              <Route exact path="/workstation">{loggedIn() ? <Redirect to="/t" /> : <Workstation/>}
+              </Route>
               <Route exact={true} path="/test" component={Test} />
           </Router>
       </Provider>
     );
   }
+}
+
+
+const loggedIn = () => {
+  if(true) return true;
+  else return false;
 }
 
 export default App;
