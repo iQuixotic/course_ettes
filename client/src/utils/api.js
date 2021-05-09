@@ -1,19 +1,33 @@
-import axios from 'axios';
-
 export default {
 
-    /* should return deck id here */
-    createEmptyDeck: () => {
-        axios.post('/decks')
-        .then((res) => console.log(res)) // should do this part of call on front? call setState here?
+    addNewUser: (data) =>  { 
+        let obj = {
+            username: data.username,
+            password: data.password,
+            first_name: data.firstName,
+            last_name: data.lastName,
+            email: data.email, 
+            role_id: data.roleId
+        }
+        return fetch('/register', {
+            method: 'POST',
+            headers: {
+            'Content-Type':'application/json'             
+        },
+            body: JSON.stringify(obj)
+        })
     },
 
-    /* 
-    To do this, will need to get the id from the previously creted empty deck first
-    */
-    addCardToDeck: (id) => {
-        return axios.post('/decks' + id);
-    },
+    login: (data) => {
+        let obj = {
+            username: data.username, // should be from authdata login
+            password: data.password
+        }    
+        return fetch('/login', {
+            method: 'POST',
+            headers: { 'Content-Type':'application/json' },
+            body: JSON.stringify(obj)
+        })
+    }
 
-
-};
+}

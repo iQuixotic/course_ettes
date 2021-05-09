@@ -1,5 +1,5 @@
 import * as React from "react";
-// import { apiPOST } from "api";
+import { API } from "../../utils";
 
 
 class LoginPg extends React.Component{
@@ -17,10 +17,10 @@ class LoginPg extends React.Component{
     }
 
     loginSubmitHandler = () => {
-        // apiPOST.login(this.state)
-        //     .then(res => res.json())
-        //     .then(res => window.localStorage.setItem("token", res.token))
-        //     .catch(err => { throw err })
+        API.login(this.state)
+            .then(res => res.json())
+            .then(res => window.localStorage.setItem("token", res.token))
+            .catch(err => { throw err })
     }
 
    
