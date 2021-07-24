@@ -3,40 +3,40 @@ INSERT INTO roles (_id, role) VALUES(1, 'admin');
 INSERT INTO roles (_id, role) VALUES(2, 'paid tier');
 INSERT INTO roles (_id, role) VALUES(3, 'default tier');
 
-INSERT INTO users (email, password, first_name, last_name, role_id)
-    VALUES ('adminUser@yahoo.com', '$2b$10$T.uUR3zsDShmX4zXwidr8.aiVdEEzDRJXW.BbHjbf4g1Rw/TwsTSy', 'Admin', 'Trey', 1);
-INSERT INTO users (email, password, first_name, last_name, role_id)
-    VALUES ('paidUser@yahoo.com', '$2b$10$e4XFVJZsjJWIXheBKWXq4uCiPDnDhix9o7XXg3e7WifSiBx8Ik/uK', 'Paid', 'User', 2);
-INSERT INTO users (email, password, first_name, last_name, role_id)
-    VALUES ('defaultUser@yahoo.com', '$2b$10$X98qfJOXw0Tma2R9EX4BI.rHZt.ASTTqR0/D4UGpaN08CXcwdc/BO', 'Default', 'User', 3);
+INSERT INTO users (_id, email, password, first_name, last_name, role_id)
+    VALUES (1, 'adminUser@yahoo.com', '$2b$10$T.uUR3zsDShmX4zXwidr8.aiVdEEzDRJXW.BbHjbf4g1Rw/TwsTSy', 'Admin', 'Trey', 1);
+INSERT INTO users (_id, email, password, first_name, last_name, role_id)
+    VALUES (2, 'paidUser@yahoo.com', '$2b$10$e4XFVJZsjJWIXheBKWXq4uCiPDnDhix9o7XXg3e7WifSiBx8Ik/uK', 'Paid', 'User', 2);
+INSERT INTO users (_id, email, password, first_name, last_name, role_id)
+    VALUES (3, 'defaultUser@yahoo.com', '$2b$10$X98qfJOXw0Tma2R9EX4BI.rHZt.ASTTqR0/D4UGpaN08CXcwdc/BO', 'Default', 'User', 3);
 
 
-INSERT INTO cards_info (front_content,back_content) VALUES('Minus', 'it looks like the subtract sign');
-INSERT INTO cards_info (front_content,back_content) VALUES('Plus', 'I like to look at it with the +');
-INSERT INTO cards_info (front_content,back_content) VALUES('Times', 'Rabbits multiply');
-INSERT INTO cards_info (front_content,back_content) VALUES('Divide', 'Doughnutses Divide');
-INSERT INTO cards_info (front_content,back_content) VALUES('Word Problem', 'If farmer John had seven apples, how many apples do I have left?');
-INSERT INTO cards_info (front_content,back_content) VALUES('Word Problem #2', 'If I divide 12 donuts into a bakers dozen of people, how many donutses does each person get?');
+INSERT INTO cards_info (_id, front_content,back_content) VALUES(1, 'Minus', 'it looks like the subtract sign');
+INSERT INTO cards_info (_id, front_content,back_content) VALUES(2, 'Plus', 'I like to look at it with the +');
+INSERT INTO cards_info (_id, front_content,back_content) VALUES(3, 'Times', 'Rabbits multiply');
+INSERT INTO cards_info (_id, front_content,back_content) VALUES(4, 'Divide', 'Doughnutses Divide');
+INSERT INTO cards_info (_id, front_content,back_content) VALUES(5, 'Word Problem', 'If farmer John had seven apples, how many apples do I have left?');
+INSERT INTO cards_info (_id, front_content,back_content) VALUES(6, 'Word Problem #2', 'If I divide 12 donuts into a bakers dozen of people, how many donutses does each person get?');
 
-INSERT INTO cards_info (front_content,back_content) VALUES('Snakes', 'slither and make the sssssllss noise');
-INSERT INTO cards_info (front_content,back_content) VALUES('Cows', 'Walk on 4+ hooves and makes the Mooo sound');
-INSERT INTO cards_info (front_content,back_content) VALUES('Doggie', 'Goes Bark Bark and you cant help but to love them the most');
-INSERT INTO cards_info (front_content,back_content) VALUES('Cats', 'Are very mean and they will probably hate you. They go Meow Meow.');
+INSERT INTO cards_info (_id, front_content,back_content) VALUES(7, 'Snakes', 'slither and make the sssssllss noise');
+INSERT INTO cards_info (_id, front_content,back_content) VALUES(8, 'Cows', 'Walk on 4+ hooves and makes the Mooo sound');
+INSERT INTO cards_info (_id, front_content,back_content) VALUES(9, 'Doggie', 'Goes Bark Bark and you cant help but to love them the most');
+INSERT INTO cards_info (_id, front_content,back_content) VALUES(10, 'Cats', 'Are very mean and they will probably hate you. They go Meow Meow.');
 
-INSERT INTO cards_info (front_content,back_content) VALUES('JQuery', 'A javascript library that is popular for easily accessing DOM elements');
-INSERT INTO cards_info (front_content,back_content) VALUES('Python', 'A scripting language often used by white hat hackers/linux developers.');
-INSERT INTO cards_info (front_content,back_content) VALUES('C#', 'A compiled languaged possibly developed and used by Microsoft. Has strict typing and uses the .Net Framework.');
-INSERT INTO cards_info (front_content,back_content) VALUES('Javascript', 'A scripting language with loose typing');
-INSERT INTO cards_info (front_content,back_content) VALUES('Typescript', 'Javascript, but with strict typing');
-INSERT INTO cards_info (front_content,back_content) VALUES('Java', 'A compiled language with strict typing. Must use the JDK to work on Java code.');
-INSERT INTO cards_info (front_content,back_content) VALUES('Linux', 'An operating System that is built on the Linux Kernal. Is open Source.');
-INSERT INTO cards_info (front_content,back_content) VALUES('Windows', 'An operating system that revolutionized lots of ish. Built by Bill Gates.');
+INSERT INTO cards_info (_id, front_content,back_content) VALUES(11, 'JQuery', 'A javascript library that is popular for easily accessing DOM elements');
+INSERT INTO cards_info (_id, front_content,back_content) VALUES(12, 'Python', 'A scripting language often used by white hat hackers/linux developers.');
+INSERT INTO cards_info (_id, front_content,back_content) VALUES(13, 'C#', 'A compiled languaged possibly developed and used by Microsoft. Has strict typing and uses the .Net Framework.');
+INSERT INTO cards_info (_id, front_content,back_content) VALUES(14, 'Javascript', 'A scripting language with loose typing');
+INSERT INTO cards_info (_id, front_content,back_content) VALUES(15, 'Typescript', 'Javascript, but with strict typing');
+INSERT INTO cards_info (_id, front_content,back_content) VALUES(16, 'Java', 'A compiled language with strict typing. Must use the JDK to work on Java code.');
+INSERT INTO cards_info (_id, front_content,back_content) VALUES(17, 'Linux', 'An operating System that is built on the Linux Kernal. Is open Source.');
+INSERT INTO cards_info (_id, front_content,back_content) VALUES(18, 'Windows', 'An operating system that revolutionized lots of ish. Built by Bill Gates.');
 
-INSERT INTO colors (color) VALUES('green');
-INSERT INTO colors (color) VALUES('blue');
-INSERT INTO colors (color) VALUES('pink');
-INSERT INTO colors (color) VALUES('orange');
-INSERT INTO colors (color) VALUES('red');
+INSERT INTO colors (_id, color) VALUES(1, 'green');
+INSERT INTO colors (_id, color) VALUES(2, 'blue');
+INSERT INTO colors (_id, color) VALUES(3, 'pink');
+INSERT INTO colors (_id, color) VALUES(4, 'orange');
+INSERT INTO colors (_id, color) VALUES(5, 'red');
 
 INSERT INTO colors_ref (user_id, card_id, color_id) VALUES(1, 1, 1);
 INSERT INTO colors_ref (user_id, card_id, color_id) VALUES(1, 2, 5);
@@ -87,23 +87,23 @@ INSERT INTO colors_ref (user_id, card_id, color_id) VALUES(3, 16, 5);
 INSERT INTO colors_ref (user_id, card_id, color_id) VALUES(3, 17, 5);
 INSERT INTO colors_ref (user_id, card_id, color_id) VALUES(3, 18, 5);
 
-INSERT INTO visibility (type) VALUES('public');
-INSERT INTO visibility (type) VALUES('protected');
-INSERT INTO visibility (type) VALUES('private');
+INSERT INTO visibility (_id, type) VALUES(1, 'public');
+INSERT INTO visibility (_id, type) VALUES(2, 'protected');
+INSERT INTO visibility (_id, type) VALUES(3, 'private');
 
-INSERT INTO decks (name, visibility_id) VALUES('Math', 1);
-INSERT INTO decks (name, visibility_id) VALUES('Animals', 2);
-INSERT INTO decks (name, visibility_id) VALUES('Computers',1);
+INSERT INTO decks (_id, name, visibility_id) VALUES(1, 'Math', 1);
+INSERT INTO decks (_id, name, visibility_id) VALUES(2, 'Animals', 2);
+INSERT INTO decks (_id, name, visibility_id) VALUES(3, 'Computers',1);
 -- INSERT INTO decks (name) VALUES('Stocks');
 
-INSERT INTO likes (user_id, deck_id, isGood) VALUES(1, 1, 0);
-INSERT INTO likes (user_id, deck_id, isGood) VALUES(1, 2, 1);
-INSERT INTO likes (user_id, deck_id, isGood) VALUES(1, 3, 1);
-INSERT INTO likes (user_id, deck_id, isGood) VALUES(2, 1, 0);
-INSERT INTO likes (user_id, deck_id, isGood) VALUES(2, 2, 1);
-INSERT INTO likes (user_id, deck_id, isGood) VALUES(2, 3, 0);
-INSERT INTO likes (user_id, deck_id, isGood) VALUES(3, 2, 1);
-INSERT INTO likes (user_id, deck_id, isGood) VALUES(3, 3, 1);
+INSERT INTO likes (user_id, deck_id, isGood) VALUES(1, 1, (CAST(0 AS BIT)));
+INSERT INTO likes (user_id, deck_id, isGood) VALUES(1, 2, (CAST(1 AS BIT)));
+INSERT INTO likes (user_id, deck_id, isGood) VALUES(1, 3, (CAST(1 AS BIT)));
+INSERT INTO likes (user_id, deck_id, isGood) VALUES(2, 1, (CAST(0 AS BIT)));
+INSERT INTO likes (user_id, deck_id, isGood) VALUES(2, 2, (CAST(1 AS BIT)));
+INSERT INTO likes (user_id, deck_id, isGood) VALUES(2, 3, (CAST(0 AS BIT)));
+INSERT INTO likes (user_id, deck_id, isGood) VALUES(3, 2, (CAST(1 AS BIT)));
+INSERT INTO likes (user_id, deck_id, isGood) VALUES(3, 3, (CAST(1 AS BIT)));
 
 --
 -- INSERT INTO shared_statuses (status) VALUES('read');
