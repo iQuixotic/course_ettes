@@ -1,18 +1,17 @@
 // imports and variables
-import cardsController from '../controllers/cards-controller';
 import { Router } from 'express';
-const router = Router();
+const routerP = Router();
+import cardsController from '../controllers/cards-controller';
 
-// router.route('/')
-//     .get(cardsController.getAll);
-
+// card info routes
+routerP.route('/')
+    .get(cardsController.getAll);
 // if post is needed later, will need to change both below routes...
-router.route('/:cardId')
+routerP.route('/cards-info/:cardId')
     .patch(cardsController.updateOne)
     .delete(cardsController.deleteOne);
-
-router.route('/:deckId')
+routerP.route('/cards-info/:deckId')
     .post(cardsController.addOne)
     .get(cardsController.getByDeckId);
 
-export default router;
+export default routerP;

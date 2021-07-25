@@ -1,5 +1,12 @@
 let messageText = {
 
+    // register messages
+     missingPass: 'Please enter a valid password',
+     missingFirstName: 'Please enter a valid first name',
+     missingLastName: 'Please enter a valid last name',
+     missingEmail: 'Please enter a valid email',
+     alreadyExists: 'A user with this email already exists',
+
     // deck messages
     deckDeffError: 'The deck is not in the correct format',
     deckAdded: 'New deck successfully added!',
@@ -28,7 +35,7 @@ let messageText = {
 }
 
 let MESSAGES = (arg: string) => {
-    return {message: messageText[arg] }
+    return {[arg]: messageText[arg]}
 }
 
 export default MESSAGES;

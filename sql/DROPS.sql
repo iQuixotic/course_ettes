@@ -1,6 +1,6 @@
-DROP DATABASE IF EXISTS coursettes;
+-- DROP DATABASE IF EXISTS coursettes;
 -- -- --------------------------------------------------------------------------
-CREATE DATABASE coursettes;
+-- CREATE DATABASE coursettes;
 
 -- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
