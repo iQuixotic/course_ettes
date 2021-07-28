@@ -3,6 +3,7 @@ import db from '../config/connection';
 import { Deck, CardInfo } from '../classes';
 import SECRET from '../config/secret';
 import { default as X } from '../utils/sql-commands';
+import { MESSAGE } from '../utils/messages';
 // middlewares
 export default {
     // get and save the acive user id
@@ -16,9 +17,11 @@ export default {
 
     },
 
-    // check for edit rights before continuing
-    hasCardPrivileges: (req, res, next) => {
-
+    checkPrivateCardPrivileges: async (req, res, next) => {
+        const l = await db.query(X.getPersonalCardEditRights(), [req.activeUserId, req.params.cardId])
+        console.log(l.rows)
+        if(l.rows.length > 0) next();
+        else res.json({message: MESSAGE("cardPrivelegeMessage")});
     },
 
     hasNotePrivileges: (req, res, next) => {

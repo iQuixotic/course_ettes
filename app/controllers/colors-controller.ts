@@ -3,7 +3,7 @@ import { Request, Response } from 'express';
 import db from '../config/connection';
 import { QueryMaker, Color } from '../classes';
 import { default as X } from '../utils/sql-commands';
-import MESSAGES  from '../utils/messages';
+import { MESSAGE } from '../utils/messages';
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 export default {
@@ -37,20 +37,16 @@ export default {
 
     // UPDATE a color assigned to a user's card
     updateOne: async (req: any, res: Response) => {
-        try {     
-            const l = await db.query(X.getCardEditRights(), [req.activeUserId, req.params.cardId])
+        try {                
+            const x = await db.query(X.getColorById(), [req.params.colorId]);
+            const colorById = x.rows[0];
+            const color = new Color({color: colorById});
 
-            if(l.rows.length > 0) {
-                const x = await db.query(X.getColorById(), [req.params.colorId]);
-                const colorById = x.rows[0];
-                const color = await new Color({color: colorById});
-
-                // if good data create card and assign deck, else handle error
-                if((typeof(color.color["color"]) === typeof(" "))) {
-                    await db.query(X.changeCardColor(), [req.params.colorId, req.activeUserId, req.params.cardId]); 
-                } else res.json({message: 'There were some issues. Unable to process card edit at this time.'});
-                res.json({message: 'Card updated !!'});
-            } else { res.json({message: 'You do not have the priveleges to edit this card!!'}); }
+            // if good data create card and assign deck, else handle error
+            if((typeof(color.color["color"]) === typeof(" "))) {
+                await db.query(X.changeCardColor(), [req.params.colorId, req.activeUserId, req.params.cardId]); 
+            } else res.json({message: MESSAGE("cardColorEditGenericFail")});
+            res.json({message: MESSAGE("cardUpdateSuccess")});
         } catch (err) { throw err }; 
     },
 

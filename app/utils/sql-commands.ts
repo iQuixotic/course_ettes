@@ -108,6 +108,18 @@ export default {
         `)
     },
 
+    getPersonalCardEditRights: () => {
+        return (`
+        SELECT _id FROM cards_info WHERE _id IN (
+            SELECT card_id FROM card_to_decks_ref WHERE deck_id IN (
+                SELECT user_deck_library_ref.deck_id
+                FROM users
+                INNER JOIN user_deck_library_ref ON users._id = user_deck_library_ref.user_id
+                INNER JOIN decks ON user_deck_library_ref.user_id = decks._id
+                WHERE users._id = $1)) and _id = $2;
+        `);
+    },
+
     getDeckEditRights: () => {
         return (`
             SELECT decks._id, users._id

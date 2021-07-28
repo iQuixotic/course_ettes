@@ -2,7 +2,7 @@
 import bcrypt from 'bcrypt';
 import { Request, Response } from 'express';
 import db from '../config/connection';
-import MESSAGES  from '../utils/messages';
+import { MESSAGE, ERROR } from '../utils/messages';
 import { default as X } from '../utils/sql-commands';
 import { User } from '../classes';
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -35,11 +35,11 @@ export default {
             });
         } catch (err) {
             let errBody = [];
-            if(!req.body.first_name) errBody.push(MESSAGES("missingFirstName"))
-            if(!req.body.password) errBody.push(MESSAGES("missingPass"))
-            if(!req.body.last_name) errBody.push(MESSAGES("missingLastName"))
-            if(!req.body.email) errBody.push(MESSAGES("missingEmail"))
-            if(err.detail.includes("already exists")) errBody.push(MESSAGES("alreadyExists"))
+            if(!req.body.first_name) errBody.push(ERROR("missingFirstName"))
+            if(!req.body.password) errBody.push(ERROR("missingPass"))
+            if(!req.body.last_name) errBody.push(ERROR("missingLastName"))
+            if(!req.body.email) errBody.push(ERROR("missingEmail"))
+            if(err.detail.includes("already exists")) errBody.push(ERROR("alreadyExists"))
 
             errBody = Object.assign({}, ...errBody);
             if(err && errBody) res.status(500).json({errors: errBody});

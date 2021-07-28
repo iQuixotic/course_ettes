@@ -7,7 +7,12 @@ let messageText = {
      missingEmail: 'Please enter a valid email',
      alreadyExists: 'A user with this email already exists',
 
-    // deck messages
+    // color messages
+     cardPrivelegeMessage: 'Either this card does not exists or you do not have the priveleges to edit its color.',
+     cardColorEditGenericFail: 'There were some issues. Unable to process card color edit at this time.',
+     cardUpdateSuccess: 'Card updated successfully !!',
+
+     // deck messages
     deckDeffError: 'The deck is not in the correct format',
     deckAdded: 'New deck successfully added!',
     cannotGetOwnedDecks: 'Cannot get owned decks.',
@@ -34,8 +39,10 @@ let messageText = {
     noteUpdate: 'You have successfully updated User note.'
 }
 
-let MESSAGES = (arg: string) => {
-    return {[arg]: messageText[arg]}
+export const MESSAGE = (arg: string) => {
+    return messageText[arg]
 }
 
-export default MESSAGES;
+export const ERROR = (arg: string) => {
+    return {[arg]: messageText[arg]}
+}

@@ -24,9 +24,7 @@ export default {
 
             // discover privileges
             next();
-        } else {
-            res.sendStatus(403);
-        }
+        } else  res.sendStatus(403);
     },
     
     // check user privileges and check for self reference

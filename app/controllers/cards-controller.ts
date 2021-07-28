@@ -3,7 +3,7 @@ import { Request, Response } from 'express';
 import db from '../config/connection';
 import { CardInfo } from '../classes';
 import { default as X } from '../utils/sql-commands';
-import MESSAGES from '../utils/messages';
+import { MESSAGE } from '../utils/messages';
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 export default {
@@ -35,8 +35,8 @@ export default {
 
                 // if good data get deck, else handle error
                 if(cards.length > 0) res.json( cards )
-                else res.status(500); res.json(MESSAGES("generalCardError"));
-            } else { res.status(403); res.json({code: res.status, message: MESSAGES("cardUpdatePrivileges")}); }
+                else res.status(500); res.json(MESSAGE("generalCardError"));
+            } else { res.status(403); res.json({code: res.status, message: MESSAGE("cardUpdatePrivileges")}); }
         } catch (err) { throw err; }
     },
 
@@ -50,8 +50,8 @@ export default {
                 await db.query(X.insertCardIntoDeck(), [card.front_content, card.back_content]); 
                 await db.query(X.createCardToDeckAssoc(), [req.params.deckId]); 
                 await db.query(X.createColorAssoc(), [req.activeUserId]);
-            } else res.json(MESSAGES("cardAddError"));
-            res.json(MESSAGES("cardAdd"));
+            } else res.json(MESSAGE("cardAddError"));
+            res.json(MESSAGE("cardAdd"));
         } catch (err) { throw err }; 
     },
 
@@ -69,9 +69,9 @@ export default {
                 card.front_content != undefined &&
                 req.params.cardId != undefined) {
                     await db.query(X.editOwnedCard(), [card.front_content, card.back_content, req.params.cardId]); 
-                } else res.json(MESSAGES("cardUpdateError"));
-                res.json(MESSAGES("cardUpdated"));
-            } else { res.status(401); res.json(MESSAGES("cardUpdatePrivileges")); }
+                } else res.json(MESSAGE("cardUpdateError"));
+                res.json(MESSAGE("cardUpdated"));
+            } else { res.status(401); res.json(MESSAGE("cardUpdatePrivileges")); }
         } catch (err) { throw err }; 
     },
 
@@ -85,8 +85,8 @@ export default {
                 // const oldCard = x.rows[0];
                 // const card = await new CardInfo({...oldCard, ...req.body});
                 await db.query(X.deleteOwnedCard(), [req.params.cardId]); 
-                res.json(MESSAGES("cardRemoved"));
-            } else { res.json(MESSAGES("cardRemovedError")); }
+                res.json(MESSAGE("cardRemoved"));
+            } else { res.json(MESSAGE("cardRemovedError")); }
         } catch (err) { throw err }; 
     }
        

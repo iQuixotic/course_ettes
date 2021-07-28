@@ -3,7 +3,7 @@ import { Request, Response } from 'express';
 import db from '../config/connection';
 import { Note } from '../classes';
 import { default as X } from '../utils/sql-commands';
-import MESSAGES  from '../utils/messages';
+import { MESSAGE } from '../utils/messages';
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 export default {
@@ -19,9 +19,9 @@ export default {
                 if(note.content != undefined) {
                     await db.query(X.addUserNote(), [req.activeUserId, req.params.deckId, note.content]); 
                     // await db.query(X.addNoteToCardAssoc(), [req.activeUserId, req.params.cardId]); 
-                } else res.json(MESSAGES("invalidNoteDeff"));
-                res.json(MESSAGES("noteForCardAdd"));
-            } else { res.status(403); res.json(MESSAGES("noteDeletePrivileges")); }
+                } else res.json(MESSAGE("invalidNoteDeff"));
+                res.json(MESSAGE("noteForCardAdd"));
+            } else { res.status(403); res.json(MESSAGE("noteDeletePrivileges")); }
         } catch (err) { throw err }; 
     },
 
@@ -42,9 +42,9 @@ export default {
                    req.params.noteId != undefined) {
                     await db.query(X.editUserNote(), [note.content, req.params.noteId]); 
                     // await db.query(X.addNoteToCardAssoc(), [login_id, req.params.cardId]); 
-                } else res.json(MESSAGES("invalidNoteDeff"));
-            res.json(MESSAGES("noteUpdate"));
-            } else { res.json(MESSAGES("noteUpdatePriveleges")); }
+                } else res.json(MESSAGE("invalidNoteDeff"));
+            res.json(MESSAGE("noteUpdate"));
+            } else { res.json(MESSAGE("noteUpdatePriveleges")); }
         } catch (err) { throw err }; 
     },
 
@@ -56,8 +56,8 @@ export default {
             // if this is a card that is managed by the user
             if(l.rows.length) {
                 await db.query(X.deleteUserNote(), [req.params.noteId]); 
-                res.json(MESSAGES("noteDelete"));
-            } else { res.json(MESSAGES("improperNotePriveleges")); }
+                res.json(MESSAGE("noteDelete"));
+            } else { res.json(MESSAGE("improperNotePriveleges")); }
         } catch (err) { throw err }; 
     }
        

@@ -3,7 +3,7 @@ import { Request, Response } from 'express';
 import db from '../config/connection';
 import { Deck } from '../classes';
 import { default as X } from '../utils/sql-commands';
-import MESSAGES  from '../utils/messages';
+import { MESSAGE } from '../utils/messages';
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 export default {
@@ -25,8 +25,8 @@ export default {
             if(deck.name != undefined) {
                 await db.query(X.addDeckName(), [deck.name]); 
                 await db.query(X.createNewDeckAssoc(), [req.activeUserId]); 
-            } else res.json(MESSAGES("deckDeffError"));
-            res.json(MESSAGES("deckAdded"));
+            } else res.json(MESSAGE("deckDeffError"));
+            res.json(MESSAGE("deckAdded"));
         } catch (err) { throw err }; 
     },
 
@@ -41,7 +41,7 @@ export default {
             // if good data get owned decks, else handle error
             if(usersDecks.length > 0) {
                 res.json(usersDecks);
-            } else res.json(MESSAGES("cannotGetOwnedDecks"));
+            } else res.json(MESSAGE("cannotGetOwnedDecks"));
             // res.json({message: usersDecks});
         }  catch (err) { throw err; }      
     },
@@ -57,7 +57,7 @@ export default {
             // if good data get subscribed decks, else handle error
             if(usersDecks.length > 0) {
                 res.json(usersDecks);
-            } else res.json(MESSAGES("cannotGetSubscribedDecks"));
+            } else res.json(MESSAGE("cannotGetSubscribedDecks"));
             // res.json({message: usersDecks});
         }  catch (err) { throw err; }       
     },

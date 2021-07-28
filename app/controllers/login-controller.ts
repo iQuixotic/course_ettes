@@ -23,7 +23,7 @@ export default {
                 // sign token and pass secret
                 jwt.sign({ 
                     email: req.body.email, role_id: response.rows[0].role_id }, 
-                    'secret', {expiresIn: '240d'}, (err, token) => {
+                    'secret', {expiresIn: '365d'}, (err, token) => {
                         
                         // console.log(token)
                    res.json({ token });
