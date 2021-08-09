@@ -29,6 +29,8 @@ export default {
     },
 
     hasDeckPrivileges: async (req, res, next) => {
-
+        const l = await db.query(X.getDeckEditRights(), [req.activeUserId, req.params.deckId])
+        if(l.rows.length) next(); 
+        else res.status(403).json(MESSAGE("deckPrivileges")); 
     }
 }

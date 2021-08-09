@@ -17,6 +17,7 @@ let messageText = {
     deckAdded: 'New deck successfully added!',
     cannotGetOwnedDecks: 'Cannot get owned decks.',
     cannotGetSubscribedDecks: 'Cannot get subscribed decks.',
+    deckPrivileges: 'You do not have the priveleges to view this deck',
 
     // card messages
     cardDeletePrivileges: 'You do not have the priveleges to Delete this card!',
@@ -40,7 +41,7 @@ let messageText = {
 }
 
 export const MESSAGE = (arg: string) => {
-    return messageText[arg]
+    return {message: messageText[arg]}
 }
 
 export const ERROR = (arg: string) => {

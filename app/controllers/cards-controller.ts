@@ -27,32 +27,35 @@ export default {
 
     getByDeckId: async (req: any, res: Response) => {
         try {                 
-            const l = await db.query(X.getDeckEditRights(), [req.activeUserId, req.params.deckId])
-            if(l.rows.length) {
-                // variable deffinitions
-                const y = await db.query(X.getOwnedDeck(), [req.params.deckId]);
-                const cards = y.rows
+            const y = await db.query(X.getOwnedDeck(), [req.params.deckId]);
+            const cards = y.rows
 
-                // if good data get deck, else handle error
-                if(cards.length > 0) res.json( cards )
-                else res.status(500); res.json(MESSAGE("generalCardError"));
-            } else { res.status(403); res.json({code: res.status, message: MESSAGE("cardUpdatePrivileges")}); }
-        } catch (err) { throw err; }
+            // if good data get deck, else handle error
+            if(cards.length > 0) res.json( cards )
+            else res.status(500); res.json(MESSAGE("generalCardError"));
+        } catch (err) { res.json({error: err.toString()}) }
     },
 
     //  CREATE a new card
     addOne: async (req: any, res: Response) => {
         try {            
             const card = new CardInfo(req.body);
-
+            console.log(req.body)
             // if good data create card and assign deck, else handle error
             if(card.back_content != undefined && card.front_content != undefined) {
+                console.log("i am making it -----------")
+                // I need some way here to check the req.params.deckId
                 await db.query(X.insertCardIntoDeck(), [card.front_content, card.back_content]); 
                 await db.query(X.createCardToDeckAssoc(), [req.params.deckId]); 
                 await db.query(X.createColorAssoc(), [req.activeUserId]);
             } else res.json(MESSAGE("cardAddError"));
             res.json(MESSAGE("cardAdd"));
-        } catch (err) { throw err }; 
+        } catch (err) {
+            console.log(err)
+            if(err.detail === undefined) res.status(500).json({error: "There was an issue with the submitted data."})
+            if(err.detail.includes(`(deck_id)=(${req.params.deckId}) is not present in table \"decks\"`)) res.status(500).json({error: "Deck Id out of range"});
+            else res.status(500).json({error: err.detail});          
+        }; 
     },
 
     // UPDATE a card (must be done by deck owner)  

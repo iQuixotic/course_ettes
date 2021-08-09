@@ -16,21 +16,21 @@ export default {
         } catch (err) { throw err; }
     },
  
-    // CREATE a new deck in the database
-     addOne: async (req: any, res: Response) => {
-        try {       
-            const deck = new Deck(req.body);
+    // // CREATE a new deck in the database
+    //  addOne: async (req: any, res: Response) => {
+    //     try {       
+    //         const deck = new Deck(req.body);
 
-            // if good data create deck, else handle error
-            if(deck.name != undefined) {
-                await db.query(X.addDeckName(), [deck.name]); 
-                await db.query(X.createNewDeckAssoc(), [req.activeUserId]); 
-            } else res.json(MESSAGE("deckDeffError"));
-            res.json(MESSAGE("deckAdded"));
-        } catch (err) { throw err }; 
-    },
+    //         // if good data create deck, else handle error
+    //         if(deck.name != undefined) {
+    //             await db.query(X.addDeckName(), [deck.name]); 
+    //             await db.query(X.createNewDeckAssoc(), [req.activeUserId]); 
+    //         } else res.json(MESSAGE("deckDeffError"));
+    //         res.json(MESSAGE("deckAdded"));
+    //     } catch (err) { throw err }; 
+    // },
 
-    // READ a single deck which a user owns and manages
+    // // READ a single deck which a user owns and manages
     getOwnedDecks: async (req: any, res: Response) => {
         try {
             // variable deffinitions
@@ -46,29 +46,29 @@ export default {
         }  catch (err) { throw err; }      
     },
 
-    // READ a single deck to which a user is subscribed to
-    getSubscribedDecks: async (req: any, res: Response) => {
-        try {
-            // variable deffinitions
-            // const deck = new Deck(req.body);
-            const y = await db.query(X.getUserDeckLibrary(), [req.activeUserId])
-            const usersDecks = y.rows
+    // // READ a single deck to which a user is subscribed to
+    // getSubscribedDecks: async (req: any, res: Response) => {
+    //     try {
+    //         // variable deffinitions
+    //         // const deck = new Deck(req.body);
+    //         const y = await db.query(X.getUserDeckLibrary(), [req.activeUserId])
+    //         const usersDecks = y.rows
 
-            // if good data get subscribed decks, else handle error
-            if(usersDecks.length > 0) {
-                res.json(usersDecks);
-            } else res.json(MESSAGE("cannotGetSubscribedDecks"));
-            // res.json({message: usersDecks});
-        }  catch (err) { throw err; }       
-    },
+    //         // if good data get subscribed decks, else handle error
+    //         if(usersDecks.length > 0) {
+    //             res.json(usersDecks);
+    //         } else res.json(MESSAGE("cannotGetSubscribedDecks"));
+    //         // res.json({message: usersDecks});
+    //     }  catch (err) { throw err; }       
+    // },
 
-    // DELETE an entire deck owned by a user
-    deleteOne: async (req: any, res: Response) => {
-        try {            
+    // // DELETE an entire deck owned by a user
+    // deleteOne: async (req: any, res: Response) => {
+    //     try {            
 
         
-        } catch (err) { throw err }; 
-    }
+    //     } catch (err) { throw err }; 
+    // }
        
     
 }

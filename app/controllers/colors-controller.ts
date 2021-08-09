@@ -1,28 +1,28 @@
 // imports
 import { Request, Response } from 'express';
 import db from '../config/connection';
-import { QueryMaker, Color } from '../classes';
+import { Color } from '../classes';
 import { default as X } from '../utils/sql-commands';
-import { MESSAGE } from '../utils/messages';
+import { MESSAGE, ERROR } from '../utils/messages';
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 export default {
 
     // CREATE a new db entry  
-    addOne: async (req: Request, res: Response) => {
-        try {            
-            const color = new Color(req.body);
-            const myKeys = Object.keys(color);
-            const myVals = Object.values(color);
-            await db.query(QueryMaker.insertOne('colors', myKeys), myVals); 
-            res.json({message: 'New Color added!!'});
-        } catch (err) { throw err }; 
-    },
+    // addOne: async (req: Request, res: Response) => {
+    //     try {            
+    //         const color = new Color(req.body);
+    //         const myKeys = Object.keys(color);
+    //         const myVals = Object.values(color);
+    //         await db.query(QueryMaker.insertOne('colors', myKeys), myVals); 
+    //         res.json({message: 'New Color added!!'});
+    //     } catch (err) { throw err }; 
+    // },
 
     // GET all colors in the database
     getAll: async (req: Request, res: Response) => {
         try {                 
-            const x = await db.query(QueryMaker.getAll('colors'))
+            const x = await db.query(X.getCardColors())
             res.json(x.rows);
         } catch (err) { throw err; }
     },
@@ -45,9 +45,12 @@ export default {
             // if good data create card and assign deck, else handle error
             if((typeof(color.color["color"]) === typeof(" "))) {
                 await db.query(X.changeCardColor(), [req.params.colorId, req.activeUserId, req.params.cardId]); 
-            } else res.json({message: MESSAGE("cardColorEditGenericFail")});
-            res.json({message: MESSAGE("cardUpdateSuccess")});
-        } catch (err) { throw err }; 
+            } else res.json(MESSAGE("cardColorEditGenericFail"));
+            res.json(MESSAGE("cardUpdateSuccess"));
+        } catch (err) { 
+            if(err.toString().includes("'color' of undefined")) res.json({error: "Color index supplied is out of bounds."})
+            else res.json({error: err.toString()})
+        }; 
     },
 
     //  // DELETE a db entry  

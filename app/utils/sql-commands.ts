@@ -47,6 +47,11 @@ export default {
     createColorAssoc: () => {
         return `INSERT INTO colors_ref (user_id, card_id, color_id) VALUES($1, (SELECT currval(pg_get_serial_sequence('cards_info','_id'))), 5);`;
     },
+    
+    // -- 6b get all colors from the db
+    getCardColors: () => {
+        return `SELECT * FROM colors;`
+    },
 
     // -- 7. get all of the cards from an owned deck
     getOwnedDeck: () => {
