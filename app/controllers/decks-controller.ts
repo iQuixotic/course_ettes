@@ -48,28 +48,29 @@ export default {
     },
 
     // // READ a single deck to which a user is subscribed to
-    // getSubscribedDecks: async (req: any, res: Response) => {
-    //     try {
-    //         // variable deffinitions
-    //         // const deck = new Deck(req.body);
-    //         const y = await db.query(X.getUserDeckLibrary(), [req.activeUserId])
-    //         const usersDecks = y.rows
+    getSubscribedDecks: async (req: any, res: Response) => {
+        try {
+            // variable deffinitions
+            // const deck = new Deck(req.body);
+            const y = await db.query(X.getUserDeckLibrary(), [req.activeUserId])
+            const usersDecks = y.rows
 
-    //         // if good data get subscribed decks, else handle error
-    //         if(usersDecks.length > 0) {
-    //             res.json(usersDecks);
-    //         } else res.json(MESSAGE("cannotGetSubscribedDecks"));
-    //         // res.json({message: usersDecks});
-    //     }  catch (err) { throw err; }       
-    // },
+            // if good data get subscribed decks, else handle error
+            if(usersDecks.length > 0) {
+                res.json(usersDecks);
+            } else res.json(MESSAGE("cannotGetSubscribedDecks"));
+            // res.json({message: usersDecks});
+        }  catch (err) { throw err; }       
+    },
 
-    // // DELETE an entire deck owned by a user
-    // deleteOne: async (req: any, res: Response) => {
-    //     try {            
-
-        
-    //     } catch (err) { throw err }; 
-    // }
+    // DELETE an entire deck owned by a user
+    deleteOne: async (req: any, res: Response) => {
+        try {            
+            const y = await db.query(X.deleteSingleDeck(), [req.activeUserId, req.params.deckId])
+            if(y.rows > 0) res.json({message: `Deck with id ${req.params.deckId} deleted`})
+            else res.json({message: `Was not able to find deck with id ${req.params.deckId}. Either you do not have deck permissions or the deck does not exists.`})
+        } catch (err) { throw err }; 
+    }
        
     
 }

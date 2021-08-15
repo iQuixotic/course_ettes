@@ -11,14 +11,14 @@
 | /ua/decks/owned  | Get the name of all of the decks owned and managed by a user       | GET |
 | /ua/cards-info/:deckId   | Add a card to a deck | POST |
 | /ua/decks  | Add a deck      | POST |
+| /ua/decks/subscribed | Get all of the decks that a user is subscribed to       | GET |
+| /ua/decks/owned/:deckId  | Delete a deck by deck id       | DELETE |
+| /ua/card-info/:cardId  | Edit a user's card        | PATCH |
+| /ua/card-info/:cardId   | Delete a user's card       | DELETE |
+| /ua/notes/:deckId   | Add a note to a card using that decks's id       | POST |
+| /notes/:deckId/:noteId  | Update a note for a card       | PATCH |
+| /notes/:deckId   | Delete a user note associated with a card      | DELETE |
 
-| /decks/subscribed | Get all of the decks that a user is subscribed to       | GET |
-| /decks/owned/:deckId  | Delete a deck by deck id       | DELETE |
-| /card-info/:cardId  | Edit a user's card        | PATCH |
-| /card-info/:cardId   | Delete a user's card       | DELETE |
-| /notes/:cardId   | Add a note to a card using that card's id       | POST |
-| /notes/:cardId/:noteId  | Update a note for a card       | PATCH |
-| /notes/:cardId   | Delete a user note associated with a card      | DELETE |
 
 | /users  | Return ALL users       | GET |
 | /users  | Update a user's info       | PATCH |

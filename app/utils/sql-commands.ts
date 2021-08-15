@@ -135,6 +135,19 @@ export default {
         `);
     },
 
+    
+    getNoteAddRights: () => {
+        return (`
+            SELECT * FROM user_deck_library_ref where user_id=$1 and deck_id=$2;
+        `);
+    },
+
+    getNoteEditRights: () => {
+        return (`
+            SELECT * FROM user_deck_notes where user_id=$1 and _id=$2;
+        `);
+    },
+
     // -- 13. delete a card from a OWNED and MANAGED deck
     deleteOwnedCard: () => {
         return `DELETE FROM cards_info WHERE _id = $1`
@@ -192,6 +205,19 @@ export default {
             DELETE FROM decks WHERE _id = $1;
         `);
     },
+
+    // -- 21. 
+    deleteSingleDeck: () => {
+        return (`
+        DELETE FROM  decks where _id in 
+            (SELECT decks._id
+                FROM users
+                INNER JOIN decks_to_owners_ref ON users._id = decks_to_owners_ref.creator_id
+                INNER JOIN decks ON decks_to_owners_ref.deck_id = decks._id
+                WHERE users._id = $1) and _id=$2;
+        `)
+    }
+
 
     // need to be able to get the expriry date and return it...
     // expiry time should probably be a separate table
