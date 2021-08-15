@@ -7,13 +7,8 @@ import colorsController from '../controllers/colors-controller';
 import decksController from '../controllers/decks-controller';
 import notesController from '../controllers/notes-controller';
 
-// card info routes
-// routerP.route('/')
-//     .get(cardsController.getAll);
-// if post is needed later, will need to change both below routes...
-
-routerA.route('/notes/:deckId')
-    .post(notesController.addOne)
+// deck routes
+routerA.post('/notes/:deckId', notesController.addOne)
     
 routerA.route('/notes/:noteId')
     .patch(notesController.updateOne)
@@ -28,21 +23,15 @@ routerA.route('/cards-info/:deckId')
     .get(AUTH.hasDeckPrivileges, cardsController.getByDeckId)
     .post(cardsController.addOne)
 
-routerA.route('/colors/:cardId/:colorId')
-    .patch(AUTH.checkPrivateCardPrivileges,  colorsController.updateOne)
+routerA.patch('/colors/:cardId/:colorId', AUTH.checkPrivateCardPrivileges,  colorsController.updateOne)
 
 // deck routes
 routerA.route('/decks')
     .get(decksController.getAll)
     .post(decksController.addOne)
 
-routerA.route('/decks/subscribed')
-    .get(decksController.getSubscribedDecks)
-
-routerA.route('/decks/owned')
-    .get(decksController.getOwnedDecks)
-
-routerA.route('/decks/owned/:deckId')
-    .delete(decksController.deleteOne)
+routerA.get('/decks/subscribed', decksController.getSubscribedDecks)
+routerA.get('/decks/owned', decksController.getOwnedDecks)
+routerA.delete('/decks/owned/:deckId', decksController.deleteOne)
 
 export default routerA;
