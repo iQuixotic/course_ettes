@@ -21,7 +21,10 @@ routerA.route('/colors/:cardId/:colorId')
     .patch(AUTH.checkPrivateCardPrivileges,  colorsController.updateOne)
 
 // deck routes
-routerA.route('/decks').get(decksController.getAll)
+routerA.route('/decks')
+    .get(decksController.getAll)
+    .post(decksController.addOne)
+    
 routerA.route('/decks/owned').get(decksController.getOwnedDecks)
 
 export default routerA;

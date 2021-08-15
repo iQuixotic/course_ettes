@@ -6,12 +6,12 @@
 | /login  | For logging in using http     |   POST |
 | /colors  | Get a list of all available colors | GET |
 | /ua/colors/:cardId/:colorId  | Update a user's card color | PATCH |
-| /ua/cards-info/:deckId   | Add a card to a deck | POST |
-| /ua/cards-info/:deckId   | Get all cards of a deck by deck id        | GET |
+| /ua/cards-info/:deckId   | Get all cards of a deck by deck id   of an OWNED AND MANAGED     | GET |
 | /ua/decks  | Get all of the authenticated decks available       | GET |
-| /ua/decks/owned  | Get all of the decks owned and managed by a user       | GET |
-
+| /ua/decks/owned  | Get the name of all of the decks owned and managed by a user       | GET |
+| /ua/cards-info/:deckId   | Add a card to a deck | POST |
 | /ua/decks  | Add a deck      | POST |
+
 | /decks/subscribed | Get all of the decks that a user is subscribed to       | GET |
 | /decks/owned/:deckId  | Delete a deck by deck id       | DELETE |
 | /card-info/:cardId  | Edit a user's card        | PATCH |

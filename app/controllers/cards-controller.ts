@@ -4,6 +4,7 @@ import db from '../config/connection';
 import { CardInfo } from '../classes';
 import { default as X } from '../utils/sql-commands';
 import { MESSAGE } from '../utils/messages';
+import databaseHelper from '../utils/database-helper';
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 export default {
@@ -43,11 +44,11 @@ export default {
             console.log(req.body)
             // if good data create card and assign deck, else handle error
             if(card.back_content != undefined && card.front_content != undefined) {
-                console.log("i am making it -----------")
+                let id = databaseHelper.createUniqueId()
                 // I need some way here to check the req.params.deckId
-                await db.query(X.insertCardIntoDeck(), [card.front_content, card.back_content]); 
-                await db.query(X.createCardToDeckAssoc(), [req.params.deckId]); 
-                await db.query(X.createColorAssoc(), [req.activeUserId]);
+                await db.query(X.insertCardIntoDeck(), [id, card.front_content, card.back_content]); 
+                await db.query(X.createCardToDeckAssoc(), [id, req.params.deckId]); 
+                await db.query(X.createColorAssoc(), [req.activeUserId, id]);
             } else res.json(MESSAGE("cardAddError"));
             res.json(MESSAGE("cardAdd"));
         } catch (err) {

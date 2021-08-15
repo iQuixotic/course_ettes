@@ -25,7 +25,7 @@ export default {
 
     // -- 5. create a new deck
     addDeckName: () => {
-        return `INSERT INTO decks (name) VALUES($1);`;
+        return `INSERT INTO decks (name, visibility_id) VALUES($1, $2);`;
     },
 
     createNewDeckAssoc: () => {
@@ -37,15 +37,15 @@ export default {
 
     // -- 6. insert a card into a deck
     insertCardIntoDeck: () => {
-        return `INSERT INTO cards_info (front_content, back_content) VALUES($1, $2);`;
+        return `INSERT INTO cards_info (_id, front_content, back_content) VALUES($1, $2, $3);`;
     },
 
     createCardToDeckAssoc: () => {
-        return `INSERT INTO card_to_decks_ref (card_id, deck_id) VALUES((SELECT currval(pg_get_serial_sequence('cards_info','_id'))), $1);`;
+        return `INSERT INTO card_to_decks_ref (card_id, deck_id) VALUES($1, $2);`;
     },
 
     createColorAssoc: () => {
-        return `INSERT INTO colors_ref (user_id, card_id, color_id) VALUES($1, (SELECT currval(pg_get_serial_sequence('cards_info','_id'))), 5);`;
+        return `INSERT INTO colors_ref (user_id, card_id, color_id) VALUES($1, $2, 5);`;
     },
     
     // -- 6b get all colors from the db

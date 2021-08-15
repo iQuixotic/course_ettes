@@ -17,18 +17,19 @@ export default {
     },
  
     // // CREATE a new deck in the database
-    //  addOne: async (req: any, res: Response) => {
-    //     try {       
-    //         const deck = new Deck(req.body);
+     addOne: async (req: any, res: Response) => {
+        try {       
+            const deck = new Deck(req.body);
 
-    //         // if good data create deck, else handle error
-    //         if(deck.name != undefined) {
-    //             await db.query(X.addDeckName(), [deck.name]); 
-    //             await db.query(X.createNewDeckAssoc(), [req.activeUserId]); 
-    //         } else res.json(MESSAGE("deckDeffError"));
-    //         res.json(MESSAGE("deckAdded"));
-    //     } catch (err) { throw err }; 
-    // },
+            // if good data create deck, else handle error
+            if(deck.name != undefined && deck.visibility_id != undefined) {
+                await db.query(X.addDeckName(), [deck.name, deck.visibility_id]); 
+                await db.query(X.createNewDeckAssoc(), [req.activeUserId]); 
+            } 
+            else res.json(MESSAGE("deckDeffError"));
+            res.json(MESSAGE("deckAdded"));
+        } catch (err) { throw err }; 
+    },
 
     // // READ a single deck which a user owns and manages
     getOwnedDecks: async (req: any, res: Response) => {
