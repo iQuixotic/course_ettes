@@ -92,7 +92,5 @@ export default {
                 res.json(MESSAGE("cardRemoved"));
             } else { res.json(MESSAGE("cardRemovedError")); }
         } catch (err) { throw err }; 
-    }
-       
-    
+    }    
 }

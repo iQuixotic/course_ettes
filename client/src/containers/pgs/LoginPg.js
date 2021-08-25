@@ -2,7 +2,7 @@ import * as React from "react";
 import { API } from "../../utils";
 
 
-class LoginPg extends React.Component{
+class LoginPg extends React.Component {
     state = {
         username: '',
         password: '',
@@ -23,35 +23,34 @@ class LoginPg extends React.Component{
             .catch(err => { throw err })
     }
 
-   
+    // -----------------------------------
+    render() {
+        return (
+            <div className="login-pg">
 
-    
+                <br /><br />
 
-  // -----------------------------------
-  render() {
-      return(
-          <div>
+                <div className="login-inputs-div">
+                    <div className="padding-around">
+                        <label htmlFor="username">Username: </label>
+                        <input onChange={e => this.inputChangeHandler(e)}
+                            name='username' type="text" />
+                    </div>
+                    <div className="padding-around">
+                        <label htmlFor="password">Password: </label>
+                        <input onChange={e => this.inputChangeHandler(e)}
+                            type='password' name='password' />
+                    </div>
 
-        <br/><br/>
+                    <a href="#">Forgot Password...</a>
+                    <div className="login-and-register-btns">
+                        <button onClick={() => this.loginSubmitHandler()}>Login</button>
+                    </div>
+                </div>
 
-        <div className="login-inputs-div">
-            <label htmlFor="username">Username: </label>
-            <input onChange={e => this.inputChangeHandler(e)} 
-            name='username' type="text"/>
-
-            <label htmlFor="password">Password: </label>
-            <input onChange={e => this.inputChangeHandler(e)} 
-            type='password' name='password'/>
-
-            <a href="#">Forgot Password...</a>
-            <div className="login-and-register-btns">
-                <button onClick={()=> this.loginSubmitHandler()}>Login</button>
             </div>
-        </div>
-
-          </div>
-      )
-  }
+        )
+    }
 }
 
 export default LoginPg;
