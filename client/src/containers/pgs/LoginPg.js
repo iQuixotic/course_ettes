@@ -28,25 +28,37 @@ class LoginPg extends React.Component {
         return (
             <div className="login-pg">
 
-                <br /><br />
+                <div className="left-side">
+                    <div id="dot1" className="dots"></div>
+                    <div id="dot2" className="dots"></div>
+                    <div id="dot3" className="dots"></div>
+                    <div id="dot4" className="dots"></div>
+                    <div id="dot5" className="dots"></div>
+                    <div id="dot6" className="dots"></div>
+                    <div id="dot7" className="dots"></div>
+                    <div id="dot8" className="dots"></div>
+                </div>
+                <div className="right-side">
 
-                <div className="login-inputs-div">
-                    <div className="padding-around">
-                        <label htmlFor="username">Username: </label>
-                        <input onChange={e => this.inputChangeHandler(e)}
-                            name='username' type="text" />
-                    </div>
-                    <div className="padding-around">
-                        <label htmlFor="password">Password: </label>
-                        <input onChange={e => this.inputChangeHandler(e)}
-                            type='password' name='password' />
-                    </div>
+                    <div className="login-inputs-div">
+                        <div className="padding-around">
+                            <label htmlFor="username">Username: </label>
+                            <input onChange={e => this.inputChangeHandler(e)}
+                                name='username' type="text" />
+                        </div>
+                        <div className="padding-around">
+                            <label htmlFor="password">Password: </label>
+                            <input onChange={e => this.inputChangeHandler(e)}
+                                type='password' name='password' />
+                        </div>
 
-                    <a href="#">Forgot Password...</a>
-                    <div className="login-and-register-btns">
-                        <button onClick={() => this.loginSubmitHandler()}>Login</button>
+                        <a href="#">Forgot Password...</a>
+                        <div className="login-and-register-btns">
+                            <button onClick={() => this.loginSubmitHandler()}>Login</button>
+                        </div>
                     </div>
                 </div>
+
 
             </div>
         )
