@@ -30,41 +30,73 @@ class RegisterPg extends React.Component{
   // -----------------------------------
   render() {
       return(
-          <div>
+        <div className="register-pg">
 
-        <br/><br/>
+        <div className="left-side">
+            <div className="left-side-page-info">
+                <h3>Welcome to Course-ettes!</h3>
+                <div className="actions">
+                    <a className="btns" href="/register">Create an Account</a>
+                </div>
+                <div className="whats-new">
+                    <a href="/#">About</a>
+                    <a href="/#">Offer Support</a>
+                    <a href="/#">Subscribe</a>
+                </div>
+            </div>
+            <div id="dot1" className="dots"></div>
+            <div id="dot2" className="dots"></div>
+            <div id="dot3" className="dots"></div>
+            <div id="dot4" className="dots"></div>
+            <div id="dot5" className="dots"></div>
+            <div id="dot6" className="dots"></div>
+            <div id="dot7" className="dots"></div>
+            <div id="dot8" className="dots"></div>
+        </div>
+        <div className="right-side">
+            <div className="login-inputs-div">
+                <div className="padding-around">
+                    <label htmlFor="username">First Name: </label>
+                    <input onChange={e => this.inputChangeHandler(e)}
+                        name='username' type="text" />
+                </div>
+                <div className="padding-around">
+                    <label htmlFor="username">Last Name: </label>
+                    <input onChange={e => this.inputChangeHandler(e)}
+                        name='username' type="text" />
+                </div>
+                <div className="padding-around">
+                    <label htmlFor="username">Email </label>
+                    <input onChange={e => this.inputChangeHandler(e)}
+                        name='username' type="text" />
+                </div>
+                <div className="padding-around">
+                    <label htmlFor="password">Password: </label>
+                    <input onChange={e => this.inputChangeHandler(e)}
+                        type='password' name='password' />
+                </div>
+    
+                <div className="padding-around">
+                    <label htmlFor="password">Confirm Password: </label>
+                    <input onChange={e => this.inputChangeHandler(e)}
+                        type='password' name='password' />
+                </div>
 
-        <div className="register-inputs-div">
-            <div className='input-with-label'>
-                <label className='label-area' htmlFor="username">Username: </label>
-                <input onChange={e => this.inputChangeHandler(e)} 
-                name='username' type="text"/>
+
+                <div className="login-and-register-btns">
+                    <button className="btns login" onClick={() => this.loginSubmitHandler()}>Submit</button>
+                    <a className="btns register" onClick={() => this.registerSubmitHandler()}>Login</a>
+                </div>
+                {/* <div className="forgot-password">
+                    <a  href="#">Forgot Password</a>
+
+                </div> */}
             </div>
 
-            <div className='input-with-label'>
-                <label className='label-area' htmlFor="username">Email: </label>
-                <input onChange={e => this.inputChangeHandler(e)} 
-                name='email' type="text"/>
-            </div>
-
-            <div className='input-with-label'>
-                <label className='label-area' htmlFor="password">Password: </label>
-                <input onChange={e => this.inputChangeHandler(e)} 
-                type='password' name='password'/>
-            </div>
-            
-            <div className='input-with-label'>
-                <label className='label-area' htmlFor="password">Confirm Password: </label>
-                <input onChange={e => this.inputChangeHandler(e)} 
-                type='confirmPassword' name='password'/>
-            </div>
-
-            <div className="login-and-register-btns">
-                <button onClick={()=> this.loginSubmitHandler()}>Login</button>
-            </div>
         </div>
 
-          </div>
+
+    </div>
       )
   }
 }

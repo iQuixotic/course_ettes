@@ -2,6 +2,43 @@
 
 // body
 //     background: $background3;
+.left-side-page-info
+    font-size: 1.2rem
+    margin-left: 15%
+    width: 70%
+
+.actions
+    position: relative
+    text-align: center
+    z-index: 1
+
+.actions a
+    background-color: #d1e6f0
+
+.left-side-page-info h3
+    color: white
+    font-size: 30px
+    text-align: center
+    padding: 2rem 0 1rem
+
+.whats-new
+    border-radius: 18px
+    position: relative
+    z-index: 1
+    background-color: #d1e6f0
+    width: 50%
+    padding: 2rem 1rem
+    top: 20vh
+
+.whats-new a
+    padding: .2rem
+    display: block    
+
+.whats-new a:hover
+    cursor: pointer
+    text-decoration: underline
+    color: #6d13d4
+
 
 .workstation-body
     position: fixed
@@ -20,7 +57,6 @@
     background-color: $lightGrey
     font-size: 1.2rem
     padding: 10px
-    border-radius: 7px
 
 .input-with-label
     padding: 5px
@@ -29,8 +65,8 @@
 .login-inputs-div
     display: block
     position: relative
-    top: 40%
-    padding: 10%
+    // top: 40%
+    padding: 10% 10% 0
 
 .login-inputs-div label
     display: block
@@ -40,15 +76,51 @@
     padding: 10px
 
 input
-    width: 80%
+    width: 100%
+    background: rgba(0, 0, 0, 0)
+    border: none
+    padding: 5px
+    outline: none
+    border-bottom: 2px solid #020094
 
+input:focus
+    outline: none
+    border-bottom: 2px solid #8805d4
+
+.login-and-register-btns
+    padding-top: 2rem
+    display: flex
+    justify-content: space-between
+
+.login
+    background-color: #b0d8d6
+    color: #0225c0
+
+
+.register
+    background-color: #ffffff00
+    color: #0225c0
+
+.register:hover, .login:hover
+    cursor: pointer
+
+.forgot-password
+
+    text-align: center
+    position: relative
+    top: 1.5rem
+
+.forgot-password
+    color: #0225c0  !important
 .label-area
     display: inline-block
     width: 200px
     // background: orange
 
-    
-.login-pg
+
+label 
+    font-size: 1.1rem
+.login-pg, .register-pg
     display: flex
 
 .left-side
@@ -127,3 +199,29 @@ input
     background: #ff01dd
     width: 5px
     padding: 15px
+
+.alt-login-area 
+    background-color: #dee9eb
+    position: absolute
+    width: 100%
+    padding-top: 10px
+    bottom: 0
+    
+.alt-login-icons
+    margin: 5vh 15%
+    width: 70%
+    display: flex
+    justify-content: space-around
+
+
+.alt-children
+    font-size: 3.0rem
+    font-color: black
+    border: 3px solid black
+    border-radius: 50%
+    padding: 1rem
+
+.login-with
+    text-align: center
+    font-size: 35px
+   

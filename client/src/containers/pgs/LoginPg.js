@@ -1,6 +1,7 @@
 import * as React from "react";
 import { API } from "../../utils";
-
+import { FaceBookLogo, TwitterLogo, GoogleLogo } from '../../assets';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 class LoginPg extends React.Component {
     state = {
@@ -29,6 +30,17 @@ class LoginPg extends React.Component {
             <div className="login-pg">
 
                 <div className="left-side">
+                    <div className="left-side-page-info">
+                        <h3>Welcome to Course-ettes!</h3>
+                        <div className="actions">
+                            <a className="btns" href="/register">Create an Account</a>
+                        </div>
+                        <div className="whats-new">
+                            <a href="/#">About</a>
+                            <a href="/#">Offer Support</a>
+                            <a href="/#">Subscribe</a>
+                        </div>
+                    </div>
                     <div id="dot1" className="dots"></div>
                     <div id="dot2" className="dots"></div>
                     <div id="dot3" className="dots"></div>
@@ -39,7 +51,6 @@ class LoginPg extends React.Component {
                     <div id="dot8" className="dots"></div>
                 </div>
                 <div className="right-side">
-
                     <div className="login-inputs-div">
                         <div className="padding-around">
                             <label htmlFor="username">Username: </label>
@@ -52,11 +63,26 @@ class LoginPg extends React.Component {
                                 type='password' name='password' />
                         </div>
 
-                        <a href="#">Forgot Password...</a>
                         <div className="login-and-register-btns">
-                            <button onClick={() => this.loginSubmitHandler()}>Login</button>
+                            <button className="btns login" onClick={() => this.loginSubmitHandler()}>Login</button>
+                            <a className="btns register" onClick={() => this.registerSubmitHandler()}>Forgot Password</a>
                         </div>
+                        {/* <div className="forgot-password">
+                            <a  href="#">Forgot Password</a>
+
+                        </div> */}
                     </div>
+
+                    <div className="alt-login-area">
+                        <div className="login-with">Login With</div>
+                        <div className="alt-login-icons">
+                            <i className="alt-children fab fa-google"></i>
+                            <i className="alt-children fab fa-facebook"></i>
+                            <i className="alt-children fab fa-twitter"></i>
+                        </div>
+
+                    </div>
+
                 </div>
 
 
