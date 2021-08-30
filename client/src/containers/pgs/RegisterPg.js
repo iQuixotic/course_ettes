@@ -4,9 +4,10 @@ import { API } from "../../utils";
 
 class RegisterPg extends React.Component{
     state = {
-        username: '',
-        password: '',
-        role_id: 1,
+        firstName: '',
+        lastName: '',
+        email: '',
+        password: ''
     }
 
     inputChangeHandler = (e) => {
@@ -16,10 +17,9 @@ class RegisterPg extends React.Component{
         console.log(this.state)
     }
 
-    loginSubmitHandler = () => {
-        API.login(this.state)
+    registerSubmitHandler = () => {
+        API.addNewUser(this.state)
             .then(res => console.log(res))
-            .then(res => window.localStorage.setItem("token", res.token))
             .catch(err => { throw err })
     }
 
@@ -59,19 +59,19 @@ class RegisterPg extends React.Component{
             <div className="login-inputs-div">
             <h3>Welcome to Course-ettes!</h3>
                 <div className="padding-around">
-                    <label htmlFor="username">First Name: </label>
+                    <label htmlFor="firstName">First Name: </label>
                     <input onChange={e => this.inputChangeHandler(e)}
-                        name='username' type="text" />
+                        name='firstName' type="text" />
                 </div>
                 <div className="padding-around">
-                    <label htmlFor="username">Last Name: </label>
+                    <label htmlFor="lastName">Last Name: </label>
                     <input onChange={e => this.inputChangeHandler(e)}
-                        name='username' type="text" />
+                        name='lastName' type="text" />
                 </div>
                 <div className="padding-around">
-                    <label htmlFor="username">Email </label>
+                    <label htmlFor="email">Email </label>
                     <input onChange={e => this.inputChangeHandler(e)}
-                        name='username' type="text" />
+                        name='email' type="text" />
                 </div>
                 <div className="padding-around">
                     <label htmlFor="password">Password: </label>
@@ -80,14 +80,14 @@ class RegisterPg extends React.Component{
                 </div>
     
                 <div className="padding-around">
-                    <label htmlFor="password">Confirm Password: </label>
+                    <label htmlFor="conf-password">Confirm Password: </label>
                     <input onChange={e => this.inputChangeHandler(e)}
-                        type='password' name='password' />
+                        type='password' name='conf-password' />
                 </div>
 
 
                 <div className="login-and-register-btns">
-                    <button className="btns login" onClick={() => this.loginSubmitHandler()}>Submit</button>
+                    <button className="btns login" onClick={() => this.registerSubmitHandler()}>Submit</button>
                     <a className="btns register" href="/login">Login</a>
                 </div>
                 {/* <div className="forgot-password">
