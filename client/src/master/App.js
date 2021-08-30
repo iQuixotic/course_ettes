@@ -16,7 +16,7 @@ class App extends Component {
             <Route exact={true} path="/login" component={LoginPg} />
             <Route exact={true} path="/register" component={RegisterPg} />
               <Route exact path="/">
-                {loggedIn() ? <Redirect to="/login" /> : <Home />} 
+                {loggedIn() ?  <Home />: <Redirect to="/login" /> } 
               </Route>
               <Route exact path="/workstation">{loggedIn() ? <Redirect to="/t" /> : <Workstation/>}
               </Route>
@@ -29,8 +29,12 @@ class App extends Component {
 
 
 const loggedIn = () => {
-  if(true) return true;
-  else return false;
+  if(window.localStorage.getItem("token") === 'undefined' || 
+     window.localStorage.getItem("token") === undefined || 
+     window.localStorage.getItem("token") === null) {
+    return false;
+  }
+  else return true;
 }
 
 export default App;

@@ -20,7 +20,7 @@ export default {
 
     login: (data) => {
         let obj = {
-            username: data.username, // should be from authdata login
+            email: data.email, // should be from authdata login
             password: data.password
         }    
         return fetch('/login', {

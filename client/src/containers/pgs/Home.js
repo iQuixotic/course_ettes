@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import Posts from '../../components/Posts';
 import PostForm from '../../components/PostForm';
+import { API } from "../../utils/api";
 
 class Home extends Component {
     render() {
@@ -9,7 +10,7 @@ class Home extends Component {
                 <PostForm />
                 <hr/>
                 <Posts/>
-                
+                Hello
             </div>
         )
     }

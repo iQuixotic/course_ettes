@@ -18,7 +18,7 @@ class RegisterPg extends React.Component{
 
     loginSubmitHandler = () => {
         API.login(this.state)
-            .then(res => res.json())
+            .then(res => console.log(res))
             .then(res => window.localStorage.setItem("token", res.token))
             .catch(err => { throw err })
     }
@@ -34,11 +34,13 @@ class RegisterPg extends React.Component{
 
         <div className="left-side">
             <div className="left-side-page-info">
-                <h3>Welcome to Course-ettes!</h3>
-                <div className="actions">
+            <h4>The Amazing </h4>
+                        <h4>Notecard App</h4>
+                {/* <div className="actions">
                     <a className="btns" href="/register">Create an Account</a>
-                </div>
+                </div> */}
                 <div className="whats-new">
+                    {/* <a className="btns" href="/register">Create an Account</a> */}
                     <a href="/#">About</a>
                     <a href="/#">Offer Support</a>
                     <a href="/#">Subscribe</a>
@@ -55,6 +57,7 @@ class RegisterPg extends React.Component{
         </div>
         <div className="right-side">
             <div className="login-inputs-div">
+            <h3>Welcome to Course-ettes!</h3>
                 <div className="padding-around">
                     <label htmlFor="username">First Name: </label>
                     <input onChange={e => this.inputChangeHandler(e)}
@@ -85,7 +88,7 @@ class RegisterPg extends React.Component{
 
                 <div className="login-and-register-btns">
                     <button className="btns login" onClick={() => this.loginSubmitHandler()}>Submit</button>
-                    <a className="btns register" onClick={() => this.registerSubmitHandler()}>Login</a>
+                    <a className="btns register" href="/login">Login</a>
                 </div>
                 {/* <div className="forgot-password">
                     <a  href="#">Forgot Password</a>

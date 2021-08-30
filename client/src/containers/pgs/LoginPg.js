@@ -1,26 +1,37 @@
 import * as React from "react";
+import { Redirect } from 'react-router-dom';
 import { API } from "../../utils";
-import { FaceBookLogo, TwitterLogo, GoogleLogo } from '../../assets';
+// import { FaceBookLogo, TwitterLogo, GoogleLogo } from '../../assets';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 class LoginPg extends React.Component {
     state = {
-        username: '',
+        email: '',
         password: '',
-        role_id: 1,
+    }
+
+    componentDidUpdate = () => {
+        // console.log(this.props.history.location.pathname)
+        // this.props.history.go('/')
     }
 
     inputChangeHandler = (e) => {
         this.setState({
             [e.currentTarget.name]: e.currentTarget.value
         })
-        console.log(this.state)
+        // console.log(this.state)
     }
 
     loginSubmitHandler = () => {
         API.login(this.state)
             .then(res => res.json())
             .then(res => window.localStorage.setItem("token", res.token))
+            .then(()=> console.log(window.localStorage.getItem("token")))
+            .then(() => {
+                if(window.localStorage.getItem("token") !== 'undefined') {
+                    return this.props.history.push('/')
+                }
+            })
             .catch(err => { throw err })
     }
 
@@ -31,11 +42,13 @@ class LoginPg extends React.Component {
 
                 <div className="left-side">
                     <div className="left-side-page-info">
-                        <h3>Welcome to Course-ettes!</h3>
-                        <div className="actions">
+                        <h4>The Amazing </h4>
+                        <h4>Notecard App</h4>
+                        {/* <div className="actions">
                             <a className="btns" href="/register">Create an Account</a>
-                        </div>
+                        </div> */}
                         <div className="whats-new">
+                            <a className="btns" href="/register">Create an Account</a>
                             <a href="/#">About</a>
                             <a href="/#">Offer Support</a>
                             <a href="/#">Subscribe</a>
@@ -52,10 +65,11 @@ class LoginPg extends React.Component {
                 </div>
                 <div className="right-side">
                     <div className="login-inputs-div">
+                <h3>Welcome to Course-ettes!</h3>
                         <div className="padding-around">
-                            <label htmlFor="username">Username: </label>
+                            <label htmlFor="email">Email: </label>
                             <input onChange={e => this.inputChangeHandler(e)}
-                                name='username' type="text" />
+                                name='email' type="text" />
                         </div>
                         <div className="padding-around">
                             <label htmlFor="password">Password: </label>
