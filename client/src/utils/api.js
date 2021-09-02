@@ -1,3 +1,5 @@
+import axios from "axios";
+
 export default {
 
     addNewUser: (data) =>  { 
@@ -28,6 +30,15 @@ export default {
             headers: { 'Content-Type':'application/json' },
             body: JSON.stringify(obj)
         })
-    }
+    },
+    getUserDecks: () => {
+        return axios.get('/ua/decks', {
+            headers: {
+                'Content-Type':'application/json',                
+                'Authorization': 'Bearer ' + window.localStorage.getItem("token")
+            },
+            // body: JSON.stringify(obj)
+        })
 
+    }
 }
