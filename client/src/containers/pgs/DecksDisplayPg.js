@@ -1,40 +1,57 @@
 import React, { Component } from 'react'
-import { API } from "../../utils";
+
+import PropTypes from 'prop-types'
+import { connect } from 'react-redux'
+import { getAllDecks } from '../../redux/actions/deckActions'
+// import { API } from "../../utils";
 
 class DecksDisplayPg extends Component {
-    state = {
-        decks: []
-    }
+    // state = {
+    //     decks: []
+    // }
 
     componentDidMount= () => {
-        API.getUserDecks()
-            .then(res => {
-                this.setState({
-                    decks: res.data
-                })
-            })
-            .then(() => console.log(this.state))
-            .catch(e => {throw e})
+        this.props.getAllDecks();
+        console.log(this.props.decksArr)
+        // API.getUserDecks()
+        //     .then(res => {
+        //         this.setState({
+        //             decks: res.data
+        //         })
+        //     })
+        //     .then(() => console.log(this.state))
+        //     .catch(e => {throw e})
     }
 
     render() {
-        // const decks = this.state.decks.map(el => {
-        //     <h1>{el.name}</h1>
-        // })
+        const decks = this.props.decksArr.map(el => (
+            <div >
+                <h3>{el.name}</h3>
+            </div>
+        ));
         return (
             <div>
                 Panda
                 Here are the decks:
-                 {this.state.decks.map(el => {
+                {decks}
+                 {/* {this.state.decks.map(el => {
                      return(
                         <div>
                              {el.name}
                         </div>
                      )
-                 })}
+                 })} */}
             </div>
         )
     }
 }
 
-export default DecksDisplayPg;
+postMessage.PropTypes = {
+    decksArr: PropTypes.array.isRequired
+}
+
+const mapStateToProps = state => ({
+    decksArr: state.decksArr.decks,
+})
+
+export default connect(mapStateToProps, {getAllDecks})(DecksDisplayPg);

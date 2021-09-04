@@ -2,8 +2,8 @@ import axios from 'axios';
 
 export default {
 
-    getColors: () => {
-        return axios.get('/colors');
-    },
+    // getColors: () => {
+    //     return axios.get('/colors');
+    // },
 
 };

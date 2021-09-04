@@ -3,10 +3,12 @@ import postReducer from './postReducer';
 import colorReducer from './colorReducer';
 import courseCardsReducer from './courseCardsReducer';
 import cardStateReducer from './cardStateReducer';
+import decksReducer from './deckReducer';
 
 export default combineReducers({
     courseCards: courseCardsReducer,
     posts: postReducer,
     colors: colorReducer,
-    cardState: cardStateReducer
+    cardState: cardStateReducer,
+    decksArr: decksReducer
 })

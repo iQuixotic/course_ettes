@@ -40,5 +40,12 @@ export default {
             // body: JSON.stringify(obj)
         })
 
+    },
+    getColors: () => {
+        return axios.get('/colors');
+    },
+
+    getCourseCards: () => {
+        return axios.get('/roles');
     }
 }

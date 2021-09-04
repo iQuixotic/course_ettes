@@ -4,7 +4,7 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 // import { cardState } from '../redux/actions/' 
 import { getColors } from '../../redux/actions/colorActions'
-import { getCourseCards } from '../../redux/actions/cardsActions'
+import { getCourseCards } from '../../redux/actions/cardActions'
 import { cardFlip } from '../../redux/actions/cardStateActions'
 
 class Workstation extends Component {

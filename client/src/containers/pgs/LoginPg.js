@@ -1,8 +1,8 @@
 import * as React from "react";
-import { Redirect } from 'react-router-dom';
+// import { Redirect } from 'react-router-dom';
 import { API } from "../../utils";
 // import { FaceBookLogo, TwitterLogo, GoogleLogo } from '../../assets';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 class LoginPg extends React.Component {
     state = {
