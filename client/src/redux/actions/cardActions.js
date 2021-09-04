@@ -1,5 +1,5 @@
 import { FETCH_COURSE_CARDS } from './types';
-import { API } from '../../utils'
+import { API } from '../../utils/api'
 
 export const getCourseCards = () => dispatch => {
     console.log('fetching colors for real');

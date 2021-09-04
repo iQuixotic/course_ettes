@@ -1,6 +1,6 @@
 import axios from "axios";
 
-export default {
+export const API = {
 
     addNewUser: (data) =>  { 
         let obj = {

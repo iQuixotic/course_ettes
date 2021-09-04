@@ -25,7 +25,7 @@ class DecksDisplayPg extends Component {
 
     render() {
         const decks = this.props.decksArr.map(el => (
-            <div >
+            <div id={'deckId'+el._id} key={el._id}>
                 <h3>{el.name}</h3>
             </div>
         ));

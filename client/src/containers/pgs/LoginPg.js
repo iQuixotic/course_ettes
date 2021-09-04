@@ -1,6 +1,6 @@
 import * as React from "react";
 // import { Redirect } from 'react-router-dom';
-import { API } from "../../utils";
+import { API } from "../../utils/api";
 // import { FaceBookLogo, TwitterLogo, GoogleLogo } from '../../assets';
 // import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
@@ -79,7 +79,7 @@ class LoginPg extends React.Component {
 
                         <div className="login-and-register-btns">
                             <button className="btns login" onClick={() => this.loginSubmitHandler()}>Login</button>
-                            <a className="btns register" onClick={() => this.registerSubmitHandler()}>Forgot Password</a>
+                            <a href='/register' className="btns register" onClick={() => this.registerSubmitHandler()}>Forgot Password</a>
                         </div>
                         {/* <div className="forgot-password">
                             <a  href="#">Forgot Password</a>

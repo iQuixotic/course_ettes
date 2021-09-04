@@ -1,5 +1,5 @@
 import * as React from "react";
-import { API } from "../../utils";
+import { API } from "../../utils/api";
 
 
 class RegisterPg extends React.Component{

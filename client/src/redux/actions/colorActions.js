@@ -1,9 +1,9 @@
 import { FETCH_COLORS } from './types';
-import { API__COLORS } from '../../utils'
+import { API } from '../../utils/api'
 
 export const getColors = () => dispatch => {
     console.log('fetching colors for real');
-    API__COLORS.getColors()
+    API.getColors()
     .then(res => dispatch({
         type: FETCH_COLORS,
         payload: res.data  
