@@ -33,6 +33,7 @@ export default {
 
             // if good data get deck, else handle error
             if(cards.length > 0) res.json( cards )
+            else if (cards.length === 0) res.status(200).json({message: "There are no cards in this deck"})
             else res.status(500); res.json(MESSAGE("generalCardError"));
         } catch (err) { res.json({error: err.toString()}) }
     },

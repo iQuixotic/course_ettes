@@ -47,5 +47,8 @@ export const API = {
 
     getCourseCards: () => {
         return axios.get('/roles');
+    },
+    getCardsbyDeckId: (deckId) => {
+        return axios.get('/cards-info/' + deckId)
     }
 }

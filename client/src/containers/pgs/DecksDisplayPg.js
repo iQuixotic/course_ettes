@@ -3,16 +3,20 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { getAllDecks } from '../../redux/actions/deckActions'
+import {  getCardsbyDeckId } from '../../redux/actions/cardActions'
 // import { API } from "../../utils";
 
 class DecksDisplayPg extends Component {
     // state = {
     //     decks: []
     // }
-
+    updateToDeckReviewPg = (e) => {
+        return this.props.history.push('/deckReview/' + e.currentTarget.id.substring(6))
+    }
     componentDidMount= () => {
         this.props.getAllDecks();
-        console.log(this.props.decksArr)
+        // this.props.getCardsbyDeckId(1)
+        // console.log(this.props.decksArr)
         // API.getUserDecks()
         //     .then(res => {
         //         this.setState({
@@ -25,7 +29,7 @@ class DecksDisplayPg extends Component {
 
     render() {
         const decks = this.props.decksArr.map(el => (
-            <div id={'deckId'+el._id} key={el._id}>
+            <div onClick={this.updateToDeckReviewPg} id={'deckId'+el._id} key={el._id}>
                 <h3>{el.name}</h3>
             </div>
         ));
@@ -47,11 +51,13 @@ class DecksDisplayPg extends Component {
 }
 
 postMessage.PropTypes = {
-    decksArr: PropTypes.array.isRequired
+    decksArr: PropTypes.array.isRequired,
+    cards: PropTypes.array.isRequired
 }
 
 const mapStateToProps = state => ({
     decksArr: state.decksArr.decks,
+    cards: state.cards.cardsArr
 })
 
-export default connect(mapStateToProps, {getAllDecks})(DecksDisplayPg);
+export default connect(mapStateToProps, {getAllDecks, getCardsbyDeckId})(DecksDisplayPg);

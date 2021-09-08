@@ -4,7 +4,7 @@ import { Provider } from 'react-redux';
 
 import store from '../redux/store';
 
-import { Home, Test, LoginPg, Workstation, RegisterPg, DecksDisplayPg } from '../containers';
+import { Home, Test, LoginPg, Workstation, RegisterPg, DecksDisplayPg, DeckReviewPg } from '../containers';
 // import Workstation from '../pgs/Workstation';
 // import { LifeCycle } from '../components';  
 
@@ -17,6 +17,7 @@ class App extends Component {
             <Route exact={true} path="/register" component={RegisterPg} />
               <Route exact path="/">{loggedIn() ?  <Home />: <Redirect to="/login" /> }</Route>
               <Route exact path="/decksDisplay" component={DecksDisplayPg} />
+              <Route exact path="/deckReview/:id" component={DeckReviewPg} />
               <Route exact path="/workstation">{loggedIn() ? <Redirect to="/t" /> : <Workstation/>}
               </Route>
               <Route exact={true} path="/test" component={Test} />
