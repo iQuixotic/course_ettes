@@ -8,5 +8,5 @@ export const getAllDecks = () => dispatch => {
         type: FETCH_ALL_DECKS,
         payload: res.data  
     }))
-    // .then(res => console.log(res.payload))
+    .then(res => console.log(res.payload))
 }

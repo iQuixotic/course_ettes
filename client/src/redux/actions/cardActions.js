@@ -13,16 +13,12 @@ export const getCourseCards = () => dispatch => {
 } 
 
 
-export const getCardsbyDeckId = (e) => dispatch => {
-    console.log('fetching decks for real');
-    const id = e.currentTarget.id.substring(6)
-    console.log(id)
-    API.getCardsbyDeckId(e.currentTarget.id.substring(6))    
+export const getCardsbyDeckId = (id) => dispatch => {
+    API.getCardsbyDeckId(id)    
     .then(res => dispatch({
         type: FETCH_CARDS_BY_DECKID,
         payload: res.data  
     }))
     .then(res => console.log(res.payload))
-    .then(() =>  {return this.props.history.push('/deckReview/' + 7)}) 
     .catch(e => {console.log(e)})
 }
