@@ -2,11 +2,11 @@ import React, { Component } from 'react'
 
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import { getAllDecks } from '../../redux/actions/deckActions'
+import { getSubscribedDecks, getOwnedDecks } from '../../redux/actions/deckActions'
 import {  getCardsbyDeckId } from '../../redux/actions/cardActions'
 // import { API } from "../../utils";
 
-class DecksDisplayPg extends Component {
+class MyDecksPg extends Component {
     // state = {
     //     decks: []
     // }
@@ -14,7 +14,8 @@ class DecksDisplayPg extends Component {
         return this.props.history.push('/deckReview/' + e.currentTarget.id.substring(6))
     }
     componentDidMount= () => {
-        this.props.getAllDecks();
+        this.props.getSubscribedDecks();
+        this.props.getOwnedDecks()
         // this.props.getCardsbyDeckId(1)
         // console.log(this.props.decksArr)
         // API.getUserDecks()
@@ -62,4 +63,4 @@ const mapStateToProps = state => ({
     cards: state.cards.cardsArr
 })
 
-export default connect(mapStateToProps, {getAllDecks, getCardsbyDeckId})(DecksDisplayPg);
+export default connect(mapStateToProps, {getSubscribedDecks, getOwnedDecks, getCardsbyDeckId})(MyDecksPg);

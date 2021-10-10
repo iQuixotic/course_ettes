@@ -20,7 +20,7 @@ routerA.route('/cards-info/:cardId')
     .delete(cardsController.deleteOne);
 
 routerA.route('/cards-info/:deckId')
-    .get(AUTH.hasDeckPrivileges, cardsController.getByDeckId)
+    .get(AUTH.hasDeckPrivileges, cardsController.getPrivateByDeckId)
     .post(cardsController.addOne)
 
 routerA.patch('/colors/:cardId/:colorId', AUTH.checkPrivateCardPrivileges,  colorsController.updateOne)

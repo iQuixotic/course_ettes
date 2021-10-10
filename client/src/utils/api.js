@@ -32,7 +32,27 @@ export const API = {
         })
     },
     getUserDecks: () => {
-        return axios.get('/ua/decks', {
+        return axios.get('/decks', {
+            headers: {
+                'Content-Type':'application/json',                
+                'Authorization': 'Bearer ' + window.localStorage.getItem("token")
+            },
+            // body: JSON.stringify(obj)
+        })
+
+    },
+    getSubscribedDecks: () => {
+        return axios.get('/ua/decks/subscribed', {
+            headers: {
+                'Content-Type':'application/json',                
+                'Authorization': 'Bearer ' + window.localStorage.getItem("token")
+            },
+            // body: JSON.stringify(obj)
+        })
+
+    },
+    getOwnedDecks: () => {
+        return axios.get('/ua/decks/owned', {
             headers: {
                 'Content-Type':'application/json',                
                 'Authorization': 'Bearer ' + window.localStorage.getItem("token")

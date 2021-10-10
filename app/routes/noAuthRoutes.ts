@@ -13,7 +13,6 @@ routerN.route('/login').post(loginController.login);
 // color routes
 routerN.route('/colors').get(colorsController.getAll)
 
-routerN.route('/cards-info/:deckId')
-    .get(cardsController.getByDeckId)
+routerN.route('/cards-info/:deckId').get(cardsController.getPublicByDeckId)
 
 export default routerN;

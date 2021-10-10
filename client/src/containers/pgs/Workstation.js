@@ -1,63 +1,115 @@
 import React, { Component } from 'react'
-import { Workspace } from '../../components';
+
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-// import { cardState } from '../redux/actions/' 
-import { getColors } from '../../redux/actions/colorActions'
-import { getCourseCards } from '../../redux/actions/cardActions'
-import { cardFlip } from '../../redux/actions/cardStateActions'
+import { getAllDecks } from '../../redux/actions/deckActions'
+import {  getCardsbyDeckId } from '../../redux/actions/cardActions'
+// import { API } from "../../utils";
 
-class Workstation extends Component {
+let y=0
+class DeckReviewPg extends Component {
     state = {
-        flip: true,
-        isFlipped: true,
-        frontOfCard: "Redux",
-        backOfCard: "PG words for the internet commit..."
+        front_content: '',
+        back_content: '',
+        cardOfFocus: '',
+        cardPlace: 0
     }
-    componentDidMount() {
-        this.props.getColors();
-        this.props.getCourseCards();
+    
+    componentDidMount= () => {
+        this.props.getCardsbyDeckId(window.location.pathname.substring(12))
+        this.props.getAllDecks()
+        this.getInitialCardUpdate()
+        // this.updateCardShowingState = this.updateCardShowingState.bind(this)
+        // this.getInitialCardUpdate = this.getInitialCardUpdate.bind(this)
+        // this.flipCard = this.flipCard.bind(this)
+        // this.viewNextCard = this.viewNextCard.bind(this)
+        // this.viewPreviousCard = this.viewPreviousCard.bind(this)
     }
 
-    flip = () => {
-            let flip = !this.state.isFlipped;
-            this.setState({ isFlipped: flip });
-        setTimeout(() => {
-            let flip = !this.state.isFlippedPlus5;
-            this.setState({ isFlippedPlus5: flip });
-        }, 400);
+    getInitialCardUpdate = () => {
+        y++
+        if(this.props.cards.length>0 && y<3){
+            this.setState({
+                front_content: this.props.cards[0].front_content,
+                cardOfFocus: this.props.cards[0]
+            })
+            console.log("yes")
+        } else if(y<3) setTimeout(() => {
+            console.log("no")
+            this.getInitialCardUpdate()
+        }, 1000);
+    }
+
+    flipCard = () => {
+        this.state.front_content ? this.setState({
+            front_content: null,
+            back_content: this.state.cardOfFocus.back_content
+        }) : this.setState({
+            front_content: this.state.cardOfFocus.front_content,
+            back_content: null
+        })
+        console.log(this.state)
+    }
+
+    viewNextCard = () => {
+        const x = this.state.cardPlace === this.props.cards.length-1 ? this.state.cardPlace : this.state.cardPlace+1
+        this.setState({
+            cardPlace: x,
+            cardOfFocus: this.props.cards[x],
+        }) 
+        this.updateCardShowingState(this.props.cards[x])
+    }
+
+    viewPreviousCard = () => {
+        const x = this.state.cardPlace === 0 ? 0 :this.state.cardPlace-1
+        this.setState({
+            cardPlace: x,
+            cardOfFocus: this.props.cards[x]
+        })
+        this.updateCardShowingState(this.props.cards[x])
+    }
+
+    updateCardShowingState = (x) => {
+        if(this.state.front_content != null) this.setState({ front_content: x.front_content})
+        else this.setState({ back_content: x.back_content})
     }
 
     render() {
-       
+        const deck = this.props.decksArr.map(el => (
+            <div id={'deckId'+el._id} key={el._id}>
+                {el._id == window.location.pathname.substring(12) ? <h3>{el.name}</h3> : null}
+            </div>
+        ));
+        const card = this.props.cards.map(el => (
+            this.state.front_content === '' ? null : (
+            <div onClick={this.flipCard} id={'cardId'+el._id} key={el._id}>
+                {this.state.cardOfFocus._id === el._id && this.state.front_content === el.front_content  ? <p>{el.front_content}</p> : null}
+                {this.state.cardOfFocus._id === el._id && this.state.back_content === el.back_content ? <p>{el.back_content}</p> : null}
+            </div>
+            
+        )))
         return (
-            <div className="workstation-body">
-                <div className="workstation-card">
-                    <Workspace
-                        onClick={() => this.flip()}
-                        // onClick={() => this.cardFlip(this.props.cardState.flip)}
-                        front={this.state.isFlipped}
-                        front5={this.state.isFlippedPlus5}>
-                            <h2 className={this.state.isFlipped ? "animate-cff" : "animate-cfb"}>{this.state.isFlippedPlus5 ? this.state.frontOfCard : this.state.backOfCard}</h2>
-                    </Workspace>
-                </div>
+            <div>
+                Panda
+                Here are the cards of teh deck:
+                {deck}
+                Here are the cards: 
+                <div onClick={this.viewPreviousCard}>Previous</div>
+                {card}
+                <div onClick={this.viewNextCard}>Next</div>
             </div>
         )
     }
 }
 
 postMessage.PropTypes = {
-    courseCards: PropTypes.array.isRequired,
-    colors: PropTypes.array.isRequired
+    decksArr: PropTypes.array.isRequired,
+    cards: PropTypes.array.isRequired
 }
 
 const mapStateToProps = state => ({
-    courseCards: state.courseCards.choices,
-    colors: state.colors.choices,
-    flip: state.cardState.flip,
-    isFlipped: state.cardState.isFlipped,
-    frontOfCard: state.cardState.frontOfCard,
-    backOfCard: state.cardState.backOfCard
+    decksArr: state.decksArr.decks,
+    cards: state.cards.cardsArr
 })
 
-export default connect(mapStateToProps, {getColors, getCourseCards, cardFlip})(Workstation);
+export default connect(mapStateToProps, {getAllDecks, getCardsbyDeckId})(DeckReviewPg);

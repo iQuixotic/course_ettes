@@ -53,6 +53,17 @@ export default {
         return `SELECT * FROM colors;`
     },
 
+    // -- 7. get all of the cards from an public facing  deck
+    getPublicDeck: () => {
+        return (`
+            SELECT cards_info._id, cards_info.front_content, cards_info.back_content, decks.name
+            FROM cards_info
+            INNER JOIN card_to_decks_ref ON cards_info._id = card_to_decks_ref.card_id
+            INNER JOIN decks ON card_to_decks_ref.deck_id = decks._id
+            WHERE decks._id = $1 and decks.visibility_id=1;
+        `)
+    },
+
     // -- 7. get all of the cards from an owned deck
     getOwnedDeck: () => {
         return (`
@@ -60,7 +71,7 @@ export default {
             FROM cards_info
             INNER JOIN card_to_decks_ref ON cards_info._id = card_to_decks_ref.card_id
             INNER JOIN decks ON card_to_decks_ref.deck_id = decks._id
-            WHERE decks._id = $1;
+            WHERE decks._id = (select deck_id from decks_to_owners_ref where creator_id = $1 and deck_id = $2);
         `)
     },
 
@@ -88,7 +99,12 @@ export default {
 
     // -- 10. get all the decks available in the system (limit for pagination)
     getAllDecks: () => {
-        return `SELECT * FROM decks LIMIT 12 OFFSET $1;`;
+        return `
+        SELECT * FROM decks where visibility_id=1 and _id not in (
+            select user_deck_library_ref.deck_id from decks_to_owners_ref 
+            inner join user_deck_library_ref on decks_to_owners_ref.deck_id=user_deck_library_ref.deck_id
+            where creator_id=$1 ) LIMIT 12 OFFSET 0;
+        `;
     },
 
     // -- 11. get card by id
