@@ -30,7 +30,10 @@ routerA.route('/decks')
     .get(decksController.getAll)
     .post(decksController.addOne)
 
-routerA.get('/decks/subscribed', decksController.getSubscribedDecks)
+routerA.route('/decks/subscribed')
+    .get(decksController.getSubscribedDecks)
+    .post(decksController.addToSubscribedDecks)
+
 routerA.get('/decks/owned', decksController.getOwnedDecks)
 routerA.delete('/decks/owned/:deckId', decksController.deleteOne)
 

@@ -31,6 +31,7 @@ export default {
         } catch (err) { throw err }; 
     },
 
+    
     // // READ a single deck which a user owns and manages
     getOwnedDecks: async (req: any, res: Response) => {
         try {
@@ -47,6 +48,21 @@ export default {
         }  catch (err) { throw err; }      
     },
 
+    addToSubscribedDecks: async (req: any, res: Response) => {
+        console.log("------------------------------- I am adding to subs", req.body)
+        try {       
+            // const deck = new Deck(req.body);
+
+            // if good data create deck, else handle error
+            // if(deck.name != undefined && deck.visibility_id != undefined) {
+                // console.log(deck)
+                // await db.query(X.addDeckName(), [deck.name, deck.visibility_id]); 
+                // await db.query(X.createNewDeckAssoc(), [req.activeUserId]); 
+            // } 
+            // else res.json(MESSAGE("deckDeffError"));
+            res.json(MESSAGE("deckAdded"));
+        } catch (err) { console.log(err) }; 
+    },
     // // READ a single deck to which a user is subscribed to
     getSubscribedDecks: async (req: any, res: Response) => {
         try {

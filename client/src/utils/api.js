@@ -32,7 +32,7 @@ export const API = {
         })
     },
     getUserDecks: () => {
-        return axios.get('/decks', {
+        return axios.get('/ua/decks', {
             headers: {
                 'Content-Type':'application/json',                
                 'Authorization': 'Bearer ' + window.localStorage.getItem("token")
@@ -48,6 +48,17 @@ export const API = {
                 'Authorization': 'Bearer ' + window.localStorage.getItem("token")
             },
             // body: JSON.stringify(obj)
+        })
+
+    },
+
+    addToSubscribedDecks: (data) => {
+        console.log(data)
+        return axios.post('/ua/decks/subscribed', data, {
+            headers: {
+                // 'Content-Type':'application/json',                
+                'Authorization': 'Bearer ' + window.localStorage.getItem("token")
+            }
         })
 
     },

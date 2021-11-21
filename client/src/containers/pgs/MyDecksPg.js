@@ -4,28 +4,17 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { getSubscribedDecks, getOwnedDecks } from '../../redux/actions/deckActions'
 import {  getCardsbyDeckId } from '../../redux/actions/cardActions'
-// import { API } from "../../utils";
 
 class MyDecksPg extends Component {
-    // state = {
-    //     decks: []
-    // }
+    state = {
+        
+    }
     updateToDeckReviewPg = (e) => {
         return this.props.history.push('/deckReview/' + e.currentTarget.id.substring(6))
     }
     componentDidMount= () => {
         this.props.getSubscribedDecks();
         this.props.getOwnedDecks()
-        // this.props.getCardsbyDeckId(1)
-        // console.log(this.props.decksArr)
-        // API.getUserDecks()
-        //     .then(res => {
-        //         this.setState({
-        //             decks: res.data
-        //         })
-        //     })
-        //     .then(() => console.log(this.state))
-        //     .catch(e => {throw e})
     }
 
     render() {
@@ -41,13 +30,6 @@ class MyDecksPg extends Component {
                 <div className='flex contain'>
                     {decks}
                 </div>
-                 {/* {this.state.decks.map(el => {
-                     return(
-                        <div>
-                             {el.name}
-                        </div>
-                     )
-                 })} */}
             </div>
         )
     }
@@ -63,4 +45,4 @@ const mapStateToProps = state => ({
     cards: state.cards.cardsArr
 })
 
-export default connect(mapStateToProps, {getSubscribedDecks, getOwnedDecks, getCardsbyDeckId})(MyDecksPg);
+export default connect(mapStateToProps,  {getSubscribedDecks, getOwnedDecks, getCardsbyDeckId})(MyDecksPg);

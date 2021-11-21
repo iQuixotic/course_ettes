@@ -4,7 +4,7 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { getAllDecks } from '../../redux/actions/deckActions'
 import {  getCardsbyDeckId } from '../../redux/actions/cardActions'
-// import { API } from "../../utils";
+import { API } from "../../utils/api";
 
 let y=0;
 class DeckReviewPg extends Component {
@@ -12,7 +12,8 @@ class DeckReviewPg extends Component {
         front_content: '',
         back_content: '',
         cardOfFocus: '',
-        cardPlace: 0
+        cardPlace: 0,
+        addToSubscribedDecks: false
     }
     
     componentDidMount= () => {
@@ -70,6 +71,13 @@ class DeckReviewPg extends Component {
         this.updateCardShowingState(this.props.cards[x])
     }
 
+    handleAddToDecks = (e) => {
+        console.log(e.currentTarget.id)
+        API.addToSubscribedDecks(e.currentTarget.id)
+            .then(res => console.log(res))
+            .catch(e => { throw e })
+    }
+
     updateCardShowingState = (x) => {
         // console.log(x)
         if(this.state.front_content != null) this.setState({ front_content: x.front_content})
@@ -79,14 +87,20 @@ class DeckReviewPg extends Component {
     render() {
         const deck = this.props.decksArr.map(el => (
             <div className=""  id={'deckId'+el._id} key={el._id}>
-                {el._id == window.location.pathname.substring(12) ? <h3>{el.name}</h3> : null}
+                {el._id == window.location.pathname.substring(12) ? (
+                <div key={el._id}>
+                    <h3>{el.name}</h3> 
+                    <button onClick={this.handleAddToDecks} id={el._id}  >Add To Subscrided Decks</button>
+                </div>): null}
             </div>
         ));
         const card = this.props.cards.map(el => (
             this.state.front_content === '' ? null : (
-                <div className="public-card lg-card"  onClick={this.flipCard} id={'cardId'+el._id} key={el._id}>
-                {this.state.cardOfFocus._id === el._id && this.state.front_content === el.front_content  ? <p className='inline-block width-100p'>{el.front_content}</p> : null}
-                {this.state.cardOfFocus._id === el._id && this.state.back_content === el.back_content ? <p className=' inline-block  width-100p'>{el.back_content}</p> : null}
+                <div key={el._id}>
+                {this.state.cardOfFocus._id === el._id && this.state.front_content === el.front_content  ? (
+                    <div className=""  onClick={this.flipCard} id={'cardId'+el._id} key={el._id}><div className='public-card lg-card inline-block width-100p'>{el.front_content}</div></div>): null}
+                {this.state.cardOfFocus._id === el._id && this.state.back_content === el.back_content ? (
+                    <div className=""  onClick={this.flipCard} id={'cardId'+el._id} key={el._id}><div className='public-card lg-card inline-block  width-100p'>{el.back_content}</div><input type='checkbox'></input></div>): null}
             </div>
             
         )))
@@ -95,6 +109,7 @@ class DeckReviewPg extends Component {
                 Panda
                 Here are the cards of teh deck:
                 {deck}
+
                 Here are the cards: 
                 {card}
                 <div className='flex navigators'>

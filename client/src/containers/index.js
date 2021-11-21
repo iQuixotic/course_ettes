@@ -6,3 +6,4 @@ export { default as Workstation } from './pgs/Workstation';
 export { default as DecksDisplayPg } from './pgs/DecksDisplayPg';
 export { default as DeckReviewPg } from './pgs/DeckReviewPg';
 export { default as MyDecksPg } from './pgs/MyDecksPg';
+export { default as HomePg } from './pgs/Home';
