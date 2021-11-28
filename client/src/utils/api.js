@@ -76,6 +76,33 @@ export const API = {
         return axios.get('/colors');
     },
 
+    createNewDeck: (deck) => {
+        const data = {
+            name: deck,
+            visibility_id: 1
+        }
+        console.log('- the deck is ------> ', deck)
+        return axios.post('/ua/decks', data, {
+            headers: {           
+                'Authorization': 'Bearer ' + window.localStorage.getItem("token")
+            }
+        })
+    },
+
+    createNewCard: (fc, bc, id) => {
+        const data = {
+            front_content: fc,
+            back_content: bc
+        }
+        console.log('createing new card', data, id)
+        // console.log( data)
+        return axios.post(`/ua/cards-info/${id}`, data, {
+            headers: {      
+                'Authorization': 'Bearer ' + window.localStorage.getItem("token")
+            }
+        })
+    },
+
     getCourseCards: () => {
         return axios.get('/roles');
     },

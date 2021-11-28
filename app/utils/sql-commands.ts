@@ -3,8 +3,8 @@ export default {
     // -- 1. insert a single db object
     insertOneUser: () => {
         return (
-            `INSERT INTO users (email, password, first_name, last_name, role_id) 
-            VALUES ($1, $2, $3, $4, $5);`
+            `INSERT INTO users (_id, email, password, first_name, last_name, role_id) 
+            VALUES ($1, $2, $3, $4, $5, $6);`
         );
     },
 
@@ -25,13 +25,13 @@ export default {
 
     // -- 5. create a new deck
     addDeckName: () => {
-        return `INSERT INTO decks (name, visibility_id) VALUES($1, $2);`;
+        return `INSERT INTO decks (_id, name, visibility_id) VALUES($1, $2, $3);`;
     },
 
     createNewDeckAssoc: () => {
         return (`
-            WITH i AS (INSERT INTO decks_to_owners_ref (creator_id, deck_id) VALUES($1, (SELECT currval(pg_get_serial_sequence('decks','_id')))))
-            INSERT INTO user_deck_library_ref (user_id, deck_id) VALUES($1, (SELECT currval(pg_get_serial_sequence('decks','_id'))));
+            WITH i AS (INSERT INTO decks_to_owners_ref (creator_id, deck_id) VALUES($1, $2))
+            INSERT INTO user_deck_library_ref (user_id, deck_id) VALUES($1, $2);
         `);
     },
 

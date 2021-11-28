@@ -54,7 +54,7 @@ export default {
     addOne: async (req: any, res: Response) => {
         try {            
             const card = new CardInfo(req.body);
-            console.log(req.body)
+            console.log('==========++++++++++++>>',req.body)
             // if good data create card and assign deck, else handle error
             if(card.back_content != undefined && card.front_content != undefined) {
                 let id = databaseHelper.createUniqueId()

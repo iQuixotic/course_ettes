@@ -7,7 +7,7 @@ CREATE TABLE roles (
 ---------------------------------------------------------------------------
 -- for creating the users table (2)
 CREATE TABLE users (
-  _id SERIAL PRIMARY KEY,
+  _id VARCHAR(255) PRIMARY KEY,
   email VARCHAR(70) UNIQUE,
   password VARCHAR(255),
   first_name VARCHAR(40),
@@ -34,7 +34,7 @@ CREATE TABLE colors (
 ---------------------------------------------------------------------------
 -- for creating the colors_ref table (5)
 CREATE TABLE colors_ref (
-  user_id int references users(_id),
+  user_id VARCHAR(255) references users(_id),
   card_id VARCHAR references cards_info(_id) ON DELETE CASCADE,
     FOREIGN KEY(card_id) REFERENCES cards_info(_id),
   color_id int references colors(_id)
@@ -50,7 +50,7 @@ CREATE TABLE visibility (
 ---------------------------------------------------------------------------
 -- for creating the decks_ref table (7)
 CREATE TABLE decks (
-  _id SERIAL PRIMARY KEY,
+  _id VARCHAR(255) PRIMARY KEY,
   name VARCHAR(255),
   visibility_id int references visibility(_id)
 );
@@ -58,8 +58,8 @@ CREATE TABLE decks (
 ---------------------------------------------------------------------------
 -- for creating the decks_ref table (8)
 CREATE TABLE likes (
-  user_id int REFERENCES users(_id),
-  deck_id int REFERENCES decks(_id),
+  user_id VARCHAR(255) REFERENCES users(_id),
+  deck_id VARCHAR(255) REFERENCES decks(_id),
   isGood bit
 );
 
@@ -74,9 +74,9 @@ CREATE TABLE likes (
 -- for creating the visibility table (10)
 CREATE TABLE share_with (
   -- _id SERIAL PRIMARY KEY,
-  deck_id int REFERENCES decks(_id),
+  deck_id VARCHAR(255) REFERENCES decks(_id),
   -- sharer_id references users(_id),
-  share_with_id int  references users(_id)
+  share_with_id VARCHAR(255)  references users(_id)
   -- status REFERENCES shared_statuses(_id)
 );
 
@@ -84,8 +84,8 @@ CREATE TABLE share_with (
 -- for creating the notes table (11)
 CREATE TABLE user_deck_notes (
   _id SERIAL PRIMARY KEY,
-  user_id  int references users(_id),
-  deck_id  int references decks(_id),
+  user_id  VARCHAR(255) references users(_id),
+  deck_id  VARCHAR(255) references decks(_id),
   -- tier_id VARCHAR(70) references tiers(_id),
   content VARCHAR(255)
 );
@@ -101,23 +101,23 @@ CREATE TABLE user_deck_notes (
 CREATE TABLE card_to_decks_ref (
   card_id VARCHAR references cards_info ON DELETE CASCADE,
     FOREIGN KEY(card_id) REFERENCES cards_info(_id),
-  deck_id int references decks(_id) ON DELETE CASCADE,
+  deck_id VARCHAR(255) references decks(_id) ON DELETE CASCADE,
     FOREIGN KEY(deck_id) REFERENCES decks(_id)
 );
 
 ---------------------------------------------------------------------------
 -- keeping track of who made the origional deck (and cards) (14)
 CREATE TABLE decks_to_owners_ref (
-  creator_id int references users(_id),
-  deck_id int references decks(_id) ON DELETE CASCADE,
+  creator_id VARCHAR(255) references users(_id),
+  deck_id VARCHAR(255) references decks(_id) ON DELETE CASCADE,
    FOREIGN KEY(deck_id) REFERENCES decks(_id)
 );
 
 ---------------------------------------------------------------------------
 -- keeping track of who has a deck in their inventory (15)
 CREATE TABLE user_deck_library_ref (
-  user_id int references users(_id),
-  deck_id int references decks(_id) ON DELETE CASCADE,
+  user_id VARCHAR(255) references users(_id),
+  deck_id VARCHAR(255) references decks(_id) ON DELETE CASCADE,
     FOREIGN KEY(deck_id) REFERENCES decks(_id)
 );
 

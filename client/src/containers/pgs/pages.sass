@@ -315,10 +315,22 @@ label
     text-align: center   
                     
 .HomePg .decks-area
-    background: purple
+    background: #e7e7e7 
+    border: 1px solid white
     
 .HomePg .bottom-panel
-    background: green
+    background: #c0bfbf
+        
+    display: grid
+    // height: 100vh
+    grid-template-columns: 1fr 3fr 1fr
+    // grid-auto-rows: 3fr 1fr
+
+
+.bottom-panel-shifted
+    grid-column: 2
+    grid-row: 1
+    margin: 20px 0
                    
 .HomePg .notes
     background: yellow
@@ -351,29 +363,32 @@ label
     height: 20px
     width: 20px
 
-.HomePg .chosen-deck .chosen-deck-square-blue
+.chosen-deck-square-blue
     margin: 5px
     background: blue
     height: 20px
     width: 20px
 
-.HomePg .chosen-deck .chosen-deck-square-orange
+.chosen-deck-square-orange
     margin: 5px
     background: orange
     height: 20px
     width: 20px
 
-.HomePg .chosen-deck .chosen-deck-square-pink
+.chosen-deck-square-pink
     margin: 5px
     background: #fa00c4
     height: 20px
     width: 20px
 
-.HomePg .chosen-deck .chosen-deck-square-green
+.chosen-deck-square-green
     margin: 5px
     background: green
     height: 20px
     width: 20px
+
+.bottom-panel-color-squares
+    display: flex
 
 .HomePg .chosen-deck .color
     padding-left: 5px
@@ -390,9 +405,42 @@ label
     text-align: center
 
 .cards-with-prev-next
-    font-size: 1.1rem
+    // font-size: 1.5rem
 
 .full-card
     padding: 4rem
     background: white
-    margin: 50px
+    margin: 50px 90px
+
+
+.deck-name
+    font-size: 1.4rem
+
+.prev, .next
+    color: blue
+    font-size: 1rem
+
+.decks-area-buttons
+    text-align: center
+    position: relative
+    top: 30%
+
+
+.decks-area-buttons button
+    color: white
+    border: none
+    border-radius: 7px
+    display: grid
+    text-align: center
+    width: 90%
+    font-size: 1.1rem
+    padding: 7px 5px
+    margin: 10px 5%
+    background: blue
+
+
+.decks-area-buttons button:hover
+    cursor: pointer
+    
+// .decks-area-buttons button:nth-child(even)
+//     background: #acddf1

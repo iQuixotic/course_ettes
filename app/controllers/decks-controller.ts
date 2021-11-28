@@ -4,6 +4,7 @@ import db from '../config/connection';
 import { Deck } from '../classes';
 import { default as X } from '../utils/sql-commands';
 import { MESSAGE } from '../utils/messages';
+import databaseHelper from '../utils/database-helper';
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 export default {
@@ -19,15 +20,18 @@ export default {
     // // CREATE a new deck in the database
      addOne: async (req: any, res: Response) => {
         try {       
+            let id = databaseHelper.createUniqueId()
             const deck = new Deck(req.body);
 
             // if good data create deck, else handle error
             if(deck.name != undefined && deck.visibility_id != undefined) {
-                await db.query(X.addDeckName(), [deck.name, deck.visibility_id]); 
-                await db.query(X.createNewDeckAssoc(), [req.activeUserId]); 
+                await db.query(X.addDeckName(), [id, deck.name, deck.visibility_id]); 
+                await db.query(X.createNewDeckAssoc(), [req.activeUserId, id]); 
             } 
             else res.json(MESSAGE("deckDeffError"));
-            res.json(MESSAGE("deckAdded"));
+            let arr =[MESSAGE("deckAdded"), {id: id}]
+            console.log(arr)
+            res.json(arr);
         } catch (err) { throw err }; 
     },
 

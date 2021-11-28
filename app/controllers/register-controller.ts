@@ -5,6 +5,7 @@ import db from '../config/connection';
 import { MESSAGE, ERROR } from '../utils/messages';
 import { default as X } from '../utils/sql-commands';
 import { User } from '../classes';
+import databaseHelper from '../utils/database-helper';
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 export default {
@@ -16,8 +17,9 @@ export default {
             //generate a salt
             const saltBae = await bcrypt.genSalt(10);
             const hashed = await bcrypt.hash(req.body.password, saltBae);
-
+            let id = databaseHelper.createUniqueId()
                     let obj = {
+                        _id: id,
                         password: hashed,                       
                         first_name: req.body.first_name, 
                         last_name: req.body.last_name, 

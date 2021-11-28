@@ -7,3 +7,5 @@
 // export { default as Notes } from './notes';
 
 export { default as Workspace } from './workspace/workspace';
+export { default as Modal } from './modal/modal';
+export { default as Backdrop } from './backdrop/backdrop';

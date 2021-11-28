@@ -5,6 +5,7 @@ import bcrypt from 'bcrypt';
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 class User {
     
+    private _id: string
     private email: string; 
     private password: string; 
     private first_name: string;
@@ -14,7 +15,8 @@ class User {
     constructor(obj) {      
         if(!obj) {
             return;   
-        }          
+        }        
+        this._id = obj._id;
         this.email = obj.email;
         this.password = obj.password;
         this.first_name = obj.first_name;
