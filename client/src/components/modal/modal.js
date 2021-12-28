@@ -13,8 +13,9 @@ const Modal = (props) => {
                     <div className='modal-select'>
                         <div className='heading'>Select a Deck</div>
                         <div className='breakline'></div>
-                        <div className='modal-button-area'>
-                            <button onClick={props.close}>Close</button>
+                            <p onClick={props.prevDeck}>   Carrot   </p>{props.decksOwned} <p onClick={props.nextDeck}>   Carrot   </p>
+                        <div className='modal-button-area buttons-div'>
+                            <button onClick={props.deckSelect}>Select Deck</button>
                             <button onClick={props.close}>Close</button>
                         </div>
                     </div>
@@ -48,11 +49,17 @@ const Modal = (props) => {
                         </div>
                     </div>
                 ): null}
-                {/* {props.type === 'edit' ? (
-                    <div className='modal-edit'>
-                        <div className='heading'>Edit Deck</div>
+                {props.type === 'delete' ? (
+                    <div className='modal-delete'>
+                        <div className='heading'>Select a Deck</div>
+                        <div className='breakline'></div>
+                          Are you sure you want to delete this deck forever?
+                        <div className='modal-button-area buttons-div'>
+                            <button onClick={props.deckDelete}>Delete</button>
+                            <button onClick={props.close}>Close</button>
+                        </div>
                     </div>
-                ): null} */}
+                ): null}
             </div>
         </div>
     );

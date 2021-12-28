@@ -24,11 +24,11 @@
     cursor: pointer
 
 
-//  .modal-select
+
 
 //  .modal-create
 
-.modal-create .heading
+.modal-create .heading,  .modal-select .heading, .modal-delete .heading
     text-align: center
     margin-top: 10px
     font-size: 1.4rem
@@ -36,46 +36,52 @@
 
 
 
-.modal-create .breakline, .modal-select .breakline
+.modal-create .breakline, .modal-select .breakline, .modal-delete .breakline
     border-bottom: 2px solid #9b9b9b
     width: 100%
     margin: 15px 0
+
+.deck-name label, .create-new-cards label, .back-content-div label
+    // text-align: left
+    margin-left: 10%
+    // right: 25%
 
 .create-new-cards label
 
 .create-new-cards
     // text-align: center
 
-.card-content
-    // width: 50%
+// .card-content
+//     width: 80%
 
-.deck-name label, .create-new-cards label
-    position: relative
+// .deck-name label, .create-new-cards label
+//     position: relative
     // top: 25px
 
 .back-content-div
     margin-top: 15px
 
-.deck-name
-    text-align: center
+// .deck-name
+//     text-align: center
 
 .create-new-cards
-    text-align: center
+    // text-align: center
     margin-top: 15px
 
 .card-content
-    margin: 0 0 0 25%
+    margin: 0 0 0 10%
+    width: 80%
 
 .deck-name .common-input
-    display: block
-    margin-left: 25%
+    // display: block
+    margin-left: 10%
     margin-top: 10px
-    width: 50%
+    width: 80%
     border-radius: 0
 
 .front-content
-    display: block
-    width: 50%
+    // display: block
+    // width: 50%
     // position: fixed
     // top: 50px
     // margin-left: 25%
@@ -92,9 +98,10 @@
 
 //  .modal-select, .modal-create
 
-.create-new-cards .buttons-div
+.create-new-cards .buttons-div, .modal-select .buttons-div, .modal-delete .buttons-div
+    text-align: center
 
-.create-new-cards .buttons-div button
+.create-new-cards .buttons-div button, .modal-select .buttons-div button,  .modal-delete .buttons-div button
     background: #771eaa
     color: white
     padding: 7px 15px
@@ -119,6 +126,7 @@
     padding: 3px
     margin: 15px 50px 0 
     border-radius: 15px
+    text-align: center
 
 .out-of-flow-cardNum
     position: absolute

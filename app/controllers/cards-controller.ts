@@ -57,6 +57,7 @@ export default {
             console.log('==========++++++++++++>>',req.body)
             // if good data create card and assign deck, else handle error
             if(card.back_content != undefined && card.front_content != undefined) {
+                console.log('am somethign...........')
                 let id = databaseHelper.createUniqueId()
                 // I need some way here to check the req.params.deckId
                 await db.query(X.insertCardIntoDeck(), [id, card.front_content, card.back_content]); 

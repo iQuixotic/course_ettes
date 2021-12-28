@@ -78,7 +78,7 @@ export default {
     // -- 8. get all of the available decks in a particular user's vault
     getUserDeckLibrary: () => {
         return (`
-            SELECT decks.name
+            SELECT decks.name, decks._id
             FROM users
             INNER JOIN user_deck_library_ref ON users._id = user_deck_library_ref.user_id
             INNER JOIN decks ON user_deck_library_ref.deck_id = decks._id

@@ -19,6 +19,6 @@ export const getCardsbyDeckId = (id) => dispatch => {
         type: FETCH_CARDS_BY_DECKID,
         payload: res.data  
     }))
-    .then(res => console.log(res.payload))
+    .then(res => console.log('this is the payloaf: ', res.payload))
     .catch(e => {console.log(e)})
 }

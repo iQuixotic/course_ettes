@@ -108,5 +108,13 @@ export const API = {
     },
     getCardsbyDeckId: (deckId) => {
         return axios.get('/cards-info/' + deckId)
+    },
+
+    deleteDeck: (deckId) => {
+        return axios.delete('/ua/decks/owned/' + deckId, {
+            headers: {      
+                'Authorization': 'Bearer ' + window.localStorage.getItem("token")
+            }
+        })
     }
 }

@@ -11,8 +11,7 @@ export default {
     
     // CREATE a new db entry for login event
     login: async (req: any, res: Response): Promise<User> => {
-        console.log("hells")
-        console.log(req.body.email, req.body.password)
+        // console.log(req.body.email, req.body.password)
         const validCredentials: boolean = await User.checkUser(req, req.body.email, req.body.password)
         console.log(validCredentials)
         if(validCredentials) {
