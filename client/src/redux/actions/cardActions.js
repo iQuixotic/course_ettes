@@ -14,11 +14,12 @@ export const getCourseCards = () => dispatch => {
 
 
 export const getCardsbyDeckId = (id) => dispatch => {
-    API.getCardsbyDeckId(id)    
+    return API.getCardsbyDeckId(id)    
     .then(res => dispatch({
         type: FETCH_CARDS_BY_DECKID,
         payload: res.data  
     }))
-    .then(res => console.log('this is the payloaf: ', res.payload))
+    .then(res => {return res.payload})
+    // .then(res => console.log('this is the payloaf: ', res.payload))
     .catch(e => {console.log(e)})
 }

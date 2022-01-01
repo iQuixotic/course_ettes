@@ -7,7 +7,7 @@ import { getSubscribedDecks, getOwnedDecks } from '../../redux/actions/deckActio
 import { getColors } from '../../redux/actions/colorActions'
 import {  getCardsbyDeckId } from '../../redux/actions/cardActions'
 
-let y=0, x;
+let x;
 class Home extends Component {
     state = {
         colorsArr: [],
@@ -28,16 +28,18 @@ class Home extends Component {
         messageBool: true,
         cardNum: 0,
         showingDeckId: '',
-        deckIndex: 0
+        deckIndex: 0,
+        cardCounter: 1
     }
 
-    componentDidMount = () => {
+    componentDidMount = async () => {
         this.props.getColors();
-        this.props.getSubscribedDecks()
-        this.getCards()
-        // this.getInitialCardUpdate()
-            // .then(res => console.log(res))
-            // .then(res => this.props.getCardsbyDeckId(res.data))
+        let owned = await this.props.getOwnedDecks()
+        let subbed = await this.props.getSubscribedDecks()
+        console.log('the decks i onw', owned, 'but the ones i am aonly subed', subbed)
+        if(owned.length>0) this.getCards(owned[0]._id)
+        // let s = await this.props.getCardsbyDeckId(r[0]._id)
+        // this.getInitialCardUpdate(s)
     }
 
     inputChangeHandler = (e) => {
@@ -46,81 +48,48 @@ class Home extends Component {
         })
     }
 
-    getCards = () => {
-        this.props.getCardsbyDeckId(1)
-        // this.getInitialCardUpdate()
-        // console.log(' cards here:  0',this.props.cards)
-        // setTimeout(() => {
-        //     // console.log(this.props.decksArr)
-        //     console.log(' cards here:  5',this.props.cards)
-        //     // this.props.getCardsbyDeckId(1)
-        //     // this.getInitialCardUpdate()
-        // }, 1000);
-
-        console.log(' cards here:  1', this.props.cards)
-        y++
-        if(this.props.cards.length>0 && y<3){
-            // console.log(this.props.cards[0])
-            this.setState({
-                front_content: this.props.cards[0].front_content,
-                cardOfFocus: this.props.cards[0]
-            })
-            // this.updateCardShowingState(this.props.cards[0].front_content)
-            console.log("yes")
-        } else if(y<3) setTimeout(() => {
-            console.log("no")
-            this.getInitialCardUpdate()
-        }, 1000);
+    getCards = async (cardId) => {
+        console.log(' ------  getCards called ------ ')
+        let s = await this.props.getCardsbyDeckId(cardId)
+        console.log('the cards you have: ', s)
+        this.getInitialCardUpdate(s)        
     }
 
     
-    getInitialCardUpdate = () => {
-        console.log('----------------')
-        console.log(' cards here:  1',this.props.cards)
-        y++
-        if(this.props.cards.length>0 && y<3){
-            // console.log(this.props.cards[0])
+    getInitialCardUpdate = (wait) => {
+        console.log(' ------  getInitialCardUpdate called ------ ')
+        if(this.props.cards.length>0){
             this.setState({
                 front_content: this.props.cards[0].front_content,
-                cardOfFocus: this.props.cards[0]
+                cardOfFocus: this.props.cards[0],
+                cardPlace: 0
             })
-            // this.updateCardShowingState(this.props.cards[0].front_content)
-            console.log("yes")
-        } else if(y<3) setTimeout(() => {
-            console.log("no")
-            this.getInitialCardUpdate()
-        }, 1000);
+        } 
     }
 
     handleDeckFocusChange = (e) => {
-        let x = this.colorTextHandler(e.currentTarget.children[1].innerText)
+        console.log(' ------  handleDeckFocusChange called ------ ')
+        let x = this.colorTextHandler(e.currentTarget.children[1].children[0].innerText)
+        console.log(e.currentTarget.children[1].children[0].innerText)
         this.setState({
             deckFocusColor: x
         })
     }
 
-    getInitialCardUpdate = () => {
-        y++
-        if(this.props.cards.length>0 && y<3){
-            // console.log(this.props.cards[0])
-            this.setState({
-                front_content: this.props.cards[0].front_content,
-                cardOfFocus: this.props.cards[0]
-            })
-            // this.updateCardShowingState(this.props.cards[0].front_content)
-            console.log("yes")
-        } else if(y<3) setTimeout(() => {
-            console.log("no")
-            this.getInitialCardUpdate()
-        }, 1000);
-    }
 
     updateCardShowingState = (x) => {
-        if(this.state.front_content != null) this.setState({ front_content: x.front_content})
-        else this.setState({ back_content: x.back_content})
+        console.log(' ------  updateCardShowingState called ------ ')
+        // console.log('the state is', this.state)
+        if(this.state.front_content != null && this.state.front_content.back_content == null) {
+            this.setState({ front_content: x.front_content}, console.log('lfsdaf true',))
+        }
+        else {
+            this.setState({ back_content: x.back_content}, console.log('lfsdaf', this.state))
+        }
     }
 
     flipCard = () => {
+        console.log(' ------  flipCard called ------ ')
         this.state.front_content ? this.setState({
             front_content: null,
             back_content: this.state.cardOfFocus.back_content
@@ -131,22 +100,26 @@ class Home extends Component {
     }
 
     viewNextCard = () => {
+        let cc = this.state.cardCounter+1
+        console.log('this the cc', cc)
         const x = this.state.cardPlace === this.props.cards.length-1 ? this.state.cardPlace : this.state.cardPlace+1
         this.setState({
             cardPlace: x,
             cardOfFocus: this.props.cards[x],
+            cardCounter: cc
         }) 
         if(this.props.cards.length > 0) this.updateCardShowingState(this.props.cards[x])
         else console.log('the deck has no cards')
-        console.log(this.props.cards.length         )
-        console.log(this.props.cards        )
     }
 
     viewPreviousCard = () => {
+        // getColorTotals
+        let cc = this.state.cardCounter-1
         const x = this.state.cardPlace === 0 ? 0 :this.state.cardPlace-1
         this.setState({
             cardPlace: x,
-            cardOfFocus: this.props.cards[x]
+            cardOfFocus: this.props.cards[x],
+            cardCounter: cc
         })
         if(this.props.cards.length > 0) this.updateCardShowingState(this.props.cards[x])
         else console.log('the deck has no cards')
@@ -180,46 +153,34 @@ class Home extends Component {
         }
     }
 
-    openCreateDeckModal = () => {
+    openModal = (type) => {
+        // let modalVisible = this.satat
         this.setState({
-            modalVisible: true,
-            modalType: 'create'
-        })
-    }
-
-    openSelectDeckModal = () => {
-        this.setState({
-            modalVisible: true,
-            modalType: 'select'
-        })
-    }
-
-    openDeleteDeckModal = () => {
-        this.setState({
-            modalVisible: true,
-            modalType: 'delete'
+            modalVisible: !this.state.modalVisible,
+            modalType: type
         })
     }
 
     modalCardSelectHandler = () => {
-        console.log('x is the thing: ', x !== this.props.decksArr[this.state.deckIndex]._id)
-        if(x !== this.props.decksArr[this.state.deckIndex]._id) this.props.getCardsbyDeckId(this.props.decksArr[this.state.deckIndex]._id)
-        x = this.props.decksArr[this.state.deckIndex]._id
-        if(this.props.cards != undefined && this.props.cards[0] != undefined ) this.updateCardShowingFromModal()
-        else if(y<10) {console.log(y); y++; setTimeout(this.modalCardSelectHandler, 175)}
-        else if(this.props.cards != undefined && this.props.cards[0] === undefined) {console.log('There are no cards in this deck'); y=3; x='wrong';}
-        else {y=3; x='wrong';}
+        console.log(' ------  modalCardSelectHandler called ------ ')
+        if(this.props.ownedDecksArr.length>0) {
+            // if(x !== this.props.decksArr[this.state.deckIndex]._id) this.props.getCardsbyDeckId(this.props.decksArr[this.state.deckIndex]._id)
+            // x = this.props.decksArr[this.state.deckIndex]._id
+            if(this.props.cards != undefined && this.props.cards[0] != undefined ) {this.updateCardShowingFromModal()}
+            else if(this.props.cards != undefined && this.props.cards[0] === undefined) {console.log('There are no cards in this deck')}
+            else console.log('nothing to reset..')
+        } else console.log('there is nothing here to do for now')
         
 
     }
     updateCardShowingFromModal = () => {
-        console.log('I am trying')
+        console.log(' ------  updateCardShowingFromModal called ------ ')
         this.modalCloseHandler()
         if (this.props.cards[0]) {
             this.setState({
                 front_content: this.props.cards[0].front_content,
-                cardOfFocus: this.props.cards[0],
-
+                back_content: '',
+                cardOfFocus: this.props.cards[0]
             }, this.updateCardShowingState(this.props.cards[0]), this.modalCloseHandler())
         } else {
             console.log('no cards to show')
@@ -228,12 +189,12 @@ class Home extends Component {
 
     }
 
-    modalCloseHandler = () => {
-      
-        // we need to get the cars, but first we need to be grabbing EVERY deckid when grabbing the names...
-        
-        // this.setState({ front_content: x.front_content})
-        console.log('carsd', this.props.cards)
+    modalCloseHandler = async () => {
+        console.log(' ------  modalCloseHandler called ------ ')
+        let owned = await this.props.getOwnedDecks()
+        console.log(this.state.deckIndex, this.getCards(owned[this.state.deckIndex]._id))
+        if(owned.length>0) await this.getCards(owned[this.state.deckIndex]._id)
+
         this.setState({
             modalVisible: false,
             cardNum: 0,
@@ -247,7 +208,7 @@ class Home extends Component {
 
     createDeckWithCards = async () => {
         if(this.state.cardNum === 0)  await this.addNewDeckHandler()
-        if(this.state.cardNum !== 0)this.addCardHandler()
+        else if(this.state.cardNum !== 0)this.addCardHandler()
     }
 
     addCardHandler = async () => {
@@ -269,35 +230,43 @@ class Home extends Component {
     }
 
     modalDeckDeleteHandler = () => {
-        console.log('this is the id i think ', this.props.decksArr[this.state.deckIndex]._id)
-        API.deleteDeck(this.props.decksArr[this.state.deckIndex]._id)
+        // console.log('this is the id i think ', this.props.decksArr[this.state.deckIndex]._id)
+        API.deleteDeck(this.props.ownedDecksArr[this.state.deckIndex]._id)
             .then(() => {
-                 if(this.props.decksArr.lenth>1 && this.state.deckIndex < this.props.decksArr.length-1) this.setState({ deckIndex: this.state.deckIndex+1 })
+                 if(this.props.ownedDecksArr.lenth>1 && this.state.deckIndex < this.props.ownedDecksArr.length-1) this.setState({ deckIndex: this.state.deckIndex+1 })
                  else this.setState({ deckIndex: 0 })
                  this.props.getSubscribedDecks()
-                 this.props.getCardsbyDeckId(this.props.decksArr[this.state.deckIndex+1]._id)
-                 console.log(this.props.decksArr)
-                 console.log(this.props.decksArr[this.state.deckIndex]._id)
+                 this.props.getCardsbyDeckId(this.props.ownedDecksArr[this.state.deckIndex]._id)
             })
     }
 
     viewNextDeck = () => {
-        if(this.state.deckIndex < this.props.decksArr.length-1) this.setState({deckIndex: this.state.deckIndex+1})
+        if(this.state.deckIndex < this.props.ownedDecksArr.length-1) this.setState({deckIndex: this.state.deckIndex+1})
     }
 
     viewPrevDeck = () => {
         if(this.state.deckIndex > 0) this.setState({deckIndex: this.state.deckIndex-1})
     }
 
+    // getColorNumCurrent = (color) => {
+    //     // if()
+        
+    //     return counter
+    // }
+    
+    getColorTotals = (color) => {
+        let numOf = 0, cards = this.props.cards;
+        cards.forEach(el => {
+            if(el.color === color) numOf++
+        });
+        
+        return numOf
+    }
+
+
     render() {
-        const deck = this.props.decksArr.length > 0 ? (
-        <div>{this.props.decksArr[this.state.deckIndex].name}</div> ): null 
-        // const decks = this.props.decksArr.length > 0 ? this.props.decksArr.map(el => (
-        //     <div className=""  id={'deckId'+el._id} key={el._id}>
-        //         <div key={el._id}>
-        //             <h3>{el.name}</h3> 
-        //         </div>
-        //     </div>)): null
+        const deck = this.props.ownedDecksArr.length > 0 ? (
+        <div>{this.props.ownedDecksArr[this.state.deckIndex].name}</div> ): null 
 
         const card = this.props.cards.length > 0 ? this.props.cards.map(el => (
             this.state.front_content === '' ? null : (
@@ -318,7 +287,7 @@ class Home extends Component {
                 cardNum={this.state.cardNum}
                 addCard={this.createDeckWithCards}
                 inputChange={e => this.inputChangeHandler(e)}
-                decksOwned={this.props.decksArr[this.state.deckIndex].name}    
+                decksOwned={this.props.ownedDecksArr.length>0 ? this.props.ownedDecksArr[this.state.deckIndex].name : null}    
                 nextDeck={this.viewNextDeck}
                 prevDeck={this.viewPrevDeck}            
                 deckSelect={this.modalCardSelectHandler}
@@ -333,10 +302,10 @@ class Home extends Component {
                                 {this.state.deckFocusColor === el.color ? (
                                 <div onClick={this.handleDeckFocusChange} className='chosen-deck-with-border chosen-deck'>
                                     <div className={`chosen-deck-square-${el.color}`}></div>
-                                    <div className='color'>{this.colorTextHandler(el.color)}</div>
+                                    <div className='color'><div className='color-desc'>{this.colorTextHandler(el.color)} </div><div className='count'>{this.getColorTotals(el.color) >0 ? this.state.cardPlace+1 +'/': null}{this.getColorTotals(el.color)}</div></div>
                                 </div>) :  <div onClick={this.handleDeckFocusChange} className='chosen-deck'>
                                     <div className={`chosen-deck-square-${el.color}`}></div>
-                                    <div className='color'>{this.colorTextHandler(el.color)}</div>
+                                    <div className='color'><div className='color-desc'>{this.colorTextHandler(el.color)}</div> <div className='count'> {this.getColorTotals(el.color)}</div></div>
                                 </div>
                         }
                             </div>)
@@ -355,21 +324,16 @@ class Home extends Component {
                                 <div className='next' onClick={this.viewNextCard}>NexttS</div>
                             </div>
                         </div>
-                            {/* <div className='prev'>Previous</div>
-                                {card}
-                            <div className='next'>Next</div> */}
-                        {/* </div> */}
+
                     </div>
                     <div className='decks-area three'>
                         <div className='decks-area-buttons'>
-                            <button onClick={this.openCreateDeckModal}>Create Deck</button>
-                            <button onClick={this.openSelectDeckModal}>Select Deck</button>
-                            <button onClick={this.openDeleteDeckModal}>Delete Deck</button>
+                            <button onClick={() => this.openModal('create')}>Create Deck</button>
+                            <button onClick={() => this.openModal('select')}>Select Deck</button>
+                            <button onClick={() => this.openModal('delete')}>Delete Deck</button>
                         </div>
                     </div>
 
-                {/* </div> */}
-                {/* <div className='row'> */}
                     <div className='bottom-panel four'>
                         <div className = 'bottom-panel-shifted'>
                             <div className='bottom-panel-color-squares'>
@@ -397,12 +361,14 @@ class Home extends Component {
 
 postMessage.PropTypes = {
     subscribedDecksArr: PropTypes.array.isRequired,
+    ownedDecksArr: PropTypes.array.isRequired,
     cards: PropTypes.array.isRequired,
     colors: PropTypes.array.isRequired
 }
 
 const mapStateToProps = state => ({
-    decksArr: state.decksArr.subscribedDecks,
+    ownedDecksArr: state.decksArr.ownedDecks,
+    subDecksArr: state.decksArr.subscribedDecks,
     colors: state.colors.choices,
     cards: state.cards.cardsArr
 })

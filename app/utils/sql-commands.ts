@@ -35,6 +35,19 @@ export default {
         `);
     },
 
+    createNewDeckAssocSub: () => { 
+        return(`
+            INSERT INTO user_deck_library_ref (user_id, deck_id) VALUES($1, $2);
+        `)
+    },
+
+    
+    createNewDeckAssocOwn: () => { 
+        return(`
+            INSERT INTO decks_to_owners_ref (creator_id, deck_id) VALUES($1, $2);
+        `)
+    },
+
     // -- 6. insert a card into a deck
     insertCardIntoDeck: () => {
         return `INSERT INTO cards_info (_id, front_content, back_content) VALUES($1, $2, $3);`;
@@ -67,10 +80,11 @@ export default {
     // -- 7. get all of the cards from an owned deck
     getOwnedDeck: () => {
         return (`
-            SELECT cards_info._id, cards_info.front_content, cards_info.back_content, decks.name
+            SELECT cards_info._id, cards_info.front_content, cards_info.back_content, decks.name, col.color
             FROM cards_info
             INNER JOIN card_to_decks_ref ON cards_info._id = card_to_decks_ref.card_id
             INNER JOIN decks ON card_to_decks_ref.deck_id = decks._id
+            INNER JOIN (select card_id, color from colors_ref cr inner join colors c on c._id=cr.color_id) col ON col.card_id=cards_info._id
             WHERE decks._id = (select deck_id from decks_to_owners_ref where creator_id = $1 and deck_id = $2);
         `)
     },
@@ -89,7 +103,7 @@ export default {
     // -- 9. get all of the available decks OWNED and MANAGED by a particular user
     getAllOwnedDecks: () => {
         return (`
-            SELECT decks.name
+            SELECT decks.name, decks._id
             FROM users
             INNER JOIN decks_to_owners_ref ON users._id = decks_to_owners_ref.creator_id
             INNER JOIN decks ON decks_to_owners_ref.deck_id = decks._id

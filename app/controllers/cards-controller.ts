@@ -27,8 +27,11 @@ export default {
     },
 
     getPrivateByDeckId: async (req: any, res: Response) => {
+        console.log('I have done this much ---------------------')
+        console.log('Private get called')
         try {                 
-            const y = await db.query(X.getOwnedDeck(), [req.params.deckId]);
+            const y = await db.query(X.getOwnedDeck(), [req.activeUserId, req.params.deckId]);
+            console.log('this is y rows----------', y.rows)
             const cards = y.rows
 
             // if good data get deck, else handle error
@@ -42,11 +45,11 @@ export default {
         try {                 
             const y = await db.query(X.getPublicDeck(), [req.params.deckId]);
             const cards = y.rows
-
+            
             // if good data get deck, else handle error
             if(cards.length > 0) res.json( cards )
             else if (cards.length === 0) res.status(200).json({message: "There are no cards in this deck"})
-            else res.status(500); res.json(MESSAGE("generalCardError"));
+            else res.status(500).json(MESSAGE("generalCardError"));
         } catch (err) { res.json({error: err.toString()}) }
     },
 

@@ -106,8 +106,14 @@ export const API = {
     getCourseCards: () => {
         return axios.get('/roles');
     },
+    
     getCardsbyDeckId: (deckId) => {
-        return axios.get('/cards-info/' + deckId)
+        return axios.get('/ua/cards-info/' + deckId, {
+            headers: {
+                'Content-Type':'application/json',                
+                'Authorization': 'Bearer ' + window.localStorage.getItem("token")
+            }
+        })
     },
 
     deleteDeck: (deckId) => {

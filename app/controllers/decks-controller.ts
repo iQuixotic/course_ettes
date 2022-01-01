@@ -26,7 +26,7 @@ export default {
             // if good data create deck, else handle error
             if(deck.name != undefined && deck.visibility_id != undefined) {
                 await db.query(X.addDeckName(), [id, deck.name, deck.visibility_id]); 
-                await db.query(X.createNewDeckAssoc(), [req.activeUserId, id]); 
+                await db.query(X.createNewDeckAssocOwn(), [req.activeUserId, id]); 
             } 
             else res.json(MESSAGE("deckDeffError"));
             let arr =[MESSAGE("deckAdded"), {id: id}]

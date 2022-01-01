@@ -13,20 +13,20 @@ export const getAllDecks = () => dispatch => {
 
 export const getSubscribedDecks = () => dispatch => {
     console.log('fetching my decks for real');
-    API.getSubscribedDecks()    
+    return API.getSubscribedDecks()    
     .then(res => dispatch({
         type: FETCH_ALL_SUBSCRIBED_DECKS,
         payload: res.data  
     }))
-    .then(res => console.log(res.payload))
+    .then(res => res.payload)
 }
 
 export const getOwnedDecks = () => dispatch => {
     console.log('fetching my decks for real');
-    API.getOwnedDecks()    
+    return API.getOwnedDecks()    
     .then(res => dispatch({
         type: FETCH_ALL_OWNED_DECKS,
         payload: res.data  
     }))
-    .then(res => console.log(res.payload))
+    .then(res => res.payload)
 }
