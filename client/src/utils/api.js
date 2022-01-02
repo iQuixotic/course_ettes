@@ -122,5 +122,13 @@ export const API = {
                 'Authorization': 'Bearer ' + window.localStorage.getItem("token")
             }
         })
+    },
+
+    updateCardColor: (cardId, colorId) => {
+        return axios.get(`/ua/colors/${cardId}/${colorId}`, {
+            headers: {      
+                'Authorization': 'Bearer ' + window.localStorage.getItem("token")
+            }
+        })        
     }
 }

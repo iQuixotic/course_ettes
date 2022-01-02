@@ -9,4 +9,5 @@ export const getColors = () => dispatch => {
         type: FETCH_COLORS,
         payload: res.data  
     }))
+    .then(res => console.log(res.payload))
 }

@@ -87,7 +87,7 @@ class DeckReviewPg extends Component {
     render() {
         const deck = this.props.decksArr.map(el => (
             <div className=""  id={'deckId'+el._id} key={el._id}>
-                {el._id == window.location.pathname.substring(12) ? (
+                {el._id === window.location.pathname.substring(12) ? (
                 <div key={el._id}>
                     <h3>{el.name}</h3> 
                     <button onClick={this.handleAddToDecks} id={el._id}  >Add To Subscrided Decks</button>

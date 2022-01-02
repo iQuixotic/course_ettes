@@ -77,7 +77,7 @@ class DeckReviewPg extends Component {
     render() {
         const deck = this.props.decksArr.map(el => (
             <div id={'deckId'+el._id} key={el._id}>
-                {el._id == window.location.pathname.substring(12) ? <h3>{el.name}</h3> : null}
+                {el._id === window.location.pathname.substring(12) ? <h3>{el.name}</h3> : null}
             </div>
         ));
         const card = this.props.cards.map(el => (

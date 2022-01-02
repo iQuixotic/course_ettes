@@ -23,7 +23,9 @@ routerA.route('/cards-info/:deckId')
     .get(AUTH.hasDeckPrivileges, cardsController.getPrivateByDeckId)
     .post(cardsController.addOne)
 
-routerA.patch('/colors/:cardId/:colorId', AUTH.checkPrivateCardPrivileges,  colorsController.updateOne)
+routerA.get('/colors/:cardId/:colorId', 
+    // AUTH.checkPrivateCardPrivileges,   // I will have to fix this one later...
+    colorsController.updateOne)
 
 // deck routes
 routerA.route('/decks')
@@ -36,5 +38,8 @@ routerA.route('/decks/subscribed')
 
 routerA.get('/decks/owned', decksController.getOwnedDecks)
 routerA.delete('/decks/owned/:deckId', decksController.deleteOne)
+
+// routerA.route('/color-card')
+//     .patch(colorsController.updateOne)
 
 export default routerA;

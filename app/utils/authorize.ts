@@ -18,6 +18,7 @@ export default {
     },
 
     checkPrivateCardPrivileges: async (req, res, next) => {
+        console.log('----------------------------------- something?,', req.activeUserId, req.params.cardId)
         const l = await db.query(X.getPersonalCardEditRights(), [req.activeUserId, req.params.cardId])
         console.log(l.rows)
         if(l.rows.length > 0) next();

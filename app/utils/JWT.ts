@@ -16,6 +16,7 @@ export default {
     verifyToken: (req, res, next) => {
         const bearerHeader = req.headers['authorization'];
 
+        console.log(req.headers)
         // if exists set req.token
         if(typeof bearerHeader !== 'undefined') {
             const bearer = bearerHeader.split(' ');
